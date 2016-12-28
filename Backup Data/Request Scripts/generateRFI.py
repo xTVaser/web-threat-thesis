@@ -50,7 +50,7 @@ for i in range(1500): #We will make 3000 attacks total, each one will be encoded
     #first decide type of attack, url 0, command 1, or url and command 2
     attackType = randint(0, 2)
 
-    attack = "GET /test/website/"
+    attack = "/test/website/"
     addedURLs = ""
     addedCMDs = ""
 
