@@ -29,7 +29,7 @@ if args.geneticAlgorithm is False and args.supportVectorMachine is True:
     isSVM = True
 
 # Change the bitstring length argument into an int list.
-bitstringLengths = args.bitstring.split("")
+bitstringLengths = list(args.bitstring)
 for length in bitstringLengths:
     length = int(length)
 
@@ -64,11 +64,13 @@ for request in requests:
     parseOutput.append(request[0] + " " + request[1])
 
     # Pass it to each method for it to return a list of the values for each segment.
-    sql = sqlBitstring(request[1], bitstringLengths, isSVM)
-    xss = xssBitstring(request[1], bitstringLengths, isSVM)
-    rfi = rfiBitstring(request[1], bitstringLengths, isSVM)
+    # sql = sqlBitstring(request[1], isSVM)
+    # xss = xssBitstring(request[1], isSVM)
+    rfi = rfiBitstring(request[1], isSVM)
 
     # Here I would print out all permuted bitstrings if that flag was set but for now, just print out one
+    parseOutput.append(str(rfi[0]) + "." + str(rfi[1]) + "." + str(rfi[2]) + "." + str(rfi[3]) + " placeholder")
+
 
 # Create output file
 outputFile = None
@@ -79,4 +81,4 @@ else:
 
 #Then print out all the lines in the file.
 for line in parseOutput:
-    outputFile.write(line + "\n")
+    outputFile.write(line.replace("\n", "") + "\n")

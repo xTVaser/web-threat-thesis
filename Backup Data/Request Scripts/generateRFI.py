@@ -68,12 +68,12 @@ for i in range(1500): #We will make 3000 attacks total, each one will be encoded
         for x in range(numURLs):
             addedURLs += fields[randint(0, len(fields)-1)] + attackWebsite
 
-    elif attackType is 1 or 2:
+    if attackType is 1 or 2:
         numCMDs = randint(1, 9)
 
         for x in range(numCMDs):
-            addedCMDs += fields[randint(0, len(fields))] \
-                         + "{${" + phpCommands[randint(0, len(phpCommands))]
+            addedCMDs += fields[randint(0, len(fields)-1)] \
+                         + "{${" + phpCommands[randint(0, len(phpCommands)-1)]
 
             hasContent = randint(0, 1)
 
@@ -96,14 +96,3 @@ for i in range(1500): #We will make 3000 attacks total, each one will be encoded
 
     outputFile.write(attack + "\n")
     outputFile.write(parse.quote(attack) + "\n")
-
-
-
-
-
-
-
-
-
-
-
