@@ -17,7 +17,7 @@ parser.add_argument("-svm", "--supportVectorMachine", action="store_true", help=
 
 parser.add_argument("-b", "--bitstring", help="Specify the max length of each of the 4 bitstring segments, each of a max of 8. ex 4444 or 4141")
 parser.add_argument("-d", "--decimal", action="store_true", help="The first bitstring will be in normal integer format in addition to the other binary bitstrings")
-parser.add_argument("-p", "--permute", help="Will permute all combinations of the bitstring up to the specified max length. Gen.Algo Only")
+parser.add_argument("-p", "--permute", action="store_true", help="Will permute all combinations of the bitstring up to the specified max length. Gen.Algo Only")
 
 parser.add_argument("-o", "--output", help="Specify the output filename")
 
@@ -29,9 +29,7 @@ if args.geneticAlgorithm is False and args.supportVectorMachine is True:
     isSVM = True
 
 # Change the bitstring length argument into an int list.
-bitstringLengths = list(args.bitstring)
-for length in bitstringLengths:
-    length = int(length)
+bitstringLengths = list(map(int, args.bitstring))
 
 #First step is to get all of the requests from the file into some kind of list structure
 
@@ -55,8 +53,35 @@ parseOutput = []
 # Same as above but RFI
 
 # Method will permute all bitstrings and return a string with all combinations.
-def permuteBitstrings(decBitstring, bitstringLength):
-    return "decbitstring bitstring2 bitstring3...."
+def permuteBitstrings(bitString):
+
+    # switch to '{0:08b}'.format(10)
+
+    output = ""
+
+    if args.decimal is True:
+        output += str(bitString[0]) + "." + str(bitString[1]) + "." + str(bitString[2]) + "." + str(bitString[3]) + " "
+
+    if args.permute is True:
+
+        # Don't look at this
+        for segOne in range(bitstringLengths[0]):
+            for segTwo in range(bitstringLengths[1]):
+                for segThree in range(bitstringLengths[2]):
+                    for segFour in range(bitstringLengths[3]):
+                        output += bin(bitString[0])[2:].zfill(segOne + 1) \
+                                  + "." + bin(bitString[1])[2:].zfill(segTwo + 1) \
+                                  + "." + bin(bitString[2])[2:].zfill(segThree + 1) \
+                                  + "." + bin(bitString[3])[2:].zfill(segFour + 1) + " "
+
+    # just print the one normal output.
+    else:
+        output += bin(bitString[0])[2:].zfill(bitstringLengths[0]) \
+                  + "." + bin(bitString[1])[2:].zfill(bitstringLengths[1]) \
+                  + "." + bin(bitString[2])[2:].zfill(bitstringLengths[2]) \
+                  + "." + bin(bitString[3])[2:].zfill(bitstringLengths[3]) + " "
+
+    return output
 
 # Call each method to get the bitstrings in normal decimal form, then we can turn them into binary here.
 for request in requests:
@@ -69,7 +94,9 @@ for request in requests:
     rfi = rfiBitstring(request[1], isSVM)
 
     # Here I would print out all permuted bitstrings if that flag was set but for now, just print out one
-    parseOutput.append(str(rfi[0]) + "." + str(rfi[1]) + "." + str(rfi[2]) + "." + str(rfi[3]) + " placeholder")
+    # parseOutput.append(str(rfi[0]) + "." + str(rfi[1]) + "." + str(rfi[2]) + "." + str(rfi[3]) + " placeholder")
+
+    parseOutput.append(permuteBitstrings(rfi))
 
 
 # Create output file
