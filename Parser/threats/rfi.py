@@ -1,0 +1,2 @@
+def rfiBitstring():
+    print("ye")
