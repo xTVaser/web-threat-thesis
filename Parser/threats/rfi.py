@@ -2,7 +2,7 @@ import re
 from urllib import parse
 
 
-def svmBitstring(request, isSVM):
+def rfiBitstringSVM(request):
     print("ye")
 
 
@@ -17,7 +17,7 @@ def svmBitstring(request, isSVM):
 def rfiBitstring(request, isSVM):
     # If we are finding for SVM, we will do things differently (may not even be a bitstring)
     if isSVM is True:
-        return svmBitstring(request, isSVM)
+        return rfiBitstringSVM(request)
 
     workingRequest = parse.unquote(request)
 
