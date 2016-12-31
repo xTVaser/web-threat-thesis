@@ -52,10 +52,21 @@ parseOutput = []
 # Same as above but XSS
 # Same as above but RFI
 
+# Simple method to allow printing overflown binary values
+def printBinary(decimal, length):
+
+    output = ""
+
+    if not decimal < pow(2, length):
+        for x in range(length):
+            output += "1"
+        return output
+
+    return bin(decimal)[2:].zfill(length)
+
+
 # Method will permute all bitstrings and return a string with all combinations.
 def permuteBitstrings(bitString):
-
-    # switch to '{0:08b}'.format(10)
 
     output = ""
 
@@ -69,17 +80,17 @@ def permuteBitstrings(bitString):
             for segTwo in range(bitstringLengths[1]):
                 for segThree in range(bitstringLengths[2]):
                     for segFour in range(bitstringLengths[3]):
-                        output += bin(bitString[0])[2:].zfill(segOne + 1) \
-                                  + "." + bin(bitString[1])[2:].zfill(segTwo + 1) \
-                                  + "." + bin(bitString[2])[2:].zfill(segThree + 1) \
-                                  + "." + bin(bitString[3])[2:].zfill(segFour + 1) + " "
+                        output += printBinary(bitString[0], segOne + 1) \
+                                  + "." + printBinary(bitString[1], segTwo + 1) \
+                                  + "." + printBinary(bitString[2], segThree + 1) \
+                                  + "." + printBinary(bitString[3], segFour + 1) + " "
 
     # just print the one normal output.
     else:
-        output += bin(bitString[0])[2:].zfill(bitstringLengths[0]) \
-                  + "." + bin(bitString[1])[2:].zfill(bitstringLengths[1]) \
-                  + "." + bin(bitString[2])[2:].zfill(bitstringLengths[2]) \
-                  + "." + bin(bitString[3])[2:].zfill(bitstringLengths[3]) + " "
+        output += printBinary(bitString[0], bitstringLengths[0]) \
+                  + "." + printBinary(bitString[1], bitstringLengths[1]) \
+                  + "." + printBinary(bitString[2], bitstringLengths[2]) \
+                  + "." + printBinary(bitString[3], bitstringLengths[3]) + " "
 
     return output
 
