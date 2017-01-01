@@ -1,6 +1,6 @@
 import re
-from urllib import parse
-from dictionaries.getDictionaries import getHtmlTags, getDOM, getDOMEventListeners, getDOMAttributes
+from CommonLib import decodeURL
+from dictionaries.getDictionaries import getHtmlTagsPreSuf, getHtmlTags, getDOM, getDOMEventListeners, getDOMAttributes
 
 
 def xssBitstringSVM(request):
@@ -21,45 +21,30 @@ def xssBitstring(request, isSVM):
     if isSVM is True:
         xssBitstringSVM(request)
 
-    workingRequest = parse.unquote(request)  # .replace("+", " ")
+    workingRequest = decodeURL(request)
 
     segments = []
 
-    tags = getHtmlTags()
-    prefixTags = []
-    restTags = []
-
-    finishedPrefixes = False
-    # Seperate the tags that are prefixes to other tags from the rest so we can not double count later on.
-    for tag in tags:
-        if finishedPrefixes is False and tag != "---":
-            prefixTags.append(tag)
-        if finishedPrefixes is True:
-            restTags.append(tag)
-        if tag == "---":
-            finishedPrefixes = True
+    simpleTags = getHtmlTags()
+    preSufTags = getHtmlTagsPreSuf()
 
     totalKeywords = 0
-    # Get the count of the prefix tags, then get the count of the non-prefix tags and do subtraction where needed.
-    for tag in prefixTags:
-        tagCount = workingRequest.lower().count(tag.lower())
 
-        # Check how many of these prefixes are actually just the beginning of other tags
-        if tagCount > 0:
+    for line in preSufTags:
 
-            suffixCount = 0
-            for suffix in restTags:
-                if workingRequest.lower().count(suffix.lower()) > 0:
-                    suffixCount += workingRequest.lower().count(suffix.lower())
+        tags = line.split(" ")
+        uniqueTags = 0
 
-            tagCount -= suffixCount
+        tagCount = workingRequest.lower().count(tags[0])
 
+        if tagCount > 0 and len(tags) > 1:
+
+            for x in range(len(tags)-2):
+
+                uniqueTags += workingRequest.lower().count(tags[x+1])
+
+        tagCount -= uniqueTags
         totalKeywords += tagCount
-
-    # Now that we have dealt with that, just search for the suffix tags.
-    for tag in restTags:
-
-        totalKeywords += workingRequest.count(tag)
 
     segments.append(totalKeywords)
 
@@ -78,10 +63,7 @@ def xssBitstring(request, isSVM):
 
     for field in fields:
 
-        for tag in tags:
-
-            if tag == "---":
-                continue
+        for tag in simpleTags:
 
             if tag.lower() in field.lower():
                 numFieldsWithKeyword += 1

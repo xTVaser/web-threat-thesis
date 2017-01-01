@@ -4,7 +4,42 @@ dir = "/home/tyler/Repos/My Repositories/thesis2016/Parser/dictionaries/"
 
 # Returning the tags in a special way so that we wont do any double counting
 def getHtmlTagsPreSuf():
-    
+
+    os.chdir(dir)
+
+    file = open("html_tags")
+    contents = []
+
+    prefixTags = []
+    suffixTags = []
+
+    finishedPrefixes = False
+    # Seperate the tags that are prefixes to other tags from the rest so we can not double count later on.
+    for tag in file:
+        if finishedPrefixes is False and tag != "---":
+            prefixTags.append(tag.replace("\n", ""))
+        if finishedPrefixes is True:
+            suffixTags.append(tag.replace("\n", ""))
+        if tag.replace("\n", "") == "---":
+            finishedPrefixes = True
+
+    # Syntax will be <tag> <list of tags that are suffixes to it>\n
+
+    for suffix in suffixTags:
+        contents.append(suffix)
+
+    for prefix in prefixTags:
+        line = prefix
+
+        for suffix in suffixTags:
+
+            if suffix.startswith(prefix):
+                line += " " + suffix
+
+        contents.append(line)
+
+    return contents
+
 
 # Remove the delimiter
 def getHtmlTags():
@@ -15,7 +50,8 @@ def getHtmlTags():
     contents = []
 
     for line in file:
-        contents.append(line.replace("\n", ""))
+        if line != "---":
+            contents.append(line.replace("\n", ""))
 
     return contents
 
