@@ -1,54 +1,85 @@
-import os
 import re
-
-reservedWordFile = open("../assets/sql_reserved.txt", "r")
-keywordFile = open("../assets/sql_keywords.txt", "r")
-
-keys = [];
-for line in reservedWordFile.readlines():
-    for word in line.split(","):
-        keys.append(word.strip())
-
-for line in keywordFile.readlines():
-    for word in line.split(","):
-        keys.append(word.strip())
-
-print(keys)
-
-#loop through request file.
-requests = open("../testing/Bitstrings/sql_Small", "r")
-tempFile = open("../testing/Bitstrings/sql_Small.tmp", "w")
-
-#search for hexadecimal and ascii encodings of keywords as well.
-lines = requests.readlines()
-
-count = 0
-numfields = 0
-encodedFlag = False
-for line in lines:
-    for key in keys:
-        if key in line:
-            count += 1
-    # limit size of counter
-    if count > 7:
-        count = 7
-
-    fields = line.split("&")
-
-    for field in fields:
-        if "=" in field:
-            for key in keys:
-                if key in field:
-                    numfields += 1
+from CommonLib import decodeURL
+from dictionaries.getDictionaries import getSqlKeywords, getSqlKeywordsPreSuf, getSqlReservedWords, getSqlReservedWordsPreSuf
 
 
-    if re.search("\%{1}([a-fA-F]|[0-9])*", line) is not None:
-        encodedFlag = True
+def sqlBitstringSVM(request):
+    print("ye")
 
-    if numfields > 7:
-        numfields = 7
 
-    tempFile.write(line.replace("\n", "") + "\t" + bin(count)[2:].zfill(3) + "" + str(int(encodedFlag)) + "" + bin(numfields)[2:].zfill(3) + "\n")
-    count = 0
-    numfields = 0
-    encodedFlag = False
+# First Segment - Number of SQL Keywords
+# Second Segment - Encoded Character?
+# Third Segment - Number of Fields with SQL Keyword
+# Fourth Segment -  Attack Type
+# Attack types are the following:
+# 1 - Tautology Attack -
+# 2 - Piggy Backing -
+# 3 - Union -
+# 4 - Stored Procedure -
+# 5 - Bling SQL Injection -
+# 6 - Timing Attack -
+# 0 - Fits none of the above -
+def sqlBitstring(request, isSVM):
+
+    if isSVM is True:
+        sqlBitstringSVM(request)
+
+    workingRequest = decodeURL(request)
+    segments = []
+
+    keywordsPreSuf = getSqlKeywordsPreSuf()
+    reservedWordsPreSuf = getSqlReservedWordsPreSuf()
+
+    totalKeywords = 0
+
+    # This can be put in a method, but will do later
+
+    for line in keywordsPreSuf:
+
+        keywords = line.split(" ")
+        uniqueKeywords = 0
+
+        keywordCount = workingRequest.upper().count(keywords[0])
+
+        if keywordCount > 0 and len(keywords) > 1:
+
+            for x in range(len(keywords) - 2):
+                uniqueKeywords += workingRequest.upper().count(keywords[x + 1])
+
+        keywordCount -= uniqueKeywords
+        if keywordCount > 0:
+            totalKeywords += keywordCount
+
+    totalReservedWords = 0
+
+    for line in reservedWordsPreSuf:
+
+        keywords = line.split(" ")
+        uniqueKeywords = 0
+
+        keywordCount = workingRequest.upper().count(keywords[0])
+
+        if keywordCount > 0 and len(keywords) > 1:
+
+            for x in range(len(keywords) - 2):
+                uniqueKeywords += workingRequest.upper().count(keywords[x + 1])
+
+        keywordCount -= uniqueKeywords
+        if keywordCount > 0:
+            totalReservedWords += keywordCount
+
+    segments.append(totalKeywords)
+
+
+    # Encoded Characters
+    if workingRequest != request:
+        segments.append(1)
+    else:
+        segments.append(0)
+
+
+
+    # ATTACK TYPES
+
+
+    return segments

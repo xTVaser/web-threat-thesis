@@ -2,12 +2,11 @@ import os
 
 dir = "/home/tyler/Repos/My Repositories/thesis2016/Parser/dictionaries/"
 
-# Returning the tags in a special way so that we wont do any double counting
-def getHtmlTagsPreSuf():
+def getPreSuf(filename):
 
     os.chdir(dir)
 
-    file = open("html_tags")
+    file = open(filename)
     contents = []
 
     prefixTags = []
@@ -16,7 +15,7 @@ def getHtmlTagsPreSuf():
     finishedPrefixes = False
     # Seperate the tags that are prefixes to other tags from the rest so we can not double count later on.
     for tag in file:
-        if finishedPrefixes is False and tag != "---":
+        if finishedPrefixes is False and tag.replace("\n", "") != "---":
             prefixTags.append(tag.replace("\n", ""))
         if finishedPrefixes is True:
             suffixTags.append(tag.replace("\n", ""))
@@ -40,6 +39,49 @@ def getHtmlTagsPreSuf():
 
     return contents
 
+# Very similar to the above method but the word can be anywhere within, not just a prefix.
+def getKeywordsContains(filename):
+
+    os.chdir(dir)
+
+    file = open(filename)
+    contents = []
+
+    substrings = []
+    wholestrings = []
+
+    finishedSubstrings = False
+    # Seperate the tags that are prefixes to other tags from the rest so we can not double count later on.
+    for keyword in file:
+        if finishedSubstrings is False and keyword.replace("\n", "") != "---":
+            substrings.append(keyword.replace("\n", ""))
+        if finishedSubstrings is True:
+            wholestrings.append(keyword.replace("\n", ""))
+        if keyword.replace("\n", "") == "---":
+            finishedSubstrings = True
+
+    # Syntax will be <tag> <list of tags that are suffixes to it>\n
+
+    for string in wholestrings:
+        contents.append(string)
+
+    for substring in substrings:
+        line = substring
+
+        for string in wholestrings:
+
+            if substring in string:
+                line += " " + string
+
+        contents.append(line)
+
+    return contents
+
+# Returning the tags in a special way so that we wont do any double counting
+def getHtmlTagsPreSuf():
+
+    return getPreSuf("html_tags")
+
 
 # Remove the delimiter
 def getHtmlTags():
@@ -55,6 +97,10 @@ def getHtmlTags():
 
     return contents
 
+def getSqlKeywordsPreSuf():
+
+    return getKeywordsContains("sql_keywords")
+
 
 def getSqlKeywords():
 
@@ -64,10 +110,14 @@ def getSqlKeywords():
     contents = []
 
     for line in file:
-        contents.append(line.replace("\n", ""))
+        if line != "---":
+            contents.append(line.replace("\n", ""))
 
     return contents
 
+def getSqlReservedWordsPreSuf():
+
+    return getKeywordsContains("sql_reserved_words")
 
 def getSqlReservedWords():
 
@@ -77,7 +127,8 @@ def getSqlReservedWords():
     contents = []
 
     for line in file:
-        contents.append(line.replace("\n", ""))
+        if line != "---":
+            contents.append(line.replace("\n", ""))
 
     return contents
 

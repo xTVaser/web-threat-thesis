@@ -2,9 +2,9 @@ import argparse
 import sys
 import os
 
+from threats.sql import sqlBitstring
 from threats.xss import xssBitstring
 from threats.rfi import rfiBitstring
-#from threats.sql import sqlBitstring
 
 
 parser = argparse.ArgumentParser()
@@ -99,13 +99,14 @@ for request in requests:
     parseOutput.append(request[0] + " " + request[1])
 
     # Pass it to each method for it to return a list of the values for each segment.
-    # sql = sqlBitstring(request[1], isSVM)
+    sql = sqlBitstring(request[1], isSVM)
     xss = xssBitstring(request[1], isSVM)
     rfi = rfiBitstring(request[1], isSVM)
 
     # Here I would print out all permuted bitstrings if that flag was set but for now, just print out one
     # parseOutput.append(str(rfi[0]) + "." + str(rfi[1]) + "." + str(rfi[2]) + "." + str(rfi[3]) + " placeholder")
 
+    parseOutput.append(permuteBitstrings(sql))
     parseOutput.append(permuteBitstrings(xss))
     parseOutput.append(permuteBitstrings(rfi))
 

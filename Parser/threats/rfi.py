@@ -1,11 +1,9 @@
 import re
-from urllib import parse
+from CommonLib import decodeURL
 
 
 def rfiBitstringSVM(request):
     print("ye")
-
-
 
 # First Segment - Number of URLs
 # Second Segment - Encoded or Not
@@ -19,7 +17,7 @@ def rfiBitstring(request, isSVM):
     if isSVM is True:
         return rfiBitstringSVM(request)
 
-    workingRequest = parse.unquote(request)
+    workingRequest = decodeURL(request)
 
     # Else, go about solving the comments above
 
