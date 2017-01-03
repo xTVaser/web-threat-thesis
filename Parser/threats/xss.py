@@ -39,7 +39,8 @@ def xssBitstring(request, isSVM):
 
         if tagCount > 0 and len(tags) > 1:
 
-            for x in range(len(tags)-2):
+            # Used to be -2 but that was a problem in sql so changed here as well
+            for x in range(len(tags) - 1):
 
                 uniqueTags += workingRequest.lower().count(tags[x+1])
 
