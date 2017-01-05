@@ -24,21 +24,21 @@ phpIncludes = ["include(",
                "require(",
                "require_once("]
 
-fields = ["?username=",
-          "?password=",
-          "?email=",
-          "?id=",
-          "?item=",
-          "?course=",
-          "?pid=",
-          "?db=",
-          "?response=",
-          "?help=",
-          "?balance=",
-          "?accountID=",
-          "?secure=",
-          "?last_login=",
-          "?page="]
+fields = ["&username=",
+          "&password=",
+          "&email=",
+          "&id=",
+          "&item=",
+          "&course=",
+          "&pid=",
+          "&db=",
+          "&response=",
+          "&help=",
+          "&balance=",
+          "&accountID=",
+          "&secure=",
+          "&last_login=",
+          "&page="]
 
 word_file = "/usr/share/dict/words"
 WORDS = open(word_file).read().splitlines()
@@ -94,5 +94,5 @@ for i in range(1500): #We will make 3000 attacks total, each one will be encoded
     else:
         attack += addedCMDs + addedURLs
 
-    outputFile.write(attack + "\n")
-    outputFile.write(parse.quote(attack) + "\n")
+    outputFile.write(attack.replace("&", "?", 1) + "\n")
+    outputFile.write(parse.quote(attack.replace("&", "?", 1)) + "\n")
