@@ -20,13 +20,13 @@ def getNumberSQLKeywords(workingRequest):
         keywords = line.split(" ")
         uniqueKeywords = 0
 
-        regexResults = re.findall("[^A-Za-z{]" + keywords[0] + "[^A-Za-z}]", workingRequest.upper())
+        regexResults = re.findall("[^A-Za-z{?&</]" + keywords[0] + "[^A-Za-z}.>]", workingRequest.upper())
         keywordCount = len(regexResults)
 
         if keywordCount > 0 and len(keywords) > 1:
 
             for x in range(len(keywords) - 1):
-                regexResults = re.findall("[^A-Za-z{]" + keywords[x + 1] + "[^A-Za-z}]", workingRequest.upper())
+                regexResults = re.findall("[^A-Za-z{?&</]" + keywords[x + 1] + "[^A-Za-z}.>]", workingRequest.upper())
                 uniqueKeywords += len(regexResults)
 
         keywordCount -= uniqueKeywords
@@ -41,13 +41,13 @@ def getNumberSQLKeywords(workingRequest):
         uniqueKeywords = 0
 
         # Avoids picking up normal words as requests
-        regexResults = re.findall("[^A-Za-z{]" + keywords[0] + "[^A-Za-z}]", workingRequest.upper())
+        regexResults = re.findall("[^A-Za-z{?&</]" + keywords[0] + "[^A-Za-z}.>]", workingRequest.upper())
         keywordCount = len(regexResults)
 
         if keywordCount > 0 and len(keywords) > 1:
 
             for x in range(len(keywords) - 1):
-                regexResults = re.findall("[^A-Za-z{]" + keywords[x + 1] + "[^A-Za-z}]", workingRequest.upper())
+                regexResults = re.findall("[^A-Za-z{?&</]" + keywords[x + 1] + "[^A-Za-z}.>]", workingRequest.upper())
                 uniqueKeywords += len(regexResults)
 
         keywordCount -= uniqueKeywords
@@ -103,7 +103,7 @@ def sqlBitstring(request, isSVM):
         for keyword in simpleSqlKeywords:
 
             # Avoids picking up normal words as requests
-            regexResults = re.findall("[^A-Za-z{]" + keyword + "[^A-Za-z}]", field.upper())
+            regexResults = re.findall("[^A-Za-z{?&</]" + keyword + "[^A-Za-z}.>]", field.upper())
             keywordCount = len(regexResults)
 
             if keywordCount > 0:
@@ -115,7 +115,7 @@ def sqlBitstring(request, isSVM):
             for keyword in simpleSqlReservedWords:
 
                 # Avoids picking up normal words as requests
-                regexResults = re.findall("[^A-Za-z{]" + keyword + "[^A-Za-z}]", field.upper())
+                regexResults = re.findall("[^A-Za-z{?&</]" + keyword + "[^A-Za-z}.>]", field.upper())
                 keywordCount = len(regexResults)
 
                 if keywordCount > 0:
@@ -130,7 +130,7 @@ def sqlBitstring(request, isSVM):
 
     tautologyFlag = False
 
-    regexResults = re.findall("[^A-Za-z{]" + "WHERE" + "[^A-Za-z}]", workingRequest.upper())
+    regexResults = re.findall("[^A-Za-z{?&</]" + "WHERE" + "[^A-Za-z}.>]", workingRequest.upper())
     keywordCount = len(regexResults)
 
     if keywordCount > 0:
@@ -172,7 +172,7 @@ def sqlBitstring(request, isSVM):
 
     unionFlag = False
 
-    regexResults = re.findall("[^A-Za-z{]" + "UNION" + "[^A-Za-z}]", workingRequest.upper())
+    regexResults = re.findall("[^A-Za-z{?&</]" + "UNION" + "[^A-Za-z}.>]", workingRequest.upper())
     keywordCount = len(regexResults)
 
     if keywordCount > 0:
@@ -190,7 +190,7 @@ def sqlBitstring(request, isSVM):
     # 5 - Timing Attack - Manipulates timing delays for dbms respones, particularly uses the WAITFOR keyword
 
     timingFlag = False
-    regexResults = re.findall("[^A-Za-z{]" + "WAITFOR" + "[^A-Za-z}]", workingRequest.upper())
+    regexResults = re.findall("[^A-Za-z{?&</]" + "WAITFOR" + "[^A-Za-z}.>]", workingRequest.upper())
     keywordCount = len(regexResults)
 
     if keywordCount > 0:

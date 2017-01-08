@@ -93,6 +93,8 @@ def permuteBitstrings(bitString):
 
     return output
 
+profilerNum = 0
+
 # Call each method to get the bitstrings in normal decimal form, then we can turn them into binary here.
 for request in requests:
 
@@ -104,11 +106,13 @@ for request in requests:
     rfi = rfiBitstring(request[1], isSVM)
 
     # Here I would print out all permuted bitstrings if that flag was set but for now, just print out one
-    # parseOutput.append(str(rfi[0]) + "." + str(rfi[1]) + "." + str(rfi[2]) + "." + str(rfi[3]) + " placeholder")
 
     parseOutput.append(permuteBitstrings(sql))
     parseOutput.append(permuteBitstrings(xss))
     parseOutput.append(permuteBitstrings(rfi))
+
+    print(profilerNum)
+    profilerNum += 1
 
 os.chdir(os.getcwd()+"/..")
 
