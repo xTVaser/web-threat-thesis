@@ -126,3 +126,12 @@ else:
 #Then print out all the lines in the file.
 for line in parseOutput:
     outputFile.write(line.replace("\n", "") + "\n")
+
+# Add in a progress bar later on for the parsing would be nice also maybe some metrics on the file
+# import time
+# import sys
+#
+# for i in range(100):
+#     time.sleep(1)
+#     sys.stdout.write("\r%d%%" % i)
+#     sys.stdout.flush()

@@ -41,20 +41,29 @@ def decodeURL(url):
 
 os.chdir(os.getcwd())
 
-ntFile = open("NT_Training")
+sqlFile = open("SQL_Training")
+xssFile = open("XSS_Training")
+
+newSqlFile = open("SQL_Training_New", "w+")
 
 coin = randint(0, 1)
 
-for line in ntFile:
-
-    encoded = parse.quote(line)
+for line in sqlFile:
 
     if coin is 0:
-        request = encoded.replace("\n", "")
+        newSqlFile.write(decodeURL(line.replace("\n", "")) + "\n")
+    else:
+        newSqlFile.write(line.replace("\n", "") + "\n")
+    coin = randint(0, 1)
+
+for line in xssFile:
+
+    if coin is 0:
+        request = decodeURL(line.replace("\n", ""))
         print(request)
     else:
         request = line.replace("\n", "")
         print(request)
     coin = randint(0, 1)
 
-ntFile.close()
+newSqlFile.close()
