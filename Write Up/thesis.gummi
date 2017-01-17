@@ -1,0 +1,11 @@
+version=0.6.0
+typesetter=pdflatex
+steps=texpdf
+root=/home/tyler/Repos/My Repositories/thesis2016/Write Up/ut-thesis.tex
+
+file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap1.tex
+file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap2.tex
+file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap3.tex
+file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap4.tex
+file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap5.tex
+file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap6.tex

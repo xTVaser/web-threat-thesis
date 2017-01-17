@@ -324,7 +324,7 @@
       \vfill
       A thesis submitted in conformity with the requirements\\
       for the degree of {\@degree}\\
-      Undergraduate Department of {\@department}\\
+      Department of {\@department}\\
       {\@school}\\
       \vfill
       {\copyright} Copyright {\@gradyear} by {\@author}\\
@@ -344,7 +344,7 @@
       {\@title}\\[2ex]
       {\@author}\\
       {\@degree}\\
-      Undergraduate Department of {\@department}\\
+      Department of {\@department}\\
       {\@school}\\
       {\@gradyear}\\
    \end{center}
