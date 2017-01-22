@@ -11,8 +11,6 @@
 
 # Commandline Arguments
 import argparse
-import sys
-import os
 from CommonLib import *
 
 parser = argparse.ArgumentParser()
@@ -26,7 +24,7 @@ parser.add_argument("-i", "--iterations", help="Repeat the genetic algorithm (i)
 
 # If there are multiple combinations of the same bitstring, we need to compare on the respective bitstring sizes, not mixing and matching
 # So the GA will run through all the combinations and output a file for each combination, for the number of iterations, etc.
-parser.add_argument("-b", "--bitstrings", action="store_true", help="Specify that the file contains multiple combinations of the same bitstring length")
+parser.add_argument("-b", "--bitstrings", help="Specify the number of multiple combinations of the same bitstring length excluding the decimal representation")
 
 parser.add_argument("-f", "--file", help="File name containing requests and parsed bitstrings")
 parser.add_argument("-o", "--output", help="Output file name")
@@ -38,20 +36,66 @@ args = parser.parse_args()
 # They will also contain all of the bitstrings that the request may be interpreted as (sql/xss/rfi)
 initialPop = convertRequests(args.file)
 
+# Setup initial population
 tranSet = initialPop[0]
 testSet = initialPop[1]
 
-# Depending on the flag that tells us what attack type we are looking for, collect the respective bitstrings into a 2D array,
-# Along with if they are attacks or not.
+sqlResults = []
+xssResults = []
+rfiResults = []
 
-# Takes a certain % of the file usually 30% and trains with it, evolves and creates new bitstrings.
-# This training set will go into a new list, but we test for fitness on the ENTIRE collection
+# Initialize Results for each bitstring length
+# CHANGE THIS to add the length information
+for x in range(args.bitstrings):
+    sqlResults.append([])
+    xssResults.append([])
+    rfiResults.append([])
 
-# Evaluate all of the bitstrings using the genetic algorithm, and create new and delete unneeded ones based on fitness.
+# Call genetic algorithm function for each attack type
+for n in range(args.iterations):
+    tempSQL = genAlgorithm(tranSet.copy(), testSet.copy(),
+                                   args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
+                                   1)
+    tempXSS = genAlgorithm(tranSet.copy(), testSet.copy(),
+                                   args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
+                                   2)
+    tempRFI = genAlgorithm(tranSet.copy(), testSet.copy(),
+                                   args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
+                                   3)
+
+    # Add each of the results for each length to the respective list in the results.
+    for i in range(args.bitstrings)-1:
+
+        sqlResults[i] += tempSQL[i]
+        xssResults[i] += tempXSS[i]
+        rfiResults[i] += tempRFI[i]
 
 
-# Continue this until a stopping condition, such as a detection % is reached, or number of iterations is reached, or pop size, etc.
+# Output to file
+for n in range(args.bitstrings):
 
-# Now training is complete, and our training array or list should contain a bunch of highly accurate bitstrings for detection.
+    sqlOutput = None
+    xssOutput = None
+    rfiOutput = None
 
-# Add these bitstrings to a file that will be used later on
+    if args.bitstrings > 1:
+        #Add the bitstring lengths to the filename
+        sqlOutput = open("RESULTS_SQL_" + sqlResults[n].pop(0) + "_" + args.output, "w+")
+        xssOutput = open("RESULTS_XSS_" + xssResults[n].pop(0) + "_" + args.output, "w+")
+        rfiOutput = open("RESULTS_RFI_" + rfiResults[n].pop(0) + "_" + args.output, "w+")
+
+    else:
+        sqlOutput = open("RESULTS_SQL_" + args.output, "w+")
+        xssOutput = open("RESULTS_XSS_" + args.output, "w+")
+        rfiOutput = open("RESULTS_RFI_" + args.output, "w+")
+
+    for line in sqlResults[n]:
+        sqlOutput.write(line + "\n")
+
+    for line in xssResults[n]:
+        xssOutput.write(line + "\n")
+
+    for line in rfiResults[n]:
+        rfiOutput.write(line + "\n")
+
+# For testing we will just convert back to decimal and compare so we can make the 5K tests work for everything
