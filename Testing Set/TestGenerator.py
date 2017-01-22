@@ -29,6 +29,7 @@ if (args.sqliPercentage + args.xssPercentage + args.rfiPercentage + args.nonthre
     sys.exit(-1)
 
 os.chdir(os.getcwd())
+print(os.getcwd())
 
 choosenSize = trainingSize
 

@@ -14,7 +14,7 @@ parser.add_argument("-f", "--file", help="Path to file containing threat informa
 parser.add_argument("-ga", "--geneticAlgorithm", action="store_true", help="The produced bitstrings will be for the Genetic Algorithm approach")
 parser.add_argument("-svm", "--supportVectorMachine", action="store_true", help="The produced bitstrings will be for the SVM approach")
 
-parser.add_argument("-b", "--bitstring", help="Specify the max length of each of the 4 bitstring segments, each of a max of 8. ex 4444 or 4141. Gen. Algo Only")
+parser.add_argument("-b", "--bitstring", help="Specify the max length of each of the 4 bitstring segments, maximum: 6163. ex 4444 or 4141. Gen. Algo Only")
 parser.add_argument("-d", "--decimal", action="store_true", help="The first bitstring will be in normal integer format in addition to the other binary bitstrings")
 parser.add_argument("-p", "--permute", action="store_true", help="Will permute all combinations of the bitstring up to the specified max length. Gen.Algo Only")
 
@@ -76,13 +76,11 @@ def permuteBitstrings(bitString):
 
         # Don't look at this
         for segOne in range(bitstringLengths[0]):
-            for segTwo in range(bitstringLengths[1]):
-                for segThree in range(bitstringLengths[2]):
-                    for segFour in range(bitstringLengths[3]):
-                        output += printBinary(bitString[0], segOne + 1) \
-                                  + "." + printBinary(bitString[1], segTwo + 1) \
-                                  + "." + printBinary(bitString[2], segThree + 1) \
-                                  + "." + printBinary(bitString[3], segFour + 1) + " "
+            for segThree in range(bitstringLengths[2]):
+                    output += printBinary(bitString[0], segOne + 1) \
+                              + "." + printBinary(bitString[1], bitstringLengths[1]) \
+                              + "." + printBinary(bitString[2], segThree + 1) \
+                              + "." + printBinary(bitString[3], bitstringLengths[3]) + " "
 
     # just print the one normal output.
     else:

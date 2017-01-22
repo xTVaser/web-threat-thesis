@@ -126,6 +126,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="wrap&#9;ACTION&#9;EditorToggleUseSoftWraps" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Parser" />
   </component>
   <component name="RunManager" selected="Python.GeneticAlgorithm Test">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
