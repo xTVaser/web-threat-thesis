@@ -1,13 +1,45 @@
-
+# stop when iteration limit is reached or population size exceeded. (population size exceeded = next iteration?)
+#
+# selection rate - randomly select with the selection rate, fitness will give an edge.
+# mutation rate - mutate across all bits of all individuals after selection and cross over.(usually between 1 and 2 tenths of a percent, but did they do that?)
+# cross over rate - once you have the two chromosomes selected, the likely hood you will decide to cross them over.
+#
+# each cycle of selection and mutation/crossovering is called a generation, aka an iteration
+# the children are what will pass onto the next generation and nothing else, there is a concept of selecting some "elite" ones and bringing them over, but we dont.
+#
+# Loop and generate new children until we reach the population, then go to the next generation after mutations until offspring == population size.
 
 # Commandline Arguments
+import argparse
+import sys
+import os
+from CommonLib import *
 
+parser = argparse.ArgumentParser()
 
-# Training
+parser.add_argument("-p", "--population", help="Define the maximum population size per generation")
+parser.add_argument("-g", "--generation", help="Define the number of generations to compute")
+parser.add_argument("-s", "--selectionPool", help="Top percentage of the current population to select from")
+parser.add_argument("-m", "--mutationRate", help="Percentage chance to mutate a gene (0.1 - 1.0)")
+parser.add_argument("-e", "--elitistPool", help="Top percentage of current population to carry over unchanged to the next generation")
+parser.add_argument("-i", "--iterations", help="Repeat the genetic algorithm (i) times to generate more than the maximum population size at the end")
+
+# If there are multiple combinations of the same bitstring, we need to compare on the respective bitstring sizes, not mixing and matching
+# So the GA will run through all the combinations and output a file for each combination, for the number of iterations, etc.
+parser.add_argument("-b", "--bitstrings", action="store_true", help="Specify that the file contains multiple combinations of the same bitstring length")
+
+parser.add_argument("-f", "--file", help="File name containing requests and parsed bitstrings")
+parser.add_argument("-o", "--output", help="Output file name")
+
+args = parser.parse_args()
 
 # First read in all of the data from the parsed test files into some form of object structure
 # These objects will contain the header information for the requests (what the request was and what type it truly is)
 # They will also contain all of the bitstrings that the request may be interpreted as (sql/xss/rfi)
+initialPop = convertRequests(args.file)
+
+tranSet = initialPop[0]
+testSet = initialPop[1]
 
 # Depending on the flag that tells us what attack type we are looking for, collect the respective bitstrings into a 2D array,
 # Along with if they are attacks or not.
@@ -22,19 +54,4 @@
 
 # Now training is complete, and our training array or list should contain a bunch of highly accurate bitstrings for detection.
 
-
-# Testing
-
-# Now we will use unseen data from a much larger collection
-
-# Read the data into similar structures used in training
-# Collect the relevant matching bitstrings
-
-# If the same bitstrings match, then its a match, or a false positive.
-# Use the header information to figure it out, all itstrings in our training array are attack signatures)
-
-# Log all incidents and statistics to a file or array for later use.
-
-
-# Output
-# Output to a file with the top of the file having a summary of all of the information, and the details of the test
+# Add these bitstrings to a file that will be used later on
