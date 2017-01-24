@@ -46,22 +46,22 @@ rfiResults = []
 
 # Initialize Results for each bitstring length
 # CHANGE THIS to add the length information
-for x in range(args.bitstrings):
+for x in range(int(args.bitstrings)):
     sqlResults.append([])
     xssResults.append([])
     rfiResults.append([])
 
 # Call genetic algorithm function for each attack type
-for n in range(args.iterations):
+for n in range(int(args.iterations)):
     tempSQL = genAlgorithm(tranSet.copy(), testSet.copy(),
-                                   args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
-                                   1)
+                           args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
+                           1)
     tempXSS = genAlgorithm(tranSet.copy(), testSet.copy(),
-                                   args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
-                                   2)
+                           args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
+                           2)
     tempRFI = genAlgorithm(tranSet.copy(), testSet.copy(),
-                                   args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
-                                   3)
+                           args.population, args.generation, args.selectionPool, args.mutationRate, args.elitistPool,
+                           3)
 
     # Add each of the results for each length to the respective list in the results.
     for i in range(args.bitstrings)-1:
