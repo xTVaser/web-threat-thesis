@@ -1,4 +1,5 @@
 from Request import *
+from operator import itemgetter
 
 # Returns the first 30% of the file as the trainingSet and the rest as the testingSet
 def convertRequests(file):
@@ -33,52 +34,73 @@ def convertRequests(file):
 
     return [trainingSet, testingSet]
 
-# Return a list of a list of all resulting bitstrings for each bitstring length
-def genAlgorithm(tranSet, testSet, maxPop, generations, selectPool, mutationRate, elitistPool, type, numBitstrings):
+# Return the bitstrings with attack type as pairs
+def getBitstringColumn(index, bitstrings, type):
 
-    globalResults = []
+    output = []
 
-    # Deal with each "column" of bitstrings individually
-    for b in range(numBitstrings):
+    for bitstring in bitstrings:
 
-        # Get only the bitstrings we care about, make pairs with the attack type
-        trainingList = getBitstringColumn(b, tranSet)
-        testingList = getBitstringColumn(b, testSet)
+        tempList = []
 
-        # The training list is our initial population, the testing list is the original entire set, unaltered
-        population = trainingList.copy()
-        testingList += trainingList
+        # SQL
+        if type is 1:
+            tempList = bitstring.sql_bitstrings
+        # XSS
+        elif type is 2:
+            tempList = bitstring.xss_bitstrings
+        # RFI
+        else:
+            tempList = bitstring.rfi_bitstrings
 
-        # Loop through all of the generations
-        for g in range(generations):
 
-            # Evaluate Fitness, at this point the bitstrings will become part of a triple (BS, Type, Fitness)
-            evaluateFitness(population)
+        # Bitstring and fitness at 0 at the moment
+        output.append((tempList[index], 0, int(bitstring.attackType)))
 
-            offspring = []
+    return output
 
-            # Elitist Pool - Copy the top X% over to the offspring
+# Update the fitness value on each one, print out results here about the current results.
+def evaluateFitness(population, testSet, type):
 
-            # Selection Loop - Produce offspring until we are at max population
-            while len(offspring) < maxPop:
+    index = 0
 
-                # Selection Algorithm Here - Roulette Wheel Selection
-                print("stub")
+    # Loop through all individuals and evaluate their fitness
+    for individual in population:
 
-                # Individual 1
-                # Individual 2
-                # Breed them with a random single-point crossover and add the two offspring to the list
+        correctDetected = 0
+        falsePositive = 0
+        incorrectDetected = 0 # Attack but not the right type, less of a penalty
 
-            # Remove any extra children over maxPop just incase
-            offspring = offspring.split(maxPop)[0]
+        for test in testSet:
 
-            # Mutation Loop
-            for child in offspring:
+            if individual[0] == test[0]:
 
-                # Loop through all of the individual bits, and randomly mutate them
-                print("stub")
+                # We dont care if the detection bitstring's original type is correct as its just a signature
+                # We care about whether or not the bitstring we've identified is actually the attacks we are looking for
+                if test[2] == type:
+                    correctDetected += 1
+                # If the detected bitstring is actually a normal request, then its a false positive.
+                elif test[2] == 0:
+                    falsePositive += 1
+                # Otherwise, we detected another type of attack, but thought it was our type
+                else:
+                    incorrectDetected += 1
 
-        # Once all generations are complete, the current population is the best bitstrings we could generate
-        globalResults.append(population)
+        # Store the fitness value
+        # Number of correct detections divided by the total number of attacks in the test MINUS
+        # Number of False positives divided by total number of normal requests (100% false positives = 0 fitness) MINUS
+        # Number of incorrect detections, divided by total number, then halfed (less worse than false positives)
+        # Then the entire thing is multipled by 100 to give it a bit more scale.
+        fitness = (correctDetected/300) - (falsePositive/100) - (incorrectDetected/600)*0.5
+        fitness *= 100
 
-    return globalResults
+        if fitness < 0:
+            fitness = 0
+
+        population[index] = (individual[0], fitness, individual[2])
+        index += 1
+
+    # Sort the list based on the fitness, highest to lowest.
+    population = sorted(population, key=itemgetter(1), reverse=True)
+
+    return population
