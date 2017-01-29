@@ -1,5 +1,6 @@
 from Request import *
 from operator import itemgetter
+from random import uniform
 
 # Returns the first 30% of the file as the trainingSet and the rest as the testingSet
 def convertRequests(file):
@@ -89,13 +90,16 @@ def evaluateFitness(population, testSet, type):
         # Store the fitness value
         # Number of correct detections divided by the total number of attacks in the test MINUS
         # Number of False positives divided by total number of normal requests (100% false positives = 0 fitness) MINUS
-        # Number of incorrect detections, divided by total number, then halfed (less worse than false positives)
+        # Number of incorrect detections, divided by total number, then eighth (less worse than false positives)
         # Then the entire thing is multipled by 100 to give it a bit more scale.
-        fitness = (correctDetected/300) - (falsePositive/100) - (incorrectDetected/600)*0.5
+        fitness = (correctDetected/300) - (falsePositive/100) - (incorrectDetected/600)*0.125
         fitness *= 100
 
+        # If the fitness is below 0, its terrible and shouldnt be considered but give it a value of something in the
+        # change that  everything is 0
+        # another way to do this would be to normalize the lowest to 0 and bring up everything else in proportion (may switch)
         if fitness < 0:
-            fitness = 0
+            fitness = 0.01
 
         population[index] = (individual[0], fitness, individual[2])
         index += 1
@@ -103,4 +107,96 @@ def evaluateFitness(population, testSet, type):
     # Sort the list based on the fitness, highest to lowest.
     population = sorted(population, key=itemgetter(1), reverse=True)
 
+    print("Maximum Fitness: " + str(population[0][1]) + " Minimum Fitness: " + str(population[len(population)-1][1]))
+
     return population
+
+# Just sums the fitness values in the population
+def sumFitness(population):
+
+    sum = 0
+
+    for individual in population:
+
+        sum += individual[1]
+
+    return sum
+
+# Returns the index of which individual choosen for selection
+def rouletteSelect(fitnessSum, population):
+
+    # Get the random value to search
+    rndValue = uniform(0.0, 1.0) * fitnessSum
+
+    index = 0
+
+    for individual in population:
+
+        # Subtract the fitness value
+        rndValue -= individual[1]
+        if rndValue <= 0:
+            # Return the index
+            return index
+        index += 1
+
+    # Something went wrong, just return the last item
+    return len(population) - 1
+
+def singlePointCrossover(offspring, parentOne, parentTwo):
+
+    # Find the segment to swap, 0->3
+    rndPoint = int(uniform(0, 4))
+
+    # Take out the segments that are of interest
+    parentOneContribution = parentOne[0][rndPoint]
+    parentTwoContribution = parentTwo[0][rndPoint]
+
+    # Swap the segments from either one
+    alterParentOne = parentOne[0]
+    alterParentOne[rndPoint] = parentTwoContribution
+
+    alterParentTwo = parentTwo[0]
+    alterParentTwo[rndPoint] = parentOneContribution
+
+    # Create new tuples of them, swap the attacktypes but it really doesnt matter, as this is just a signature.
+    newChild = (alterParentOne, 0, parentOne[2])
+    newChild2 = (alterParentTwo, 0, parentTwo[2])
+
+    # Add to the offspring list
+    offspring.append(newChild)
+    offspring.append(newChild2)
+
+def reverse(bit):
+
+    if bit is "0":
+        return "1"
+    else:
+        return "0"
+
+def mutatePopulation(population, mutationRate):
+
+    index = 0
+    for individual in population:
+
+        tempSegment = []
+        for segment in individual[0]:
+
+            tempList = ""
+            for bit in segment:
+
+                # See if we will mutate or not
+                mutateChance = round(uniform(0, 100), 2)
+
+                if mutateChance < mutationRate:
+
+                    tempList += reverse(bit)
+
+                else:
+
+                    tempList += bit
+
+            tempSegment.append(tempList)
+
+        # Update the bitstring
+        population[index] = (tempSegment, population[index][1], population[index][2])
+        index += 1

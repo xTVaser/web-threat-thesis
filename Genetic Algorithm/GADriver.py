@@ -7,7 +7,6 @@ parser = argparse.ArgumentParser()
 
 parser.add_argument("-p", "--population", help="Define the maximum population size per generation")
 parser.add_argument("-g", "--generation", help="Define the number of generations to compute")
-parser.add_argument("-s", "--selectionPool", help="Top percentage of the current population to select from")
 parser.add_argument("-m", "--mutationRate", help="Percentage chance to mutate a gene (0.1 - 1.0)")
 parser.add_argument("-e", "--elitistPool", help="Top percentage of current population to carry over unchanged to the next generation")
 parser.add_argument("-i", "--iterations", help="Repeat the genetic algorithm (i) times to generate more than the maximum population size at the end")
@@ -44,17 +43,17 @@ for x in range(int(args.bitstrings)):
 # Call genetic algorithm function for each attack type
 for n in range(int(args.iterations)):
     tempSQL = genAlgorithm(tranSet.copy(), testSet.copy(),
-                           args.population, int(args.generation), args.selectionPool, args.mutationRate, args.elitistPool,
+                           int(args.population), int(args.generation), float(args.mutationRate), int(args.elitistPool),
                            1, int(args.bitstrings))
     tempXSS = genAlgorithm(tranSet.copy(), testSet.copy(),
-                           args.population, int(args.generation), args.selectionPool, args.mutationRate, args.elitistPool,
+                           int(args.population), int(args.generation), float(args.mutationRate), int(args.elitistPool),
                            2, int(args.bitstrings))
     tempRFI = genAlgorithm(tranSet.copy(), testSet.copy(),
-                           args.population, int(args.generation), args.selectionPool, args.mutationRate, args.elitistPool,
+                           int(args.population), int(args.generation), float(args.mutationRate), int(args.elitistPool),
                            3, int(args.bitstrings))
 
     # Add each of the results for each length to the respective list in the results.
-    for i in range(args.bitstrings)-1:
+    for i in range(int(args.bitstrings))-1:
 
         sqlResults[i] += tempSQL[i]
         xssResults[i] += tempXSS[i]

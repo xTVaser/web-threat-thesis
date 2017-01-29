@@ -1,8 +1,12 @@
 from CommonLib import getBitstringColumn
 from CommonLib import evaluateFitness
+from CommonLib import sumFitness
+from CommonLib import rouletteSelect
+from CommonLib import singlePointCrossover
+from CommonLib import mutatePopulation
 
 # Return a list of a list of all resulting bitstrings for each bitstring length
-def genAlgorithm(tranSet, testSet, maxPop, generations, selectPool, mutationRate, elitistPool, type, numBitstrings):
+def genAlgorithm(tranSet, testSet, maxPop, generations, mutationRate, elitistPer, type, numBitstrings):
 
     globalResults = []
 
@@ -27,25 +31,32 @@ def genAlgorithm(tranSet, testSet, maxPop, generations, selectPool, mutationRate
             offspring = []
 
             # Elitist Pool - Copy the top X% over to the offspring
+            elitistAmount = len(population) * (elitistPer/100)
+            for i in range(int(elitistAmount)):
+                # Don't fill over the population size
+                if len(offspring) < maxPop:
+                    offspring.append(population[i])
+
+            # Find the sum of the fitnesses once because it doesnt change everytime
+            sumOfFitnesses = sumFitness(population)
 
             # Selection Loop - Produce offspring until we are at max population
             while len(offspring) < maxPop:
 
-                # Selection Algorithm Here - Roulette Wheel Selection
-                print("stub")
-
+                # Roulette Wheel Selection
                 # Individual 1
+                firstIndividual = population[rouletteSelect(sumOfFitnesses, population)]
                 # Individual 2
+                secondIndividual = population[rouletteSelect(sumOfFitnesses, population)]
+
                 # Breed them with a random single-point crossover and add the two offspring to the list
+                singlePointCrossover(offspring, firstIndividual, secondIndividual)
 
             # Remove any extra children over maxPop just incase
-            offspring = offspring.split(maxPop)[0]
+            offspring = offspring[0:maxPop]
 
             # Mutation Loop
-            for child in offspring:
-
-                # Loop through all of the individual bits, and randomly mutate them
-                print("stub")
+            mutatePopulation(offspring, mutationRate)
 
         # Once all generations are complete, the current population is the best bitstrings we could generate
         globalResults.append(population)
@@ -53,12 +64,3 @@ def genAlgorithm(tranSet, testSet, maxPop, generations, selectPool, mutationRate
     # Now that these are supposed to be the best bitstrings to detect one of the three attacks,
     # we can remove the attack type info
     return globalResults
-
-# selection rate - randomly select with the selection rate, fitness will give an edge.
-# mutation rate - mutate across all bits of all individuals after selection and cross over.(usually between 1 and 2 tenths of a percent, but did they do that?)
-# cross over rate - once you have the two chromosomes selected, the likely hood you will decide to cross them over.
-#
-# each cycle of selection and mutation/crossovering is called a generation, aka an iteration
-# the children are what will pass onto the next generation and nothing else, there is a concept of selecting some "elite" ones and bringing them over, but we dont.
-#
-# Loop and generate new children until we reach the population, then go to the next generation after mutations until offspring == population size.
