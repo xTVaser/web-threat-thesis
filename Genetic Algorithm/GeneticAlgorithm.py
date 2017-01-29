@@ -4,6 +4,7 @@ from CommonLib import sumFitness
 from CommonLib import rouletteSelect
 from CommonLib import singlePointCrossover
 from CommonLib import mutatePopulation
+from more_itertools import unique_everseen
 
 # Return a list of a list of all resulting bitstrings for each bitstring length
 def genAlgorithm(tranSet, testSet, maxPop, generations, mutationRate, elitistPer, type, numBitstrings):
@@ -18,18 +19,20 @@ def genAlgorithm(tranSet, testSet, maxPop, generations, mutationRate, elitistPer
         trainingList = getBitstringColumn(b, tranSet, type)
         testingList = getBitstringColumn(b, testSet, type)
 
-        # The training list is our initial population, the testing list is the original entire set, unaltered
+        # The training list is our initial population, remove any duplicate bitstrings to not inflate fitness values
         population = trainingList.copy()
+        population = list(unique_everseen(population))
+        # The testing list is the original entire set, unaltered
         testingList += trainingList
 
         # Loop through all of the generations
         for g in range(generations):
 
+            # Remove Duplicates Before Continuing on
+            population = list(unique_everseen(population))
+
             # Evaluate Fitness, at this point the bitstrings will become part of a triple (BS, Fitness, Type)
             population = evaluateFitness(population, testingList, type, g+1)
-
-            if g is 99:
-                print("ye")
 
             offspring = []
 

@@ -65,7 +65,7 @@ def normalizeBitstrings(population):
 
     lowest = population[len(population)-1][1]
     # Add this amount to everything
-    scaleFactor = abs(lowest) * 2
+    scaleFactor = (abs(lowest) * 2) + 1
     index = 0
 
     for individual in population:
