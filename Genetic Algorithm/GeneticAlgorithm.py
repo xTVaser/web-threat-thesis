@@ -26,7 +26,10 @@ def genAlgorithm(tranSet, testSet, maxPop, generations, mutationRate, elitistPer
         for g in range(generations):
 
             # Evaluate Fitness, at this point the bitstrings will become part of a triple (BS, Fitness, Type)
-            population = evaluateFitness(population, testingList, type)
+            population = evaluateFitness(population, testingList, type, g+1)
+
+            if g is 99:
+                print("ye")
 
             offspring = []
 
@@ -57,6 +60,9 @@ def genAlgorithm(tranSet, testSet, maxPop, generations, mutationRate, elitistPer
 
             # Mutation Loop
             mutatePopulation(offspring, mutationRate)
+
+            # Now set the offspring to be our new population
+            population = offspring
 
         # Once all generations are complete, the current population is the best bitstrings we could generate
         globalResults.append(population)

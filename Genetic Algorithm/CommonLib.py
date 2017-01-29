@@ -60,8 +60,22 @@ def getBitstringColumn(index, bitstrings, type):
 
     return output
 
+# Takes in a sorted bitstring set and normalizes them, the lowest remains the lowest, the highest remains the highest
+def normalizeBitstrings(population):
+
+    lowest = population[len(population)-1][1]
+    # Add this amount to everything
+    scaleFactor = abs(lowest) * 2
+    index = 0
+
+    for individual in population:
+
+        population[index] = (individual[0], individual[1]+scaleFactor, individual[2])
+        index += 1
+
+
 # Update the fitness value on each one, print out results here about the current results.
-def evaluateFitness(population, testSet, type):
+def evaluateFitness(population, testSet, type, iteration):
 
     index = 0
 
@@ -95,19 +109,17 @@ def evaluateFitness(population, testSet, type):
         fitness = (correctDetected/300) - (falsePositive/100) - (incorrectDetected/600)*0.125
         fitness *= 100
 
-        # If the fitness is below 0, its terrible and shouldnt be considered but give it a value of something in the
-        # change that  everything is 0
-        # another way to do this would be to normalize the lowest to 0 and bring up everything else in proportion (may switch)
-        if fitness < 0:
-            fitness = 0.01
-
         population[index] = (individual[0], fitness, individual[2])
         index += 1
 
     # Sort the list based on the fitness, highest to lowest.
     population = sorted(population, key=itemgetter(1), reverse=True)
 
-    print("Maximum Fitness: " + str(population[0][1]) + " Minimum Fitness: " + str(population[len(population)-1][1]))
+    normalizeBitstrings(population)
+
+    print("Iteration: " + str(iteration) + " Maximum Fitness: " + str(population[0][1]) +
+          " Minimum Fitness: " + str(population[len(population)-1][1]) +
+          " Average Fitness: " + str(sumFitness(population) / len(population)))
 
     return population
 
