@@ -212,3 +212,29 @@ def mutatePopulation(population, mutationRate):
         # Update the bitstring
         population[index] = (tempSegment, population[index][1], population[index][2])
         index += 1
+
+def bitstringLength(bitstring):
+
+    output = ""
+
+    for segment in bitstring:
+
+        segmentLength = 0
+
+        for bit in segment:
+
+            segmentLength += 1
+
+        output += str(segmentLength)
+
+    return output
+
+def tupleToString(tuple):
+
+    output = ""
+
+    for segment in tuple[0]:
+
+        output += segment + " "
+
+    return output

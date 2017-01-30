@@ -1,6 +1,9 @@
 # Commandline Arguments
 import argparse
+from operator import itemgetter
 from CommonLib import convertRequests
+from CommonLib import bitstringLength
+from CommonLib import tupleToString
 from GeneticAlgorithm import genAlgorithm
 
 parser = argparse.ArgumentParser()
@@ -34,7 +37,6 @@ xssResults = []
 rfiResults = []
 
 # Initialize Results for each bitstring length
-# CHANGE THIS to add the length information
 for x in range(int(args.bitstrings)):
     sqlResults.append([])
     xssResults.append([])
@@ -53,36 +55,56 @@ for n in range(int(args.iterations)):
                            3, int(args.bitstrings))
 
     # Add each of the results for each length to the respective list in the results.
-    for i in range(int(args.bitstrings))-1:
+    for i in range(int(args.bitstrings)):
 
         sqlResults[i] += tempSQL[i]
         xssResults[i] += tempXSS[i]
         rfiResults[i] += tempRFI[i]
 
+# Sort the Results just to make them look nicer in the file.
+index = 0
+for result in sqlResults:
+
+    sqlResults[index] = sorted(result, key=itemgetter(0), reverse=True)
+
+index = 0
+for result in xssResults:
+
+    xssResults[index] = sorted(result, key=itemgetter(0), reverse=True)
+
+index = 0
+for result in rfiResults:
+
+    rfiResults[index] = sorted(result, key=itemgetter(0), reverse=True)
+
 
 # Output to file
-for n in range(args.bitstrings):
+for n in range(int(args.bitstrings)):
 
     sqlOutput = None
     xssOutput = None
     rfiOutput = None
 
-    if args.bitstrings > 1:
+    if int(args.bitstrings) > 1:
         #Add the bitstring lengths to the filename
-        sqlOutput = open("RESULTS_SQL_" + sqlResults[n].pop(0) + "_" + args.output, "w+")
-        xssOutput = open("RESULTS_XSS_" + xssResults[n].pop(0) + "_" + args.output, "w+")
-        rfiOutput = open("RESULTS_RFI_" + rfiResults[n].pop(0) + "_" + args.output, "w+")
+        sqlOutput = open("Results/RESULTS_SQL_LEN_" + bitstringLength(sqlResults[n][0][0]) + "_" + args.output, "w+")
+        xssOutput = open("Results/RESULTS_XSS_LEN_" + bitstringLength(xssResults[n][0][0]) + "_" + args.output, "w+")
+        rfiOutput = open("Results/RESULTS_RFI_LEN_" + bitstringLength(rfiResults[n][0][0]) + "_" + args.output, "w+")
 
     else:
-        sqlOutput = open("RESULTS_SQL_" + args.output, "w+")
-        xssOutput = open("RESULTS_XSS_" + args.output, "w+")
-        rfiOutput = open("RESULTS_RFI_" + args.output, "w+")
+        sqlOutput = open("Results/RESULTS_SQL_" + args.output, "w+")
+        xssOutput = open("Results/RESULTS_XSS_" + args.output, "w+")
+        rfiOutput = open("Results/RESULTS_RFI_" + args.output, "w+")
 
     for line in sqlResults[n]:
-        sqlOutput.write(line + "\n")
+        sqlOutput.write(tupleToString(line) + "\n")
 
     for line in xssResults[n]:
-        xssOutput.write(line + "\n")
+        xssOutput.write(tupleToString(line) + "\n")
 
     for line in rfiResults[n]:
-        rfiOutput.write(line + "\n")
+        rfiOutput.write(tupleToString(line) + "\n")
+
+    sqlOutput.close()
+    xssOutput.close()
+    rfiOutput.close()
