@@ -1,6 +1,8 @@
-from Request import *
 from operator import itemgetter
 from random import uniform
+
+from Lib.Request import *
+
 
 # Returns the first 30% of the file as the trainingSet and the rest as the testingSet
 def convertRequests(file):

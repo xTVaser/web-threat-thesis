@@ -1,25 +1,34 @@
 # Commandline Arguments
 import argparse
 from operator import itemgetter
-from CommonLib import convertRequests
-from CommonLib import bitstringLength
-from CommonLib import tupleToString
-from GeneticAlgorithm import genAlgorithm
+
+from Lib.CommonLib import bitstringLength
+from Lib.CommonLib import convertRequests
+from Lib.CommonLib import tupleToString
+from Lib.GeneticAlgorithm import genAlgorithm
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument("-p", "--population", help="Define the maximum population size per generation")
-parser.add_argument("-g", "--generation", help="Define the number of generations to compute")
-parser.add_argument("-m", "--mutationRate", help="Percentage chance to mutate a gene (0.1 - 1.0)")
-parser.add_argument("-e", "--elitistPool", help="Top percentage of current population to carry over unchanged to the next generation")
-parser.add_argument("-i", "--iterations", help="Repeat the genetic algorithm (i) times to generate more than the maximum population size at the end")
+parser.add_argument("-p", "--population",
+                    help="Define the maximum population size per generation")
+parser.add_argument("-g", "--generation",
+                    help="Define the number of generations to compute")
+parser.add_argument("-m", "--mutationRate",
+                    help="Percentage chance to mutate a gene (0.1 - 1.0)")
+parser.add_argument("-e", "--elitistPool",
+                    help="Top percentage of current population to carry over unchanged to the next generation")
+parser.add_argument("-i", "--iterations",
+                    help="Repeat the genetic algorithm (i) times to generate more than the maximum population size at the end")
 
 # If there are multiple combinations of the same bitstring, we need to compare on the respective bitstring sizes, not mixing and matching
 # So the GA will run through all the combinations and output a file for each combination, for the number of iterations, etc.
-parser.add_argument("-b", "--bitstrings", help="Specify the number of multiple combinations of the same bitstring length excluding the decimal representation")
+parser.add_argument("-b", "--bitstrings",
+                    help="Specify the number of multiple combinations of the same bitstring length excluding the decimal representation")
 
-parser.add_argument("-f", "--file", help="File name containing requests and parsed bitstrings")
-parser.add_argument("-o", "--output", help="Output file name")
+parser.add_argument("-f", "--file",
+                    help="File name containing requests and parsed bitstrings")
+parser.add_argument("-o", "--output",
+                    help="Output file name")
 
 args = parser.parse_args()
 

@@ -1,10 +1,12 @@
-from CommonLib import getBitstringColumn
-from CommonLib import evaluateFitness
-from CommonLib import sumFitness
-from CommonLib import rouletteSelect
-from CommonLib import singlePointCrossover
-from CommonLib import mutatePopulation
 from more_itertools import unique_everseen
+
+from Lib.CommonLib import evaluateFitness
+from Lib.CommonLib import getBitstringColumn
+from Lib.CommonLib import mutatePopulation
+from Lib.CommonLib import rouletteSelect
+from Lib.CommonLib import singlePointCrossover
+from Lib.CommonLib import sumFitness
+
 
 # Return a list of a list of all resulting bitstrings for each bitstring length
 def genAlgorithm(tranSet, testSet, maxPop, generations, mutationRate, elitistPer, type, numBitstrings):
