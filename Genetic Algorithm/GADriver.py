@@ -75,16 +75,19 @@ index = 0
 for result in sqlResults:
 
     sqlResults[index] = sorted(result, key=itemgetter(0), reverse=True)
+    index += 1
 
 index = 0
 for result in xssResults:
 
     xssResults[index] = sorted(result, key=itemgetter(0), reverse=True)
+    index += 1
 
 index = 0
 for result in rfiResults:
 
     rfiResults[index] = sorted(result, key=itemgetter(0), reverse=True)
+    index += 1
 
 
 # Output to file
@@ -96,14 +99,14 @@ for n in range(int(args.bitstrings)):
 
     if int(args.bitstrings) > 1:
         #Add the bitstring lengths to the filename
-        sqlOutput = open("Results/RESULTS_SQL_LEN_" + bitstringLength(sqlResults[n][0][0]) + "_" + args.output, "w+")
-        xssOutput = open("Results/RESULTS_XSS_LEN_" + bitstringLength(xssResults[n][0][0]) + "_" + args.output, "w+")
-        rfiOutput = open("Results/RESULTS_RFI_LEN_" + bitstringLength(rfiResults[n][0][0]) + "_" + args.output, "w+")
+        sqlOutput = open("Results/RESULTS_SQL_LEN_" + bitstringLength(sqlResults[n][0][0]) + "_" + args.output + ".res", "w+")
+        xssOutput = open("Results/RESULTS_XSS_LEN_" + bitstringLength(xssResults[n][0][0]) + "_" + args.output + ".res", "w+")
+        rfiOutput = open("Results/RESULTS_RFI_LEN_" + bitstringLength(rfiResults[n][0][0]) + "_" + args.output + ".res", "w+")
 
     else:
-        sqlOutput = open("Results/RESULTS_SQL_" + args.output, "w+")
-        xssOutput = open("Results/RESULTS_XSS_" + args.output, "w+")
-        rfiOutput = open("Results/RESULTS_RFI_" + args.output, "w+")
+        sqlOutput = open("Results/RESULTS_SQL_" + args.output + ".res", "w+")
+        xssOutput = open("Results/RESULTS_XSS_" + args.output + ".res", "w+")
+        rfiOutput = open("Results/RESULTS_RFI_" + args.output + ".res", "w+")
 
     for line in sqlResults[n]:
         sqlOutput.write(tupleToString(line) + "\n")
