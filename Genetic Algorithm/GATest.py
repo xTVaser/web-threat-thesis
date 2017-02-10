@@ -312,3 +312,4 @@ elif testSet is 6:
 
 
 log.close()
+shutil.move("Results/OVERALL_TEST_RESULTS", "../Test Results/Genetic Algorithm/")
