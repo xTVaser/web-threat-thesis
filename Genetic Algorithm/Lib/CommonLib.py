@@ -240,3 +240,44 @@ def tupleToString(tuple):
         output += segment + " "
 
     return output
+
+# Key = the length string, and contents are all the bitstrings associated with that length.
+def getLengthDictionary(lengthFlag):
+
+    testingSet = None
+    dictionary = dict()
+
+    if lengthFlag is True:
+        testingSet = convertRequests("Length_Testing_GA")
+        testingSet = testingSet[0] + testingSet[1]
+    else:
+        testingSet = convertRequests("Testing_GA")
+        testingSet = testingSet[0] + testingSet[1]
+
+    for request in testingSet:
+
+        for sqlBitstring in request.sql_bitstrings:
+
+            try:
+                dictionary[bitstringLength(sqlBitstring) + "_SQL"].append([sqlBitstring, request.attackType])
+            except KeyError:
+                dictionary[bitstringLength(sqlBitstring) + "_SQL"] = []
+                dictionary[bitstringLength(sqlBitstring) + "_SQL"].append([sqlBitstring, request.attackType])
+
+        for xssBitstring in request.xss_bitstrings:
+
+            try:
+                dictionary[bitstringLength(xssBitstring) + "_XSS"].append([xssBitstring, request.attackType])
+            except KeyError:
+                dictionary[bitstringLength(xssBitstring) + "_XSS"] = []
+                dictionary[bitstringLength(xssBitstring) + "_XSS"].append([xssBitstring, request.attackType])
+
+        for rfiBitstring in request.rfi_bitstrings:
+
+            try:
+                dictionary[bitstringLength(rfiBitstring) + "_RFI"].append([rfiBitstring, request.attackType])
+            except KeyError:
+                dictionary[bitstringLength(rfiBitstring) + "_RFI"] = []
+                dictionary[bitstringLength(rfiBitstring) + "_RFI"].append([rfiBitstring, request.attackType])
+
+    return dictionary
