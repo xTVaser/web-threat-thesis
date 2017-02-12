@@ -156,9 +156,18 @@ def getTestingResults(generatedBitstrings, type, lengthInfo):
 
 def printTestingResults(directory, results):
 
-    sqlResults = open(directory + "Results_SQL.dat", "w+")
-    xssResults = open(directory + "Results_XSS.dat", "w+")
-    rfiResults = open(directory + "Results_RFI.dat", "w+")
+    sqlResults = None
+    xssResults = None
+    rfiResults = None
+
+    if os.path.exists("Results_SQL.dat"):
+        sqlResults = open(directory + "Results_SQL.dat", "a")
+        xssResults = open(directory + "Results_XSS.dat", "a")
+        rfiResults = open(directory + "Results_RFI.dat", "a")
+    else:
+        sqlResults = open(directory + "Results_SQL.dat", "w+")
+        xssResults = open(directory + "Results_XSS.dat", "w+")
+        rfiResults = open(directory + "Results_RFI.dat", "w+")
 
     for test in results:
         for result in test:
@@ -191,7 +200,6 @@ def printTestingResults(directory, results):
     xssResults.close()
     rfiResults.close()
 
-
 print("(1) - Population Size Test")
 print("(2) - Generation Test")
 print("(3) - Mutation Rate Test")
@@ -208,25 +216,26 @@ if testSet is 1:
 
     testResults = []
 
-    # 300 - Maximum number of each attack type in training set
-    testResults.append(runTest("300", "Determine Best Settings/Population Size/",
-                               "300", "100", "1", "0.5", "5", "1", "Training_GA", "300_Pop"))
+    for i in range(3):
+        # 300 - Maximum number of each attack type in training set
+        testResults.append(runTest("300", "Determine Best Settings/Population Size/",
+                                   "300", "100", "1", "0.5", "5", "1", "Training_GA", "300_Pop"))
 
-    # 600 - Doubled previous
-    testResults.append(runTest("600", "Determine Best Settings/Population Size/",
-                               "600", "100", "1", "0.5", "5", "1", "Training_GA", "600_Pop"))
+        # 600 - Doubled previous
+        testResults.append(runTest("600", "Determine Best Settings/Population Size/",
+                                   "600", "100", "1", "0.5", "5", "1", "Training_GA", "600_Pop"))
 
-    # 1200 - Now above the size of the training set
-    testResults.append(runTest("1200", "Determine Best Settings/Population Size/",
-                               "1200", "100", "1", "0.5", "5", "1", "Training_GA", "1200_Pop"))
+        # 1200 - Now above the size of the training set
+        testResults.append(runTest("1200", "Determine Best Settings/Population Size/",
+                                   "1200", "100", "1", "0.5", "5", "1", "Training_GA", "1200_Pop"))
 
-    # 2500 - Maximum
-    testResults.append(runTest("2500", "Determine Best Settings/Population Size/",
-                               "2500", "100", "1", "0.5", "5", "1", "Training_GA", "2500_Pop"))
+        # 2500 - Maximum
+        testResults.append(runTest("2500", "Determine Best Settings/Population Size/",
+                                   "2500", "100", "1", "0.5", "5", "1", "Training_GA", "2500_Pop"))
 
-    # 5000 - Double the Maximum
-    testResults.append(runTest("5000", "Determine Best Settings/Population Size/",
-                               "5000", "100", "1", "0.5", "5", "1", "Training_GA", "5000_Pop"))
+        # 5000 - Double the Maximum
+        testResults.append(runTest("5000", "Determine Best Settings/Population Size/",
+                                   "5000", "100", "1", "0.5", "5", "1", "Training_GA", "5000_Pop"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Determine Best Settings/Population Size/", testResults)
 
@@ -236,25 +245,26 @@ elif testSet is 2:
 
     testResults = []
 
-    # 1
-    testResults.append(runTest("1", "Determine Best Settings/Generations/",
-                               "1250", "1", "1", "0.5", "5", "1", "Training_GA", "1_Gen"))
+    for i in range(3):
+        # 1
+        testResults.append(runTest("1", "Determine Best Settings/Generations/",
+                                   "1250", "1", "1", "0.5", "5", "1", "Training_GA", "1_Gen"))
 
-    # 50
-    testResults.append(runTest("50", "Determine Best Settings/Generations/",
-                               "1250", "50", "1", "0.5", "5", "1", "Training_GA", "50_Gen"))
+        # 50
+        testResults.append(runTest("50", "Determine Best Settings/Generations/",
+                                   "1250", "50", "1", "0.5", "5", "1", "Training_GA", "50_Gen"))
 
-    # 100
-    testResults.append(runTest("100", "Determine Best Settings/Generations/",
-                               "1250", "100", "1", "0.5", "5", "1", "Training_GA", "100_Gen"))
+        # 100
+        testResults.append(runTest("100", "Determine Best Settings/Generations/",
+                                   "1250", "100", "1", "0.5", "5", "1", "Training_GA", "100_Gen"))
 
-    # 500
-    testResults.append(runTest("500", "Determine Best Settings/Generations/",
-                               "1250", "500", "1", "0.5", "5", "1", "Training_GA", "500_Gen"))
+        # 500
+        testResults.append(runTest("500", "Determine Best Settings/Generations/",
+                                   "1250", "500", "1", "0.5", "5", "1", "Training_GA", "500_Gen"))
 
-    # 1000
-    testResults.append(runTest("1000", "Determine Best Settings/Generations/",
-                               "1250", "1000", "1", "0.5", "5", "1", "Training_GA", "1000_Gen"))
+        # 1000
+        testResults.append(runTest("1000", "Determine Best Settings/Generations/",
+                                   "1250", "1000", "1", "0.5", "5", "1", "Training_GA", "1000_Gen"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Determine Best Settings/Generations/", testResults)
 
@@ -264,25 +274,26 @@ elif testSet is 3:
 
     testResults = []
 
-    # 0
-    testResults.append(runTest("0.0", "Determine Best Settings/Mutation Rate/",
-                               "1250", "100", "1", "0.0", "5", "1", "Training_GA", "0_0_Mut"))
+    for i in range(3):
+        # 0
+        testResults.append(runTest("0.0", "Determine Best Settings/Mutation Rate/",
+                                   "1250", "100", "1", "0.0", "5", "1", "Training_GA", "0_0_Mut"))
 
-    # 0.10
-    testResults.append(runTest("0.10", "Determine Best Settings/Mutation Rate/",
-                               "1250", "100", "1", "0.1", "5", "1", "Training_GA", "0_1_Mut"))
+        # 0.10
+        testResults.append(runTest("0.10", "Determine Best Settings/Mutation Rate/",
+                                   "1250", "100", "1", "0.1", "5", "1", "Training_GA", "0_1_Mut"))
 
-    # 0.25
-    testResults.append(runTest("0.25", "Determine Best Settings/Mutation Rate/",
-                               "1250", "100", "1", "0.25", "5", "1", "Training_GA", "0_25_Mut"))
+        # 0.25
+        testResults.append(runTest("0.25", "Determine Best Settings/Mutation Rate/",
+                                   "1250", "100", "1", "0.25", "5", "1", "Training_GA", "0_25_Mut"))
 
-    # 0.5
-    testResults.append(runTest("0.5", "Determine Best Settings/Mutation Rate/",
-                               "1250", "100", "1", "0.5", "5", "1", "Training_GA", "0_5_Mut"))
+        # 0.5
+        testResults.append(runTest("0.5", "Determine Best Settings/Mutation Rate/",
+                                   "1250", "100", "1", "0.5", "5", "1", "Training_GA", "0_5_Mut"))
 
-    # 1.0
-    testResults.append(runTest("1.0", "Determine Best Settings/Mutation Rate/",
-                               "1250", "100", "1", "1.0", "5", "1", "Training_GA", "1_0_Mut"))
+        # 1.0
+        testResults.append(runTest("1.0", "Determine Best Settings/Mutation Rate/",
+                                   "1250", "100", "1", "1.0", "5", "1", "Training_GA", "1_0_Mut"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Determine Best Settings/Mutation Rate/", testResults)
 
@@ -292,25 +303,26 @@ elif testSet is 4:
 
     testResults = []
 
-    # 0
-    testResults.append(runTest("0", "Determine Best Settings/Elitist Pool/",
-                               "1250", "100", "1", "0.5", "0", "1", "Training_GA", "0_Elite"))
+    for i in range(3):
+        # 0
+        testResults.append(runTest("0", "Determine Best Settings/Elitist Pool/",
+                                   "1250", "100", "1", "0.5", "0", "1", "Training_GA", "0_Elite"))
 
-    # 2
-    testResults.append(runTest("2", "Determine Best Settings/Elitist Pool/",
-                               "1250", "100", "1", "0.5", "2", "1", "Training_GA", "2_Elite"))
+        # 2
+        testResults.append(runTest("2", "Determine Best Settings/Elitist Pool/",
+                                   "1250", "100", "1", "0.5", "2", "1", "Training_GA", "2_Elite"))
 
-    # 5
-    testResults.append(runTest("5", "Determine Best Settings/Elitist Pool/",
-                               "1250", "100", "1", "0.5", "5", "1", "Training_GA", "5_Elite"))
+        # 5
+        testResults.append(runTest("5", "Determine Best Settings/Elitist Pool/",
+                                   "1250", "100", "1", "0.5", "5", "1", "Training_GA", "5_Elite"))
 
-    # 10
-    testResults.append(runTest("10", "Determine Best Settings/Elitist Pool/",
-                               "1250", "100", "1", "0.5", "10", "1", "Training_GA", "10_Elite"))
+        # 10
+        testResults.append(runTest("10", "Determine Best Settings/Elitist Pool/",
+                                   "1250", "100", "1", "0.5", "10", "1", "Training_GA", "10_Elite"))
 
-    # 25
-    testResults.append(runTest("25", "Determine Best Settings/Elitist Pool/",
-                               "1250", "100", "1", "0.5", "25", "1", "Training_GA", "25_Elite"))
+        # 25
+        testResults.append(runTest("25", "Determine Best Settings/Elitist Pool/",
+                                   "1250", "100", "1", "0.5", "25", "1", "Training_GA", "25_Elite"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Determine Best Settings/Elitist Pool/", testResults)
 
@@ -320,25 +332,26 @@ elif testSet is 5:
 
     testResults = []
 
-    # 1 - Only one test
-    testResults.append(runTest("1", "Multiple Iterations/",
-                               "1250", "100", "1", "0.5", "5", "1", "Training_GA", "1_Iter"))
+    for i in range(3):
+        # 1 - Only one test
+        testResults.append(runTest("1", "Multiple Iterations/",
+                                   "1250", "100", "1", "0.5", "5", "1", "Training_GA", "1_Iter"))
 
-    # 2
-    testResults.append(runTest("2", "Multiple Iterations/",
-                               "1250", "100", "2", "0.5", "5", "1", "Training_GA", "2_Iter"))
+        # 2
+        testResults.append(runTest("2", "Multiple Iterations/",
+                                   "1250", "100", "2", "0.5", "5", "1", "Training_GA", "2_Iter"))
 
-    # 5
-    testResults.append(runTest("5", "Multiple Iterations/",
-                               "1250", "100", "5", "0.5", "5", "1", "Training_GA", "5_Iter"))
+        # 5
+        testResults.append(runTest("5", "Multiple Iterations/",
+                                   "1250", "100", "5", "0.5", "5", "1", "Training_GA", "5_Iter"))
 
-    # 10
-    testResults.append(runTest("10", "Multiple Iterations/",
-                               "1250", "100", "10", "0.5", "5", "1", "Training_GA", "10_Iter"))
+        # 10
+        testResults.append(runTest("10", "Multiple Iterations/",
+                                   "1250", "100", "10", "0.5", "5", "1", "Training_GA", "10_Iter"))
 
-    # 20 - 20 Tests combined
-    testResults.append(runTest("20", "Multiple Iterations/",
-                               "1250", "100", "20", "0.5", "5", "1", "Training_GA", "20_Iter"))
+        # 20 - 20 Tests combined
+        testResults.append(runTest("20", "Multiple Iterations/",
+                                   "1250", "100", "20", "0.5", "5", "1", "Training_GA", "20_Iter"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Multiple Iterations/", testResults)
 
@@ -348,8 +361,9 @@ elif testSet is 6:
 
     testResults = []
 
-    # One Test With the Best Settings
-    testResults.append(runTest("BSLen", "Bitstring Length/",
-                               "1250", "100", "1", "0.5", "5", "36", "Length_Training_GA", "BS_Len"))
+    for i in range(3):
+        # One Test With the Best Settings
+        testResults.append(runTest("BSLen", "Bitstring Length/",
+                                   "1250", "100", "1", "0.5", "5", "36", "Length_Training_GA", "BS_Len"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Bitstring Length/", testResults)

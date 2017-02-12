@@ -38,8 +38,13 @@ plotHelper <- function(directory, title, xLabel, yLabel) {
 	files <- list.files(path = directory, pattern = "*.dat", recursive = TRUE, full.names = TRUE)
 	for(file in files) {
 
-		generateGraph(file, title, xLabel, yLabel)
+		# generateGraph(file, title, xLabel, yLabel)
+		table <- read.table(file, sep = "\t")
+		print(file)
+		print(aggregate(. ~ V1, data=table, FUN=mean))
 	}
+
+
 }
 
 # Define Graph Structures Below
