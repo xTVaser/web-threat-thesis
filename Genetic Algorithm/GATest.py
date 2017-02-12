@@ -173,14 +173,14 @@ def printTestingResults(directory, results):
 
             for i in range(len(result)-1):
 
-                if i+1 is 1:
-                    currentFile.write(str((result[i + 1] / 1500.0) * 100.0) + "\t")
-
-                elif i+1 is 2:
-                    currentFile.write(str((result[i + 1] / 500.0) * 100.0) + "\t")
+                if i+1 is 2:
+                    currentFile.write(str(int(result[i + 1]) / 1500.0 * 100.0) + "\t")
 
                 elif i+1 is 3:
-                    currentFile.write(str((result[i + 1] / 3000.0) * 100.0))
+                    currentFile.write(str(int(result[i + 1]) / 500.0 * 100.0) + "\t")
+
+                elif i+1 is 4:
+                    currentFile.write(str(int(result[i + 1]) / 3000.0 * 100.0))
 
                 else:
                     currentFile.write(result[i + 1] + "\t")
