@@ -49,7 +49,13 @@ plotHelper <- function(directory, title, xLabel, yLabel) {
 }
 
 # Define Graph Structures Below
+# Population Size
 plotHelper("Determine Best Settings/Population Size", "Population Size Effect", "Population Size (Individuals)", "Percentage (%)")
+# Mutation Rate
 plotHelper("Determine Best Settings/Mutation Rate", "Mutation Rate Effect", "Mutation Rate (Percentage)", "Percentage (%)")
+# Generation
 plotHelper("Determine Best Settings/Generations", "Generations Effect", "Generations", "Percentage (%)")
+# Elitist Pool
 plotHelper("Determine Best Settings/Elitist Pool", "Elitist Pool Effect", "Elitist Pool (Percentage)", "Percentage (%)")
+# Multiple Iterations
+plotHelper("Multiple Iterations", "Multiple Iteration Effect", "Iterations", "Percentage (%)")

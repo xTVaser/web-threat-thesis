@@ -335,23 +335,23 @@ elif testSet is 5:
     for i in range(3):
         # 1 - Only one test
         testResults.append(runTest("1", "Multiple Iterations/",
-                                   "1250", "100", "1", "0.5", "5", "1", "Training_GA", "1_Iter"))
+                                   "1250", "100", "1", "0.25", "25", "1", "Training_GA", "1_Iter"))
 
         # 2
         testResults.append(runTest("2", "Multiple Iterations/",
-                                   "1250", "100", "2", "0.5", "5", "1", "Training_GA", "2_Iter"))
+                                   "1250", "100", "2", "0.25", "25", "1", "Training_GA", "2_Iter"))
 
         # 5
         testResults.append(runTest("5", "Multiple Iterations/",
-                                   "1250", "100", "5", "0.5", "5", "1", "Training_GA", "5_Iter"))
+                                   "1250", "100", "5", "0.25", "25", "1", "Training_GA", "5_Iter"))
 
         # 10
         testResults.append(runTest("10", "Multiple Iterations/",
-                                   "1250", "100", "10", "0.5", "5", "1", "Training_GA", "10_Iter"))
+                                   "1250", "100", "10", "0.25", "25", "1", "Training_GA", "10_Iter"))
 
         # 20 - 20 Tests combined
         testResults.append(runTest("20", "Multiple Iterations/",
-                                   "1250", "100", "20", "0.5", "5", "1", "Training_GA", "20_Iter"))
+                                   "1250", "100", "20", "0.25", "25", "1", "Training_GA", "20_Iter"))
 
     printTestingResults("../Test Results/Genetic Algorithm/Multiple Iterations/", testResults)
 
