@@ -11,6 +11,7 @@ generateGraph <- function(file, title, xLabel, yLabel) {
 
 	# Variable
 	table <- read.table(file, sep = "\t")
+	table <- aggregate(. ~ V1, data=table, FUN=mean)
 
 	png(filename=gsub(".dat", ".png", file), bg="white")
 
@@ -38,14 +39,17 @@ plotHelper <- function(directory, title, xLabel, yLabel) {
 	files <- list.files(path = directory, pattern = "*.dat", recursive = TRUE, full.names = TRUE)
 	for(file in files) {
 
-		# generateGraph(file, title, xLabel, yLabel)
-		table <- read.table(file, sep = "\t")
-		print(file)
-		print(aggregate(. ~ V1, data=table, FUN=mean))
+		if(length(i <- grep("SQL", file)))
+			generateGraph(file, paste("SQL ", title, sep=""), xLabel, yLabel)
+		if(length(i <- grep("XSS", file)))
+			generateGraph(file, paste("XSS ", title, sep=""), xLabel, yLabel)
+		if(length(i <- grep("RFI", file)))
+			generateGraph(file, paste("RFI ", title, sep=""), xLabel, yLabel)
 	}
-
-
 }
 
 # Define Graph Structures Below
-plotHelper("Determine Best Settings/Population Size", "SQL Population Size Effects", "Population Size (Individuals)", "Percentage (%)")
+plotHelper("Determine Best Settings/Population Size", "Population Size Effect", "Population Size (Individuals)", "Percentage (%)")
+plotHelper("Determine Best Settings/Mutation Rate", "Mutation Rate Effect", "Mutation Rate (Percentage)", "Percentage (%)")
+plotHelper("Determine Best Settings/Generations", "Generations Effect", "Generations", "Percentage (%)")
+plotHelper("Determine Best Settings/Elitist Pool", "Elitist Pool Effect", "Elitist Pool (Percentage)", "Percentage (%)")
