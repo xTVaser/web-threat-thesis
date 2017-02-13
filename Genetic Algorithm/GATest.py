@@ -77,7 +77,10 @@ def runTest(testName, folderStruct,
             elif "XSS" in file:
                 type = 2
 
-            testResults.append([type, testName] + getTestingResults(open("Results/" + file).readlines(), type, getLengthInfo(file)))
+            if numBitstrings is "1":
+                testResults.append([type, testName] + getTestingResults(open("Results/" + file).readlines(), type, getLengthInfo(file)))
+            else:
+                testResults.append([type, getLengthInfo(file)] + getTestingResults(open("Results/" + file).readlines(), type, getLengthInfo(file)))
 
             shutil.move("Results/" + file, outputDir + file)
 

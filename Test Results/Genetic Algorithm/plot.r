@@ -7,7 +7,7 @@
 # 1500 RFI
 # 500 Non threats (potential false positives)
 
-generateGraph <- function(file, title, xLabel, yLabel) {
+generateLineGraph <- function(file, title, xLabel, yLabel) {
 
 	# Variable
 	table <- read.table(file, sep = "\t")
@@ -34,28 +34,71 @@ generateGraph <- function(file, title, xLabel, yLabel) {
 
 }
 
-plotHelper <- function(directory, title, xLabel, yLabel) {
+lineHelper <- function(directory, title, xLabel, yLabel) {
 
 	files <- list.files(path = directory, pattern = "*.dat", recursive = TRUE, full.names = TRUE)
 	for(file in files) {
 
 		if(length(i <- grep("SQL", file)))
-			generateGraph(file, paste("SQL ", title, sep=""), xLabel, yLabel)
+			generateLineGraph(file, paste("SQL ", title, sep=""), xLabel, yLabel)
 		if(length(i <- grep("XSS", file)))
-			generateGraph(file, paste("XSS ", title, sep=""), xLabel, yLabel)
+			generateLineGraph(file, paste("XSS ", title, sep=""), xLabel, yLabel)
 		if(length(i <- grep("RFI", file)))
-			generateGraph(file, paste("RFI ", title, sep=""), xLabel, yLabel)
+			generateLineGraph(file, paste("RFI ", title, sep=""), xLabel, yLabel)
 	}
 }
 
+generateGroupedBarChart <- function(file, title, subtitle, xLabel, yLabel, sortColumn) {
+
+	# Variable
+	table <- read.table(file, sep = "\t")
+	table <- aggregate(. ~ V1, data=table, FUN=mean)
+	table <- table[ order(table[,sortColumn], decreasing=TRUE), ]
+	subset <- t(data.frame(table[,2], table[,3], table[,4]))
+
+	filename <- gsub("Results", paste("Results_", subtitle, sep=""), file)
+	filename <- gsub(".dat", ".png", filename)
+
+	png(filename=filename, width=1000, units="px", bg="white")
+
+	barplot(subset, names.arg=table[,1], col=c("green", "red", "blue"), ylim=c(0,120), beside=TRUE, las=2)
+
+	box()
+
+	title(main=paste(title, subtitle, sep="")) # Variable
+	title(xlab=xLabel) # Variable
+	title(ylab=yLabel)
+}
+
+barHelper <- function(directory, title, subtitle, xLabel, yLabel, sortColumn) {
+
+	files <- list.files(path = directory, pattern = "*.dat", recursive = TRUE, full.names = TRUE)
+	for(file in files) {
+
+		if(length(i <- grep("SQL", file)))
+			generateGroupedBarChart(file, paste("SQL ", title, sep=""), subtitle, xLabel, yLabel, sortColumn)
+		if(length(i <- grep("XSS", file)))
+			generateGroupedBarChart(file, paste("XSS ", title, sep=""), subtitle, xLabel, yLabel, sortColumn)
+		if(length(i <- grep("RFI", file)))
+			generateGroupedBarChart(file, paste("RFI ", title, sep=""), subtitle, xLabel, yLabel, sortColumn)
+	}
+}
+
+
 # Define Graph Structures Below
 # Population Size
-plotHelper("Determine Best Settings/Population Size", "Population Size Effect", "Population Size (Individuals)", "Percentage (%)")
+lineHelper("Determine Best Settings/Population Size", "Population Size Effect", "Population Size (Individuals)", "Percentage (%)")
 # Mutation Rate
-plotHelper("Determine Best Settings/Mutation Rate", "Mutation Rate Effect", "Mutation Rate (Percentage)", "Percentage (%)")
+lineHelper("Determine Best Settings/Mutation Rate", "Mutation Rate Effect", "Mutation Rate (Percentage)", "Percentage (%)")
 # Generation
-plotHelper("Determine Best Settings/Generations", "Generations Effect", "Generations", "Percentage (%)")
+lineHelper("Determine Best Settings/Generations", "Generations Effect", "Generations", "Percentage (%)")
 # Elitist Pool
-plotHelper("Determine Best Settings/Elitist Pool", "Elitist Pool Effect", "Elitist Pool (Percentage)", "Percentage (%)")
+lineHelper("Determine Best Settings/Elitist Pool", "Elitist Pool Effect", "Elitist Pool (Percentage)", "Percentage (%)")
 # Multiple Iterations
-plotHelper("Multiple Iterations", "Multiple Iteration Effect", "Iterations", "Percentage (%)")
+lineHelper("Multiple Iterations", "Multiple Iteration Effect", "Iterations", "Percentage (%)")
+# Bitstring Length - Success Rate
+barHelper("Bitstring Length", "Bitstring Length Comparison - Sorted by ", "Success Rate", "Segment Lengths", "Percentage (%)", 2)
+# Bitstring Length - False Positives
+barHelper("Bitstring Length", "Bitstring Length Comparison - Sorted by ", "False Positives", "Segment Lengths", "Percentage (%)", 3)
+# Bitstring Length - Wrong Detection
+barHelper("Bitstring Length", "Bitstring Length Comparison - Sorted by ", "Wrong Detections", "Segment Lengths", "Percentage (%)", 4)
