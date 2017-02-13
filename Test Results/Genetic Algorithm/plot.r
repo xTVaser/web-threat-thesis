@@ -17,7 +17,7 @@ generateLineGraph <- function(file, title, xLabel, yLabel) {
 
 	x_min <- min(table[,1])
 	x_max <- max(table[,1])
-	plot(table[,1], table[,2], type="o", col="green", axes=FALSE, ann=FALSE, ylim=c(0, 100), xlim=c(x_min, x_max))
+	plot(table[,1], table[,2], type="o", col="#21d106", axes=FALSE, ann=FALSE, ylim=c(0, 123), xlim=c(x_min, x_max), lwd=4)
 
 	box()
 	grid(col="black")
@@ -25,13 +25,14 @@ generateLineGraph <- function(file, title, xLabel, yLabel) {
 	axis(1)
 	axis(2, las=1)
 
-	lines(table[,1], table[,3], type="o", pch=22, lty=1, col="red")
-	lines(table[,1], table[,4], type="o", pch=22, lty=1, col="blue")
+	lines(table[,1], table[,3], type="o", pch=22, lty=1, col="#d10606", lwd=4)
+	lines(table[,1], table[,4], type="o", pch=22, lty=1, col="#dddd08", lwd=4)
 
 	title(main=title) # Variable
 	title(xlab=xLabel) # Variable
 	title(ylab=yLabel)
 
+	legend(x_min+(x_max/500), 125, c("Successful", "False Positive", "Incorrect"), col=c("#21d106","#d10606", "#dddd08"), pch=21:22, lty=1);
 }
 
 lineHelper <- function(directory, title, xLabel, yLabel) {
@@ -61,13 +62,13 @@ generateGroupedBarChart <- function(file, title, subtitle, xLabel, yLabel, sortC
 
 	png(filename=filename, width=1000, units="px", bg="white")
 
-	barplot(subset, names.arg=table[,1], col=c("green", "red", "blue"), ylim=c(0,120), beside=TRUE, las=2)
+	barplot(subset, names.arg=table[,1], col=c("#21d106", "#d10606", "#ebef04"), legend=c("Successful", "False Positive", "Incorrect"), ylim=c(0,120), beside=TRUE, las=2)
 
 	box()
 
 	title(main=paste(title, subtitle, sep="")) # Variable
-	title(xlab=xLabel) # Variable
-	title(ylab=yLabel)
+	title(xlab=xLabel, font.lab=2) # Variable
+	title(ylab=yLabel, font.lab=2)
 }
 
 barHelper <- function(directory, title, subtitle, xLabel, yLabel, sortColumn) {
