@@ -23,12 +23,12 @@ lengthTest = "Length_Training_GA"
 # Setup Environment
 print("Deleting Results Folder")
 try:
-    print("Deletion current disabled for testing reasons")
-    # shutil.rmtree("Results/")
+    # print("Deletion current disabled for testing reasons")
+    shutil.rmtree("Results/")
 except:
     print("No Results Folder Found")
 
-# os.mkdir("Results/")
+os.mkdir("Results/")
 
 def getLengthInfo(filename):
 
