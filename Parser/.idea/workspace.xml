@@ -2,29 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c164e39-72c2-4bb0-a47a-3274ac0e31af" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Backup Data/Apache Logs.zip" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TEST_Testing" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/TEST_Training" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Write Up/MIT Thesis Example.zip" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RequestParser.py" afterPath="$PROJECT_DIR$/RequestParser.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/threats/rfi.py" afterPath="$PROJECT_DIR$/threats/rfi.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/threats/sql.py" afterPath="$PROJECT_DIR$/threats/sql.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/threats/xss.py" afterPath="$PROJECT_DIR$/threats/xss.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../SVM/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/SVM.py" afterPath="$PROJECT_DIR$/../SVM/SVM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/TestSVM.py" afterPath="$PROJECT_DIR$/../SVM/TestSVM.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Testing Data/NT" afterPath="$PROJECT_DIR$/../SVM/Testing Data/NT" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Testing Data/RFI" afterPath="$PROJECT_DIR$/../SVM/Testing Data/RFI" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Testing Data/SQL" afterPath="$PROJECT_DIR$/../SVM/Testing Data/SQL" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Testing Data/XSS" afterPath="$PROJECT_DIR$/../SVM/Testing Data/XSS" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/New Set/NT" afterPath="$PROJECT_DIR$/../SVM/Training Data/New Set/NT" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/New Set/RFI" afterPath="$PROJECT_DIR$/../SVM/Training Data/New Set/RFI" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/New Set/SQL" afterPath="$PROJECT_DIR$/../SVM/Training Data/New Set/SQL" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/New Set/XSS" afterPath="$PROJECT_DIR$/../SVM/Training Data/New Set/XSS" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/Old Set/NT" afterPath="$PROJECT_DIR$/../SVM/Training Data/Old Set/NT" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/Old Set/RFI" afterPath="$PROJECT_DIR$/../SVM/Training Data/Old Set/RFI" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/Old Set/SQL" afterPath="$PROJECT_DIR$/../SVM/Training Data/Old Set/SQL" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../SVM/Training Data/Old Set/XSS" afterPath="$PROJECT_DIR$/../SVM/Training Data/Old Set/XSS" />
     </list>
     <ignored path="Parser.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,12 +54,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestParser.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RequestParser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RequestParser.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="438">
               <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SVM.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../SVM/SVM.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="189">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -117,6 +107,7 @@
         <option value="$PROJECT_DIR$/threats/sql.py" />
         <option value="$PROJECT_DIR$/threats/xss.py" />
         <option value="$PROJECT_DIR$/RequestParser.py" />
+        <option value="$PROJECT_DIR$/../SVM/SVM.py" />
       </list>
     </option>
   </component>
@@ -189,7 +180,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../SVM" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
@@ -527,7 +518,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35654008" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35654008" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -942,6 +933,16 @@
         <state relative-caret-position="438">
           <caret line="105" column="22" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../SVM/SVM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
