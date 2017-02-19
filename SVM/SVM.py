@@ -16,9 +16,6 @@ parser.add_argument("-r", "--rfiNumber",
 parser.add_argument("-n", "--ntNumber",
                     help="THe number of nonthreat attacks to include in training")
 
-parser.add_argument("-t", "--type",
-                    help="What attack type we are trying to identify")
-
 parser.add_argument("-op", "--optimize", action="store_true",
                     help="Whether or not the svm should optimize gamma and C values using a GridSearch")
 
@@ -34,51 +31,21 @@ numXSS = int(args.xssNumber)
 numRFI = int(args.rfiNumber)
 numNT = int(args.ntNumber)
 
-type = int(args.type)
-
 directory = args.fileDirectory
 
-# Get all of the requests that we need from the files
-# The number of each, the type that we are trying to identify.
-# Will return a pair of two elements, the first being the requests and x,y positions, and the second being the targets 0 or 1
-testing = getTestingSet(type, "Testing Data/")
-training = getTrainingSet(numSQL, numXSS, numRFI, numNT, type, directory)
+for t in range(3):
+    # Get all of the requests that we need from the files
+    # The number of each, the type that we are trying to identify.
+    # Will return a pair of two elements, the first being the requests and x,y positions, and the second being the targets 0 or 1
+    testing = getTestingSet((t + 1), "Testing Data/")
+    training = getTrainingSet(numSQL, numXSS, numRFI, numNT, (t + 1), directory)
 
-
-# Take the response and convert it into a numpy array to be used by the SVM
-
-
-
-
-
+    # Take the response and convert it into a numpy array to be used by the SVM
+    features = np.c_[testing[0]]
+    targets = testing[1]
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-print("Ye")
+    print("Ye")

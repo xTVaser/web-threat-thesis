@@ -10,7 +10,9 @@ from sklearn import svm
 
 
 # Our dataset and targets
-X = np.c_[(.4, -.7),
+# Create Numpy Array
+
+test = [(.4, -.7),
           (-1.5, -1),
           (-1.4, -.9),
           (-1.3, -1.2),
@@ -26,7 +28,8 @@ X = np.c_[(.4, -.7),
           (.5, -2.4),
           (.2, -2.3),
           (0, -2.7),
-          (1.3, 2.1)].T
+          (1.3, 2.1)]
+X = np.c_[test]
 Y = [0] * 8 + [1] * 8 # the targets, attack or non-attack
 
 # figure number
