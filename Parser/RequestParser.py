@@ -103,11 +103,16 @@ for request in requests:
     xss = xssBitstring(request[1], isSVM)
     rfi = rfiBitstring(request[1], isSVM)
 
-    # Here I would print out all permuted bitstrings if that flag was set but for now, just print out one
-
-    parseOutput.append(permuteBitstrings(sql))
-    parseOutput.append(permuteBitstrings(xss))
-    parseOutput.append(permuteBitstrings(rfi))
+    if isSVM is False:
+        # Here I would print out all permuted bitstrings if that flag was set but for now, just print out one
+        parseOutput.append(permuteBitstrings(sql))
+        parseOutput.append(permuteBitstrings(xss))
+        parseOutput.append(permuteBitstrings(rfi))
+    else:
+        # turn it into a string
+        parseOutput.append(str(sql))
+        parseOutput.append(str(xss))
+        parseOutput.append(str(rfi))
 
     print(profilerNum)
     profilerNum += 1
@@ -124,12 +129,3 @@ else:
 #Then print out all the lines in the file.
 for line in parseOutput:
     outputFile.write(line.replace("\n", "") + "\n")
-
-# Add in a progress bar later on for the parsing would be nice also maybe some metrics on the file
-# import time
-# import sys
-#
-# for i in range(100):
-#     time.sleep(1)
-#     sys.stdout.write("\r%d%%" % i)
-#     sys.stdout.flush()

@@ -58,3 +58,9 @@ def runTest(testName, folderStruct,
 def moveTestingResults(directory, results):
 
     print("stub")
+
+# Defined Tests Below
+# Fair Comparisons using the same ratios as the genetic algorithm testing (30/30/30/10)
+
+
+
