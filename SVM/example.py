@@ -5,6 +5,7 @@ print(__doc__)
 # License: BSD 3 clause
 
 import numpy as np
+import matplotlib.font_manager
 import matplotlib.pyplot as plt
 from sklearn import svm
 
@@ -37,45 +38,50 @@ fignum = 1
 
 # fit the model
 for kernel in ('linear', 'poly', 'rbf'):
+
     clf = svm.SVC(kernel=kernel, gamma=2)
     clf.fit(X, Y)
 
     # plot the line, the points, and the nearest vectors to the plane
-    plt.figure(fignum, figsize=(4, 3))
+    plt.figure(fignum, figsize=(10, 10))
     plt.clf()
 
-    plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], s=80,
-                facecolors='none', zorder=10)
-    plt.scatter(X[:, 0], X[:, 1], c=Y, zorder=10, cmap=plt.cm.Paired)
+    s = 80
+    support_vectors = plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1], c="yellow", zorder=20, s=s/2)
+    training_vectors = plt.scatter(X[:, 0], X[:, 1], c="black", s=s, zorder=10, cmap=("Oranges"))
 
     plt.axis('tight')
-    x_min = -3
-    x_max = 3
-    y_min = -3
-    y_max = 3
+    x_min = min(X[:, 0]) + min(X[:, 0]) * 0.125
+    x_max = max(X[:, 0]) + max(X[:, 0]) * 0.125
+    y_min = min(X[:, 1]) + min(X[:, 1]) * 0.125
+    y_max = max(X[:, 1]) + max(X[:, 1]) * 0.500
 
     XX, YY = np.mgrid[x_min:x_max:200j, y_min:y_max:200j]
     Z = clf.decision_function(np.c_[XX.ravel(), YY.ravel()])
 
-    # Testing a single value
-    test = np.c_[(1,-1)]
-    test2 = np.c_[(-1, 1)]
-
-    print(clf.predict(test))
-    print(clf.predict(test2))
-    print("")
-
     # Put the result into a color plot
     Z = Z.reshape(XX.shape)
-    plt.figure(fignum, figsize=(4, 3))
-    plt.pcolormesh(XX, YY, Z > 0, cmap=plt.cm.Paired)
-    plt.contour(XX, YY, Z, colors=['k', 'k', 'k'], linestyles=['--', '-', '--'],
-                levels=[-.5, 0, .5])
+    plt.pcolormesh(XX, YY, Z > 0, cmap=("Pastel2"))
+    c = plt.contour(XX, YY, Z, colors=['gray', 'black', 'gray'], linestyles=['--', '-', '--'], linewidths=2,
+                    levels=[-.5, 0, .5])
+
+    plt.legend([support_vectors, training_vectors],
+               ["Support Vectors", "Training Vectors"],
+               prop=matplotlib.font_manager.FontProperties(size=16))
 
     plt.xlim(x_min, x_max)
     plt.ylim(y_min, y_max)
 
     plt.xticks(())
     plt.yticks(())
+    plt.figure(fignum).savefig("test" + str(fignum) + ".png")
     fignum = fignum + 1
-plt.show()
+
+    # Testing a single value
+    test = np.c_[(1, -1), (-1, 1)]
+    result = clf.predict(test)
+
+    print(result)
+    print("")
+
+
