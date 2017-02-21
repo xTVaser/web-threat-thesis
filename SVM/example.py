@@ -8,39 +8,28 @@ import numpy as np
 import matplotlib.font_manager
 import matplotlib.pyplot as plt
 from sklearn import svm
+from sklearn.model_selection import GridSearchCV
+from sklearn import datasets
 
 
 # Our dataset and targets
 # Create Numpy Array
 
-test = [(.4, -.7),
-          (-1.5, -1),
-          (-1.4, -.9),
-          (-1.3, -1.2),
-          (-1.1, -.2),
-          (-1.2, -.4),
-          (-.5, 1.2),
-          (-1.5, 2.1),
-          (1, 1),
-          # --
-          (1.3, .8),
-          (1.2, .5),
-          (.2, -2),
-          (.5, -2.4),
-          (.2, -2.3),
-          (0, -2.7),
-          (1.3, 2.1)]
-X = np.c_[test]
-Y = [0] * 8 + [1] * 8 # the targets, attack or non-attack
+iris = datasets.load_iris()
 
 # figure number
 fignum = 1
 
+tuned_parameters = {'gamma': [0.00000000000000000000000000000001, 0.001, 0.0001, 0.01], 'C': [1000, 100, 1000, 1]}
+scores = ['precision', 'recall', 'accuracy']
+
 # fit the model
 for kernel in ('linear', 'poly', 'rbf'):
 
-    clf = svm.SVC(kernel=kernel, gamma=2)
-    clf.fit(X, Y)
+    testSVM = GridSearchCV(svm.SVC(C=1, kernel="linear"), tuned_parameters)
+    testSVM.fit(iris.data, iris.targets)
+
+    print(testSVM.best_params_)
 
     # plot the line, the points, and the nearest vectors to the plane
     plt.figure(fignum, figsize=(10, 10))

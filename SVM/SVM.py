@@ -1,8 +1,10 @@
 import argparse
 import numpy as np
+import time
 import matplotlib.pyplot as plt
 import matplotlib.font_manager
 from sklearn import svm
+from sklearn.model_selection import GridSearchCV
 from CommonLib.SVMRequest import getTrainingSet
 from CommonLib.SVMRequest import getTestingSet
 
@@ -16,9 +18,6 @@ parser.add_argument("-r", "--rfiNumber",
                     help="The number of RFI attacks to include in training")
 parser.add_argument("-n", "--ntNumber",
                     help="THe number of nonthreat attacks to include in training")
-
-parser.add_argument("-op", "--optimize", action="store_true",
-                    help="Whether or not the svm should optimize gamma and C values using a GridSearch")
 
 parser.add_argument("-f", "--fileDirectory",
                     help="Directory containing the 4 threat files for training")
@@ -37,6 +36,36 @@ directory = args.fileDirectory
 sqlTestResults = []
 xssTestResults = []
 rfiTestResults = []
+
+optimizedParameters = dict()
+
+# Does a simple gridsearch to optimize gamma and C for the given kernel
+def optimizeSVM(vectors, targets, kernel):
+
+    accuracyResults = None
+    precisionResults = None
+    recallResults = None
+
+    parameters = {'gamma': [0.1, 0.01, 0.001, 0.0001], 'C': [0.1, 1, 10, 100]}
+
+    accuracyTest = GridSearchCV(svm.SVC(kernel=kernel), parameters, scoring="accuracy")
+    accuracyTest.fit(vectors, targets)
+    accuracyResults = accuracyTest.best_params_
+
+    precisionTest = GridSearchCV(svm.SVC(kernel=kernel), parameters, scoring="precision")
+    precisionTest.fit(vectors, targets)
+    precisionResults = precisionTest.best_params_
+
+    recallTest = GridSearchCV(svm.SVC(kernel=kernel), parameters, scoring="recall")
+    recallTest.fit(vectors, targets)
+    recallResults = recallTest.best_params_
+
+    # Average of (gamma, C)
+    averageGamma = (accuracyResults['gamma'] + precisionResults['gamma'] + recallResults['gamma']) / 3
+    averageC = (accuracyResults['C'] + precisionResults['C'] + recallResults['C']) / 3
+
+    optimizedParameters[kernel] = (averageGamma, averageC)
+
 
 for t in range(3):
 
@@ -61,14 +90,18 @@ for t in range(3):
     for kernel in ('linear', 'poly', 'rbf'):
 
         # Need to optimize the kernel
-        if args.optimize is True:
-            print("stub")
+        if kernel not in optimizedParameters:
+            optimizeSVM(vectors, targets, kernel)
 
         # Create the SVM and setup its kernel and gamma and C values.
         # C = penality parameter of the error term
         # Gamma is the kernel coefficient for poly and rbf kernels
         # random_state can be used with a seed to shuffle the data, could be useful for averaging if decided to do so
-        clf = svm.SVC(kernel=kernel, gamma=2, cache_size=50000, C=1.0)
+        clf = svm.SVC(kernel=kernel,
+                      gamma=optimizedParameters[kernel][0],
+                      C=optimizedParameters[kernel][1],
+                      cache_size=50000,
+                      random_state=int(time.time()))
 
         # Train the classifier using the training vectors
         clf.fit(vectors, targets)

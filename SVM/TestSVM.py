@@ -93,16 +93,14 @@ def incorrectTestHelper(variableNum):
 
 # Defined Tests Below
 # Fair Comparisons using the same ratios as the genetic algorithm testing (30/30/30/10)
-for i in range(3):
+# runTest("75_25", "Fair to Genetic/", 75, 75, 75, 25, "Training/Old/", "75_25")
+# runTest("150_50", "Fair to Genetic/", 150, 150, 150, 50, "Training/Old/", "150_50")
+# runTest("300_100", "Fair to Genetic/", 300, 300, 300, 100, "Training/Old/", "300_100")
+# runTest("420_140", "Fair to Genetic/", 420, 420, 420, 420, "Training/Old/", "420_140")
+# runTest("562_189", "Fair to Genetic/", 562, 562, 562, 189, "Training/Old/", "562_189")
+# runTest("750_250", "Fair to Genetic/", 750, 750, 750, 250, "Training/Old/", "750_250")
+runTest("1000_334", "Fair to Genetic/", 1000, 1000, 1000, 334, "Training/Old/", "1000_334")
 
-    runTest("75_25", "Fair to Genetic/", 75, 75, 75, 25, "Training/Old/", "75_25")
-    # runTest("150_50", "Fair to Genetic/", 150, 150, 150, 50, "Training/Old/", "150_50")
-    # runTest("300_100", "Fair to Genetic/", 300, 300, 300, 100, "Training/Old/", "300_100")
-    # runTest("420_140", "Fair to Genetic/", 420, 420, 420, 420, "Training/Old/", "420_140")
-    # runTest("562_189", "Fair to Genetic/", 562, 562, 562, 189, "Training/Old/", "562_189")
-    # runTest("750_250", "Fair to Genetic/", 750, 750, 750, 250, "Training/Old/", "750_250")
-    # runTest("1000_334", "Fair to Genetic/", 1000, 1000, 1000, 334, "Training/Old", "1000_334")
-#
 # # Increasing amounts of non-threat traiing (in theory should reduce false positives)
 # runTest("350", "Increasing Non-Threats/", 1000, 1000, 1000, 350, "Training/New/", "350")
 # runTest("450", "Increasing Non-Threats/", 1000, 1000, 1000, 450, "Training/New/", "450")
