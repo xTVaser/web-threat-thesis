@@ -81,40 +81,39 @@ def printResults(file, lines, testName):
 
 def incorrectTestHelper(variableNum):
 
-    runTest(str(1000) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
-            1000, variableNum, variableNum, 350, "Training/New/", str(1000) + "_" + str(variableNum))
+    runTest(str(300) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
+            300, variableNum, variableNum, 350, "Training/New/", str(300) + "_" + str(variableNum))
 
-    runTest(str(1000) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
-            variableNum, 1000, variableNum, 350, "Training/New/", str(1000) + "_" + str(variableNum))
+    runTest(str(300) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
+            variableNum, 300, variableNum, 350, "Training/New/", str(300) + "_" + str(variableNum))
 
-    runTest(str(1000) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
-            variableNum, variableNum, 1000, 350, "Training/New/", str(1000) + "_" + str(variableNum))
+    runTest(str(300) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
+            variableNum, variableNum, 300, 350, "Training/New/", str(300) + "_" + str(variableNum))
 
 
 # Defined Tests Below
 # Fair Comparisons using the same ratios as the genetic algorithm testing (30/30/30/10)
-runTest("75_25", "Fair to Genetic/", 75, 75, 75, 25, "Training/Old/", "75_25")
-runTest("150_50", "Fair to Genetic/", 150, 150, 150, 50, "Training/Old/", "150_50")
-runTest("300_100", "Fair to Genetic/", 300, 300, 300, 100, "Training/Old/", "300_100")
-runTest("420_140", "Fair to Genetic/", 420, 420, 420, 420, "Training/Old/", "420_140")
-runTest("562_189", "Fair to Genetic/", 562, 562, 562, 189, "Training/Old/", "562_189")
-runTest("750_250", "Fair to Genetic/", 750, 750, 750, 250, "Training/Old/", "750_250")
-runTest("1000_334", "Fair to Genetic/", 1000, 1000, 1000, 334, "Training/Old/", "1000_334")
+runTest("75_25", "Fair to Genetic/", 75, 75, 75, 25, "Training/New/", "75_25")
+runTest("150_50", "Fair to Genetic/", 150, 150, 150, 50, "Training/New/", "150_50")
+runTest("300_100", "Fair to Genetic/", 300, 300, 300, 100, "Training/New/", "300_100")
+runTest("420_140", "Fair to Genetic/", 420, 420, 420, 140, "Training/New/", "420_140")
+runTest("562_189", "Fair to Genetic/", 562, 562, 562, 189, "Training/New/", "562_189")
+runTest("750_250", "Fair to Genetic/", 750, 750, 750, 250, "Training/New/", "750_250")
+runTest("1000_334", "Fair to Genetic/", 1000, 1000, 1000, 334, "Training/New/", "1000_334")
 
-# # Increasing amounts of non-threat traiing (in theory should reduce false positives)
-runTest("350", "Increasing Non-Threats/", 1000, 1000, 1000, 350, "Training/New/", "350")
-runTest("450", "Increasing Non-Threats/", 1000, 1000, 1000, 450, "Training/New/", "450")
-runTest("550", "Increasing Non-Threats/", 1000, 1000, 1000, 550, "Training/New/", "550")
-runTest("700", "Increasing Non-Threats/", 1000, 1000, 1000, 700, "Training/New/", "700")
-runTest("1400", "Increasing Non-Threats/", 1000, 1000, 1000, 1400, "Training/New/", "1400")
-runTest("2000", "Increasing Non-Threats/", 1000, 1000, 1000, 2000, "Training/New/", "2000")
-runTest("2500", "Increasing Non-Threats/", 1000, 1000, 1000, 2500, "Training/New/", "2500")
+# # Increasing amounts of non-threat training (in theory should reduce false positives)
+runTest("50", "Increasing Non-Threats/", 300, 300, 300, 50, "Training/New/", "50")
+runTest("100", "Increasing Non-Threats/", 300, 300, 300, 100, "Training/New/", "100")
+runTest("200", "Increasing Non-Threats/", 300, 300, 300, 200, "Training/New/", "200")
+runTest("350", "Increasing Non-Threats/", 300, 300, 300, 350, "Training/New/", "350")
+runTest("500", "Increasing Non-Threats/", 300, 300, 300, 500, "Training/New/", "500")
+runTest("750", "Increasing Non-Threats/", 300, 300, 300, 750, "Training/New/", "750")
 
 # # Increasing amount of other attacks
+incorrectTestHelper(50)
 incorrectTestHelper(100)
-incorrectTestHelper(250)
-incorrectTestHelper(375)
-incorrectTestHelper(550)
-incorrectTestHelper(700)
-incorrectTestHelper(850)
-incorrectTestHelper(1000)
+incorrectTestHelper(200)
+incorrectTestHelper(275)
+incorrectTestHelper(350)
+incorrectTestHelper(600)
+incorrectTestHelper(750)
