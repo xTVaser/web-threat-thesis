@@ -1,0 +1,26 @@
+\begin{figure}
+\vspace{2.4in}
+\caption{Armadillo slaying lawyer.}
+\label{arm:fig1}
+\end{figure}
+
+\begin{table}
+\vspace{2.4in}
+\caption{Armadillo slaying lawyer.}
+\label{arm:fig1}
+\end{table}
+
+The idea of micro-optimization is motivated by the recent trends in computer
+architecture towards low-level parallelism and small, pipelineable
+instruction sets \cite{small}.  By getting rid of more
+complex instructions and concentrating on optimizing frequently used
+instructions, substantial increases in performance were realized.
+
+\section{Objective}\label{ch1:opts}
+
+\ref{ch1:opts}
+
+\footnote{A description of
+the floating point format used is shown in figures
+and. A discussion of the mathematics behind
+unnormalized arithmetic is in appendix.}

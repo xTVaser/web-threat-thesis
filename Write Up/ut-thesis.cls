@@ -271,6 +271,8 @@
 %% To set/change line spacing.
 \RequirePackage{setspace}
 
+\RequirePackage{tocloft}
+
 
 %%%%%%%%%%%%          MAIN  CODE          %%%%%%%%%%%%
 
