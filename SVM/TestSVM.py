@@ -79,15 +79,21 @@ def printResults(file, lines, testName):
 
     currentFile.close()
 
+# Method has an issue that was fixed manually in the resulting files.
+# It should only run each one for its respective type, not all 3 like the SVM automatically does
+# As we are only interested in where the type is held constant and the incorrect changes.
 def incorrectTestHelper(variableNum):
 
-    runTest(str(300) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
+    # SQL Constant
+    runTest(str(variableNum), "Increasing Incorrect-Threats/",
             300, variableNum, variableNum, 350, "Training/New/", str(300) + "_" + str(variableNum))
 
-    runTest(str(300) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
+    # XSS Constant
+    runTest(str(variableNum), "Increasing Incorrect-Threats/",
             variableNum, 300, variableNum, 350, "Training/New/", str(300) + "_" + str(variableNum))
 
-    runTest(str(300) + "_" + str(variableNum), "Increasing Incorrect-Threats/",
+    # RFI Constant
+    runTest(str(variableNum), "Increasing Incorrect-Threats/",
             variableNum, variableNum, 300, 350, "Training/New/", str(300) + "_" + str(variableNum))
 
 
