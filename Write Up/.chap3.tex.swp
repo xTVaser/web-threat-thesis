@@ -1,6 +1,6 @@
 \chapter{Current Detection and Prevention Methods}
 % trend micro whitepaper has good information on current prevention techinques
-Studies have shown that out of even a small sample size of websites a large majority are vulnerable to SQL injections in some way, and this is not just in small websites, large websites such as Travelocity have also been shown to be vulnerable as well. % a classification of sql... % detection and prevention says more
+Studies have shown that out of even a small sample size of websites a large majority are vulnerable to SQL injections in some way, and this is not just in small websites, large websites such as Travelocity have also been shown to be vulnerable as well. % a classification of sql...
 \section{Development Related Prevention(Better Coding Practices)}
 
 \section{Older Methods of Detection (Before Signature Based)}

@@ -87,35 +87,49 @@ Timing attacks make use of the \code{WAITFOR} keyword to note the increase or de
 
 \code{SELECT accounts FROM users WHERE login=’legalUser’ and ASCII(SUBSTRING((select top 1 name from sysobjects),1,1)) > X WAITFOR 5 -- ’ AND pass=’’ AND pin=0}
 
-It is also important to note that any of these attacks and the future discussed attacks can also obscure their presence by using alternative encodings for the text that is entered, for example input can be converted to unicode or hexadecimal.
+It is also important to note that any of these attacks can also obscure their presence by using alternative encodings for the text that is entered, for example input can be converted to unicode or hexadecimal.
 % A classification of SQL-injection attacks
 
 \section{Cross-Site Scripting}
 
-Cross-site scripting attacks or XSS for short are similar to SQL injections in that the arbitrary code is injected from user inputs but instead of influencing the database it will leverage the facing code of the web application, more often the HTML or Javascript.  XSS attacks can be used for a variety of purposes, to redirecting users to other websites or just simply changing the look of the website.  In the worst case, XSS attacks can be used to hijack users sessions to collect information from the user.
 
-It is hard to pinpoint the level of impact of a XSS attack because it all depends on what it is being used for.  XSS attacks, unlike SQL injections can be just a minor nuisence or can be just as severe and collect sensitive information.  Often times instead of a XSS attack being used alone, it is instead used as part of a larger scheme to send a user to another attack website where a phishing attack or something of similar nature lies.
-% a survey on web...
-%xssdm...
 
 \subsection{Types of Cross-Site Scripting Attacks}
 
-The first type of XSS attack is called a \textbf{stored} or \textbf{persistent} attack.  These are attacks that are permanently stored in a database, whenever a user access the page that retrieves the information from the database they're browser runs the attack. A simple example is just inserting typical HTML code into a comment field.
 
-The second type of XSS attack is referred to as a \textbf{reflected} attack.  Instead of the result being stored in the remote-server they instead originate from another source, sometimes an email link or another website, upon clicking the link the code runs as the browser considers it from a safe source.  These attacks are non persistent because you would have to click the original link again for the attack to run as it is not tied to the page like in a stored attack.
-%OWASP XSS
 
-The final type of XSS attack is a newer distinction for XSS attacks called a \textbf{Document Object Model (DOM) based} attack.  In this variant, the attack is ran through modifying the actual document model through javascript's document object.  What seperates this attack from a stored or reflected attack is the original page does not change, but instead of users actions will result in a different result because their environment has been modified.
-%owasp DOM XSS
+
+
+
 
 \section{Remote File Inclusion}
 
-The final web-threat that will be examined in this research is remote file inclusion also known as RFI.  Put simply, it is using the vulnerabilities of the application to include remote files which may include arbitrary code of any language.  The most common example is abusing PHP's include() command to get some PHP code to run on the remote server.  RFI attacks allow for code execution on the remote server and client-side, denial of service attacks due to remote shells and data extraction.
+\subsection{Types of Remote File Inclusion Attacks}
 
-Whle there are not any predefined variants for RFI attacks, for the purposes of this research RFI attacks will be divided into the following three categories:
 
-\begin{itemize}
-	\item Only parameters with URLs
-	\item Only paramters with PHP commands
-	\item Parameters with URLs and PHP commands
-\end{itemize}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

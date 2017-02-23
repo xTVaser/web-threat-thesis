@@ -60,7 +60,7 @@
 %%    further customize the layout and/or formatting of the document.
 
 %% *** Add any desired options. ***
-\documentclass[draft, 12pt, normalmargins, doublespaced]{ut-thesis}
+\documentclass[12pt, normalmargins, doublespaced]{ut-thesis}
 
 %% *** Add \usepackage declarations here. ***
 %% The standard packages `geometry' and `setspace' are already loaded by
@@ -75,6 +75,8 @@
 \usepackage{appendix}
 \usepackage{graphicx}
 \makeglossaries
+
+\newcommand{\code}[1]{\texttt{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                                    %%
@@ -185,6 +187,7 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 %% List of Appendices).
 
 
+
 %% End of the preliminary sections: reset page style and numbering.
 \end{preliminary}
 
@@ -208,7 +211,7 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 \include{chap7}
 \include{chap8}
 \include{appendices}
-% Glossary command does not work in Gummi, will add glossary later
+% Glossary command does not work in Gummi, will add glossary later if its even needed
 %\include{glossary}
 
 
