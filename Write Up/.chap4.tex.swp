@@ -4,6 +4,8 @@
 
 As of recently, research in evolutionary algorithms for web threat detection has been on the rise, but the vast majority of this research is limited to the lower levels of the OSI model as well.  A very recent study used a genetic algorithm in particular in order to detect SQL, XSS, and RFI attacks and showed that over 90\% of attacks could be detected so these techniques definitely have some sort of application to the higher-level layers as well. % cite main paper
 
+\subsection{Existing Results with this approach}
+
 \section{Alternative Solutions}
 
 \subsection{Classification Tools (SVM)}

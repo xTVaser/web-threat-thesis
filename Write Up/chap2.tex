@@ -1,4 +1,4 @@
-\chapter{Description of Web-Threats}
+\chapter{Web Threats}
 \section{What is a Web Threat}
 
 Put simply, a web threat is any malicious attack that uses the Internet as its main method of distribution, meaning that the types of web threats is wide and varied.  Web threats can be broken up into two main cateogires referred to as push or pull.  Pull based threats are attacks that can affect any visitor to the website or service while push based attacks use luring techniques to get a user to fall victim to the attack.  The main motivator behind these attacks is for the pursuit of confidential information and it is becoming more and more commonplace to hear about large scale data breaches.  While it is difficult to track all of the monetary gain from these activities due to the underground nature there are some instances of millions of dollars being extorted from large businesses.  As the number of users and the complexity of the devices attached to these networks increases so to it does the exploitability.  Common web attacks can range from simple phishing emails, to malicious email attachments to malicious code injection directly into a vulnerable website.
@@ -111,6 +111,7 @@ The final type of XSS attack is a newer distinction for XSS attacks called a \te
 \section{Remote File Inclusion}
 
 The final web-threat that will be examined in this research is remote file inclusion also known as RFI.  Put simply, it is using the vulnerabilities of the application to include remote files which may include arbitrary code of any language.  The most common example is abusing PHP's include() command to get some PHP code to run on the remote server.  RFI attacks allow for code execution on the remote server and client-side, denial of service attacks due to remote shells and data extraction.
+% OWASP RFI
 
 Whle there are not any predefined variants for RFI attacks, for the purposes of this research RFI attacks will be divided into the following three categories:
 
