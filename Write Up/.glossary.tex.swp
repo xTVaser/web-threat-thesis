@@ -1,0 +1,8 @@
+\newglossaryentry{testglossary}
+{
+	name={Latex},
+	description={Its gooidamsdoiasmdoiamdsd}
+}
+
+\glsaddall
+\printglossary

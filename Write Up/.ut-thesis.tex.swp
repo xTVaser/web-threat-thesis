@@ -72,8 +72,21 @@
 %% single, one-and-a-half, or double spaced (see the `setspace' package
 %% for details).
 \usepackage[toc]{glossaries}
-\usepackage{appendix}
+\usepackage[toc]{appendix}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{algorithm2e}
+\usepackage{hhline}
+\usepackage{hyperref}
+\usepackage{color}
+\usepackage{soul}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
 \makeglossaries
 
 \newcommand{\code}[1]{\texttt{#1}}
@@ -173,6 +186,7 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 
 %% This generates the Table of Contents (on a separate page).
 \tableofcontents
+\newpage
 
 %% This generates the List of Tables (on a separate page), if needed
 %% (uncomment to have it appear in the document).
@@ -185,6 +199,7 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 %% You can add commands here to generate any other material that belongs
 %% in the head matter (for example, List of Plates, Index of Symbols, or
 %% List of Appendices).
+\listofalgorithms
 
 
 
@@ -202,14 +217,14 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% *** Include chapter files here. ***
-\include{chap1}
-\include{chap2}
-\include{chap3}
-\include{chap4}
-\include{chap5}
-\include{chap6}
-\include{chap7}
-\include{chap8}
+\include{chap1} % drafted
+\include{chap2} % drafted
+\include{chap3} % drafted
+\include{chap4} % ...
+\include{chap5} % ...
+\include{chap6} % ...
+\include{chap7} % ...
+\include{chap8} % ...
 \include{appendices}
 % Glossary command does not work in Gummi, will add glossary later if its even needed
 %\include{glossary}
