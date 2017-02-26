@@ -74,6 +74,8 @@
 \usepackage[toc]{glossaries}
 \usepackage[toc]{appendix}
 \usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{amsmath}
 \usepackage{listings}
 \usepackage{algorithm2e}
 \usepackage{hhline}
@@ -90,6 +92,7 @@
 \makeglossaries
 
 \newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\BigO}[1]{\ensuremath{\operatorname{O}\bigl(#1\bigr)}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                                                                    %%
@@ -221,7 +224,7 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 \include{chap2} % drafted
 \include{chap3} % drafted
 \include{chap4} % ...
-\include{chap5} % ...
+\include{chap5} % drafted
 \include{chap6} % ...
 \include{chap7} % ...
 \include{chap8} % ...
