@@ -1,15 +1,15 @@
 version=0.6.0
 typesetter=pdflatex
 steps=texpdf
-root=/home/tyler/Repos/My Repositories/thesis2016/Write Up/ut-thesis.tex
+root=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/ut-thesis.tex
 
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap1.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap2.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap3.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap4.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap5.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap6.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap7.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/chap8.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/glossary.tex
-file=/home/tyler/Repos/My Repositories/thesis2016/Write Up/appendices.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap1.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap2.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap3.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap4.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap5.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap6.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap7.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/chap8.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/glossary.tex
+file=/home/tyler/Repos/My Repositories/web-threat-thesis/Write Up/appendices.tex
