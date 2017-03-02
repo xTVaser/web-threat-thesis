@@ -28,11 +28,11 @@ As the name suggests, a genetic algorithm mimics how genetic development in the 
 	\label{alg:fitness}
 	\caption{Fitness algorithm for use in genetic algorithm}
 	
-	\alpha \leftarrow The\ number\ of\ possible\ correct\ detections\\
-	\beta \leftarrow The\ number\ of\ possible\ incorrect\ detections\\
-	\gamma \leftarrow The\ number\ of\ possible\ false\ positives\\
+	$\alpha \leftarrow The\ number\ of\ possible\ correct\ detections$ \\
+	$\beta \leftarrow The\ number\ of\ possible\ incorrect\ detections$ \\
+	$\gamma \leftarrow The\ number\ of\ possible\ false\ positives$ \\
 
-	fitness \leftarrow \frac{correct\ detections}{\alpha}\ - \frac{false\ positives}{\gamma}\ - \frac{incorrect\ detections}{\beta \cdot 8} 
+	$fitness \leftarrow \frac{correct\ detections}{\alpha}\ - \frac{false\ positives}{\gamma}\ - \frac{incorrect\ detections}{\beta \cdot 8}$
 \end{algorithm}
 
 Correct detections improve the fitness of a particular individual and it is more likely to be selected for genetic operators later on, where as false positives and incorrect detections impact the fitness negatively with incorrect detections having less of an impact than the former.  For example, if we are looking for SQL injections, every request that is a SQL injection that is detected is correct, if it identifies a request that isnt an attack at all as a SQL injection then it is a false positive and if it identifies an XSS or RFI attack as an SQL injection, then this is incorrect.
@@ -59,27 +59,27 @@ A support vector machine's main technique for classifying data is by dividing th
 
 The fact that the SVM is determined by the support vectors which is usually a very small subset is great because it means that the speed does not significantly slow down with a larger amount of features.  However it is very realistic to imagine data that cannot be easily divided and so soft margins that allow for misclassifications and in worse cases the data can be mapped in a higher dimensional space to open up other options.  This higher dimensional space is referred to as the transformed feature space, however it makes simple linear seperations in the higher dimensional space transform into non-linear seperations when you return back from the higher dimension.  
 
-If this feature space data is mapped to Hilbert space, referred to with \Phi, which allows for traditional vector calculations to be extended to many dimensions using dot products using equations in the form of: $\Phi\left(x_i \right)\cdot\Phi\left(x_j \right)$.  This means that we can use what is referred to as a kernel function to avoid ever having to determine the mapping to \Phi and can calculate directly in feature space.  A kernel function is in the form of: $K(x_{i},x_{j}) = \Phi(x_i) \cdot \Phi(x_j)$. % cite supervised machine learning
+If this feature space data is mapped to Hilbert space, referred to with $\Phi$, which allows for traditional vector calculations to be extended to many dimensions using dot products using equations in the form of: $\Phi\left(x_i \right)\cdot\Phi\left(x_j \right)$.  This means that we can use what is referred to as a kernel function to avoid ever having to determine the mapping to $\Phi$ and can calculate directly in feature space.  A kernel function is in the form of: $K(x_{i},x_{j}) = \Phi(x_i) \cdot \Phi(x_j)$. % cite supervised machine learning
 There are many commonly used kernels, three of which will be used in this research: linear, polynomial (with degree 3), and radial basis function (Table \ref{tab:kernels}).  
 
-\begin{table}
+\begin{table}[h]
 	\centering
 	\label{tab:kernels}
-	\begin{tabular}{|l|l|}
+	\begin{tabular}{|p{1.5in}|p{4.5in}|}
 	\hline
 		\textbf{Kernel Function} & \textbf{Mathematical Formula}\\
 	\hhline{|=|=|}
-		Linear  & K(x_{i},x_{j}) = \langle x_{i},x_{j}\rangle \\
+		Linear  & $K(x_{i},x_{j}) = \langle x_{i},x_{j}\rangle$ \\
 	\hline
-		Polynomial & K(x_{i},x_{j}) = (\langle x_{i},x_{j}\rangle + 1)^d, d: degree \\
+		Polynomial & $K(x_{i},x_{j}) = (\langle x_{i},x_{j}\rangle + 1)^d, d: degree$ \\
 	\hline
-		Radial Basis Function (RBF) & K(x_{i},x_{j}) = \exp\left(\frac{- \parallel x_i - x_j \parallel^2}{2\sigma^2} /\right), \sigma : width\ of\ RBF\ function\\
+		Radial Basis Function (RBF) & $K(x_{i},x_{j}) = \exp\left(\frac{- \parallel x_i - x_j \parallel^2}{2\sigma^2} /\right), \sigma : width\ of\ RBF\ function$ \\
 	\hline
 	\end{tabular}
 	\caption{Kernels that will be used and their mathematical function} % cite instruction detection for cost based
 \end{table}
 
-Once the SVM is trained using the kernel method the only step is to pass in all of the testing data and see where on the graph it falls in order to classify it.  An SVM can at times get very computational intensive and can run very slow, this is often due to the choice of the kernel function choosen as well as the parameters that go into the kernel.  For example, a linear kernel is very simple where as an RBF kernel is much more complex.  Two parameters that are worth mentioning for the SVM training process are \gamma (gamma) and C.
+Once the SVM is trained using the kernel method the only step is to pass in all of the testing data and see where on the graph it falls in order to classify it.  An SVM can at times get very computational intensive and can run very slow, this is often due to the choice of the kernel function choosen as well as the parameters that go into the kernel.  For example, a linear kernel is very simple where as an RBF kernel is much more complex.  Two parameters that are worth mentioning for the SVM training process are $\gamma$ (gamma) and C.
 
 Gamma is used in the polynomial and RBF kernels to define how much influence each training vector has on the seperation.  A lower gamma value corresponds to a far influence, when gamma is too small the influence of any support vector may extend to the entire set and the end result would instead just be regions of high density being isolated from others.  On the converse if the gamma is too high then the influence would only be the support vector itself.  The C parameter is the penalty cost assocated with misclassification, if C is low then classification is more relaxed where as a higher C will encourage more support vectors to be choosen to achieve a more accurate result.  % cite rbf svm parameters
 There is no way to know what are the best values to choose because it depends on the dataset in question so this must be done by doing testing.
