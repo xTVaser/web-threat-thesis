@@ -192,7 +192,7 @@ def randomPermutations(type, training, testing):
             wrongDetection = False
 
 
-        statistics = [statistics[0]/1500*100, statistics[1]/3000*100, statistics[2]/500*100]
+        statistics = [statistics[0]/1500*100, statistics[1]/500*100, statistics[2]/3000*100]
 
         sqlResults = None
         xssResults = None
