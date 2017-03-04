@@ -1,12 +1,71 @@
 \chapter{Discussion}
 
-\section{Disadvantages in Parsing}
+\section{Parser}
+
+\subsection{Weaknesses}\label{sec:parseWeak}
+
+The parser is the main point of failure for the algorithms in question, and therefore many of its weaknesses become obvious when working with this system.  If the results of the parser are not accurate than it is impossible to have decent or consistent performance from the genetic algorithm or the support vector machine, however both algorithms have been given the same parsed results so the question becomes which algorithm can do a better job.  
+
+In the end, despite the fact that these approaches try to avoid the use of regular expressions and pattern matching, they depend on a parser to get results that employ these techniques and as a result there is always a chance that the parser is fooled and not accurate.  The question then becomes good is the training process of these machine learning techniques in order to discount these mistakes.  Part of the reason why the parser may be vulnerable to making mistakes as well as it is only a simple token-based parser.  This means that the parser cannot understand the logic behind the requests or their intent only picking up on keywords and patterns within the requests, if a parser was made that used techniques such as abstract syntax trees or program dependency graphs then it may be able to get a more complete picture and generate more accurate results.  This limitation becomes obvious as some attack types not covered in this research, as well as even stored SQL injections cannot be detected as the information required to make that determination is outside of the scope of the text request.
+
+A last point of weakness for the parser is that some attacks were much easier to parse than others.  The SQL injections are the most complicated of the three and the keywords are essentially english words so there is always a chance that it gets confused with a normal word as an SQL word.  In contrast, the XSS keywords must follow a syntax similar to the RFI keywords so these attacks do not suffer from such problems.  The RFI attacks however had to be randomly generated in order to get a significant sample size and so there are some inherent biases there.  All of these issues can skew the results in someway or another.
+
+\subsection{Strengths}
+
+Despite the problems that could potentially be solved by moving away from a token-based parser, it is the fastest of the parsing techniques as building the trees and dependency graphs can take a long time.  In addition, for the purposes of detecting the features in question for the attack types being examined a token-based approach is really all that is required as it is just counting up keywords and testing for whether or not it is encoded.  Using a more complicated technique than this might be overkill and reduce the speed of parsing when attempted to be used in a potential real world environment.
+
+Also, despite the weaknesses previous mentioned, parsing the results like this is realistically the only way to determine the intent of the incoming attack before it happens.  There is no other useful information to pull from the individual requests and no determinations can be made on the intent of the request because it has not yet executed.
+
 
 \section{Genetic Algorithm}
+\subsection{Parameter Testing Results}
 
-\subsection{Advantages and Disadvantages}\label{sec:genDisadvantages}
+In regards to changing in population size, the expected results were observed.  As the algorithm was allowed to generate more and more signatures the detection rates increased and false positives and incorrect detections went down but did not always dissappear completely.  This is the most obvious result as greater population is needed for situations like this, however it comes at a very large amount of computational cost.  In addition, increasing this result alone cannot result in perfect detection, as none of the attack types were able to achieve near 100\% successful detection and in the case of the RFI and XSS results, the detection rate went slightly down as the tests went on.  
+
+Increasing the generations did not seem to have any discernable effect on the performance of the algorithms and in many cases it made the results worse and more varied.  The number of generations alone is not enough to optimize the results of the algorithm clearly, as the most extreme example is in the XSS test where it goes from a very high detection rate to 0\% later on.  Every generation the entire population is thrown out depending on the elitist pool, this means that while the previous generation might have good signatures, the next generation's offspring could have terribly performing signaures (Section \ref{sec:genDisadvantages}).
+
+Mutation rate changes had almost no discernable effect as well, in some tests the results improved, while in others like the RFI attacks, the results flatlined.  Mutation rate only slightly effects the genetic diversity and the vast majority of the performance is determined by the bitstrings themselves generated by crossovers for mutation rate alone cannot save the algorithms performance.
+
+Finally, out of all tests the elitist pool changes had the best results interms of positivity and impact.  For all three attack types, the more of the best performing population that was perserved the better, most likely because it allowed the changes from generation to generation to be more consistent and not be left up to chance.
+
+\subsection{Expanded Signature Set}
+
+Doing multiple iterations of generating signature sets resulted in all three attack types being able to hit near 100\% successful detection, which was not seen using the other manipulations so far.  With the exception of the RFI attack results most likely due to it's inherent biases (Section \ref{parseWeak}), XSS and SQL injection attacks also increased in their false positive and incorrect detections drastically.  This is a clear result of having multiple iterations as the larger and larger your signature set is the more likely it is to contain a generated signature that performs badly.
+
+\subsection{Influence of Segment Length}
+
+Out of all of the variations however, the segment length changes is the most telling of this approach.  It is quite discernable from the results that the smaller segment sizes result in higher success rates, false positives, and incorrect detections on average when compared to the larger segment sizes.  This matches the expected result as not only does having a smaller segment size lead to inaccurate bitstrings that become artifical matches, but it also makes it much more likely for a poor performing bitstring to get through the process (Section \ref{sec:genDisadvantages}).
+
+\subsection{Strengths and Weaknesses}\label{sec:genDisadvantages}
+
+The genetic algorithm approach does indeed seem to be able to achieve the claimed success rates, and successfully generate new signatures that can at times perform very well.  However, due to the high variability very poor results interms of false positives and incorrect detections can be found everywhere in the results.  It seems that the approach is best when given existing well performing bitstrings, this result can be seen through the elitist pool testing, however in these tests it did not achieve the best success rates possible.  Lastly, the genetic algorithm has a lower dependence on the parsed results as the SVM will because the results are more aligned with the random generation of signatures rather than making conclusions off the results.
+
+However from these results overall the approach seems quite weak and ill-suited for this application.  The first of these flaws is how highly variable and random the approach is.  In order for an attack to be detected a signature matching it's parsed result must be generated, however the fitness algorithm does not rate how close the bitstrings are to this ideal signature, rather it rates how well it detected multiple results and avoided mistakes.  It would be impractical to use a genetic algorithm to do this, as it would be much easier to just construct signatures from parsed results of known attacks.  Therefore, instead the fitness algorithm's intent instead seems to be about keeping the better performing bitstrings around until the end of the algorithm and hoping to kick out the bad performing bitstrings; however this does not always work out as explained above.  This is the root cause of the variability between generations and what causes the odd anomalies in some of the results.  For this reason, the genetic algorithm seems to be a bloated random permutation generator with a fitness algorithm to remove the poorly performing bitstrings, and so this claim was tested (Section \label{sec:randDiscussion}).
+
+In addition, segment lengths of the bitstrings are very important.  If the bitstrings are too small there is a higher chance to generate a poor performing signature as the search space is much smaller.  To give an example, the proposed bitstring length was 10 bits which means 1024 unique combinations, meaning that since having duplicate bitstrings is redundant and they are removed, if your population is around 1000 it is very likely that a bitstring representing a non-attack or incorrect is generated and the fitness algorithm will not remove it.  Likewise, having such small segment lengths are not applicable to the real world, enumeration attacks can use dozens of keywords per segment having such a small count in each segment results in artifical matches that would not occur otherwise.  For example, if every single SQL injection attack had a unique number of keywords but above 7 per request, and the segment only had 3 bits to hold the number of keywords then the algorithm is only required to generate a single bitstring to detect \textbf{all} of them.  The signature is not truly detecting the attack, it is artifically padding the results of the approach.
+
+\subsection{Comparison with Random Permutations}\label{sec:randDiscussion}
+
+The results of the simple random permutation approach is quite telling of the poor performance of the genetic algorithm.  Not only are the results much more predictable and non-volatile, but by using 80\% of the well performing randomly permutated bitstrings the success rate was over 80\% on all three attack types with minimal false positives and incorrect detection.  In addition to these excellent results, the approach also completed in a fraction of the time as the bitstrings only had to be randomly generated once, rather than multiple times over again in the genetic algorithm with additional selection procedures.
+
+This shows how it really is just the random permutation process that is giving the genetic algorithm the results that it is, and therefore the genetic algorithm component is unnessecary and ill-suited.  While the amount of permutations exponentially grows with the size of the bitstring signature, the size used for the important segments that maintains the counts of keywords and fields is double the size of the proposed length from previous research.
 
 \section{Support Vector Machine}
+\subsection{Comparison with Genetic Algorithm}
 
-\subsection{Advantages and Disadvantages}\label{sec:svmDisadvantages}
+With these results it is obvious which is the better approach out of the two, and that would be the SVM.  All three attack types achieved a successful detection rate between 90\% and 100\%, but also very minimal false positive and incorrect detections, only showing up in the SQL injection results infact.  
+
+\subsection{Reducing False Positives}
+
+Increasing the number of false positives did indeed decrease the amount of false positives overall in the results for SQL injections, as the other two attacks did not have substantial amounts of false positives to begin with.  This shows that training does indeed directly affect the performance of the SVM. 
+
+\subsection{Reducing Incorrect Detections}
+
+Similar to the results of the false positive training, the more incorrect results input into the system the better the SVM was able to avoid them.  However as a whole these results were not as much of an improvement, and this may be due to parsing mistakes with the larger amount of training data effecting the results.
+
+\subsection{Strengths and Weaknesses}\label{sec:svmDisadvantages}
+
+Overall, the SVM approach appears to be a much stronger choice when compared to the genetic algorithm and even the permutation approach.  One of the advantages if that the SVM can be trained once and then new attacks can be passed into it without the need for re-training or checking with thousands of signatures to see if any are a match.  It also runs much faster if the proper kernel is choosen, as the RBF kernel has good results but is quite slow and complex, and the Polynomial kernel is slower and produced very poor results in comparison.  Therefore the linear kernel which is the fastest of the three, and also performed very well overall is the clear choice and not a problem, otherwise this would be a weakness.  In addition, the SVM requires fewer features to be parsed from the request, it only needs the keywords and the field counts and the attack variant and encoded check is not required, this speeds up the parsing process.
+
+The main weakness of the SVM approach is its strong dependence on the parsed results, if the results are not correct from the parser than the algorithm can not hope to train properly and produce valid output.  But considering that the same training data was used in both approaches and the SVM came out hugely on top, and the same results can be reproduced over and over, it does not seem to be too much of an issue.  In addition, despite the mentioned biases with RFI parsing, the fact that the SVM achieved no false positives or incorrect results for RFI detection is not a problem due to the biases, as the XSS results were the same way and they are all generated through attack scripts.
 

@@ -1,8 +1,31 @@
-\chapter{Results}
+\chapter{Results} 
 
 \section{Genetic Algorithm}
 
 In the following results, each test was ran three times and averaged together to give a better idea of the typical performance of the genetic algorithm approach.  Each test is categorized by the parameter that was changed and the reason and expected results of these parameters is explained.  Also, with the exception of the bitstring segment length test, all other tests are conducted using the normal segment lengths (Table \ref{tab:geneticSegments}).  Lastly, for brevity only the SQL injection results will be compared across all test cases as it is the most complex result out of the three, a full listing of the graphical results for the other two attack types as well as complete text based results for all attack types is included (Appendix \ref{app:fullResults}).
+
+\begin{table}
+	\centering
+	\label{tab:gaTestParameters}
+	\begin{tabular}{|p{1.5in}|p{0.675in}|p{0.675in}|p{0.675in}|p{0.675in}|p{0.675in}|}
+	\hline
+	\textbf{Test} & \textbf{Popul-ation} & \textbf{Gener-ations} & \textbf{Iter-ations} & \textbf{Muta-tion Rate} & \textbf{Elitist Pool} \\ 
+	\hhline{|=|=|=|=|=|=|}
+	\textbf{Population Size} & \textbf{$x$} & 100 & 1 & 0.5\% & 5\% \\
+	\hline
+	\textbf{\# of Generations} & 1250 & \textbf{$x$} & 1 & 0.5\% & 5\% \\
+	\hline
+	\textbf{Mutation Rate} & 1250 & 100 & 1 & \textbf{$x$} & 5\% \\
+	\hline
+	\textbf{Eltitist Pool} & 1250 & 100 & 1 & 0.5\% & \textbf{$x$} \\
+	\hline
+	\textbf{Multiple Iterations} & 1250 & 100 & \textbf{$x$} & 0.5\% & 5\% \\
+	\hline
+	\textbf{Bitstring Length} & 1250 & 100 & 1 & 0.5\% & 5\% \\
+	\hline
+	\end{tabular}
+	\caption{Parameters used in each Genetic Algorithm Test}
+\end{table}
 
 \subsection{Finding Best Parameters}
 
@@ -83,9 +106,25 @@ Because the genetic algorithm is able to increase its detection by generating ne
 
 For the support vector machine tests it was not nessecary to average together multiple results as there are no random elements in the approach and the same results are produced everytime.  All results used the same testing data to verify the training process as well as when possible the same training data, so long as the required amount did not exceed the amonut of training data used in the genetic algorithm.  In the genetic algorithm changes can be observed by adjusting parameters, however in the SVM this is not the case and so the amount of training data and what kinds of training data is changed to observe results.
 
+\begin{table}
+	\label{tab:svmTestParameters}
+	\begin{tabular}{|p{2.0in}|p{1.125in}|p{1.125in}|p{1.125in}|}
+	\hline
+	\textbf{Test} & \textbf{\# of requests of intended detection type} & \textbf{\# of requests of incorrect detection type} & \textbf{\# of requests of non-attacks} \\ 
+	\hhline{|=|=|=|=|}
+	\textbf{GA Compairson (30\%/30\%/30\%/10\%)} & \textbf{$x$} & \textbf{$2x$} & \textbf{$y$} \\
+	\hline
+	\textbf{Increasing Non-Threats} & 300 & 600 & \textbf{$x$} \\
+	\hline
+	\textbf{Increasing Incorrect-Threats} & 300 & \textbf{$2x$} & 350 \\
+	\hline
+	\end{tabular}
+	\caption{Parameters used in each Support Vector Machine Test}
+\end{table}
+
 \subsection{Comparison with Genetic Algorithm}
 
-The first results are using the same training data, as well as the same training proportions used in the genetic algorithm tests.
+The first results are using the same training data, as well as the same training proportions used in the genetic algorithm tests of 30\% for each attack type and 10\% of non-threats for the remaining.
 
 \begin{figure}
 	\label{fig:resComparison}

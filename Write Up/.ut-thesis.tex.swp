@@ -226,7 +226,7 @@ Through this process several drawbacks to the genetic algorithm approach stood o
 \include{chap4} % drafted % machine learning
 \include{chap5} % drafted % methods
 \include{chap6} % drafted % results
-\include{chap7} % ...	  % discussion
+\include{chap7} % drafted % discussion
 \include{chap8} % ...	  % conclusion
 \include{appendices}
 % Glossary command does not work in Gummi, will add glossary later if its even needed
