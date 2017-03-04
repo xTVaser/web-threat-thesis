@@ -29,7 +29,8 @@ In the following results, each test was ran three times and averaged together to
 
 \subsection{Finding Best Parameters}
 
-The performance and effectiveness can often be attributed to the parameters that are used for the genetic algorithm, and there is no universal choice for the parameters as it will depend on your context.  Each parameter of the genetic algorithm will affect the results in different ways, therefore it was important to first determine what settings would be most suitable to use for later tests so that the results would not be largely caused by the parameters instead of independent variable in question.  
+The performance and effectiveness can often be attributed to the parameters that are used for the genetic algorithm, and there is no universal choice for the parameters as it will depend on your context.  % optimal population size and hte genetic algorithm
+Each parameter of the genetic algorithm will affect the results in different ways, therefore it was important to first determine what settings would be most suitable to use for later tests so that the results would not be largely caused by the parameters instead of independent variable in question.  
 
 \subsubsection{Population Size}
 
@@ -54,7 +55,8 @@ The amount of generations also matters because it is the amount of times the gen
 
 \subsubsection{Mutation Rate}
 
-If the mutation rate is too high than the genetic algorithm basically becomes a random search, while no mutation will result in no diversity other than crossovers.  Mutation rates are typically set to a very low amount since it is on a per allele basis. % cite optimization of
+If the mutation rate is too high than the genetic algorithm basically becomes a random search, while no mutation will result in no diversity other than crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform. %cite a new strategy for
+Mutation rates are typically set to a very low amount since it is on a per allele basis, a value between 0.0 and 1.0 is often used. % cite optimization of control parameters
 
 \begin{figure}
 	\label{fig:resMutation}
