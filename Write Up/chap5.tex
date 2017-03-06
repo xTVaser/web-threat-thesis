@@ -20,7 +20,6 @@ Because RFI maps are the simpliest in terms of their design and variations, a si
 
 \begin{table}
 	\centering
-	\label{tab:tools}
 	\begin{tabular}{|l|l|}
 	\hline
 		\textbf{Request Type} & \textbf{Generation Method}\\
@@ -35,6 +34,7 @@ Because RFI maps are the simpliest in terms of their design and variations, a si
 	\hline
 	\end{tabular}
 	\caption{Breakdown of test data generation}
+	\label{tab:tools}
 \end{table}
 
 Like most web-servers, Apache has the ability to log all of the requests that it serves to a file.  The data that we need to parse for the genetic algorithm or support vector machine is the GET or POST HTTP request line.  The final step of gathering the testing and training data is to compile the log files and strip out the unneeded information so it can be passed to the parser.  Another small Python script can be used to generate a test file using these large banks of the correct size and proportions, this script will generate a file where each line contains the request line content and what type the request is, either SQLi, XSS, RFI, or not an attack.
