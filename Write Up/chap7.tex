@@ -1,10 +1,9 @@
 \chapter{Discussion}
 
 \section{Parser}
-
 \subsection{Weaknesses}\label{sec:parseWeak}
 
-The parser is the main point of failure for the algorithms in question, and therefore many of its weaknesses become obvious when working with this system.  If the results of the parser are not accurate than it is impossible to have decent or consistent performance from the genetic algorithm or the support vector machine, however both algorithms have been given the same parsed results so the question becomes which algorithm can do a better job.  
+The parser is the main point of failure for both of the approaches and therefore many of the parser's weaknesses become apparent when measuring the performance of the system.  If the output of the parser is not accurate than it is impossible to achieve consistently good performance either from the genetic algorithm or the support vector machine, however both algorithms have been given the same parsed results so the question becomes which algorithm can do a better job.  
 
 In the end, despite the fact that these approaches try to avoid the use of regular expressions and pattern matching, they depend on a parser to get results that employ these techniques and as a result there is always a chance that the parser is fooled and not accurate.  The question then becomes good is the training process of these machine learning techniques in order to discount these mistakes.  Part of the reason why the parser may be vulnerable to making mistakes as well as it is only a simple token-based parser.  This means that the parser cannot understand the logic behind the requests or their intent only picking up on keywords and patterns within the requests, if a parser was made that used techniques such as abstract syntax trees or program dependency graphs then it may be able to get a more complete picture and generate more accurate results.  This limitation becomes obvious as some attack types not covered in this research, as well as even stored SQL injections cannot be detected as the information required to make that determination is outside of the scope of the text request.
 
