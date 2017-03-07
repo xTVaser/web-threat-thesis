@@ -1,8 +1,8 @@
-\chapter{Methods \& Procedures}
+\chapter{Methods \& Procedures} \label{sec:sectionFive}
 
-\section{System Overview}
+\section{System Overview} \label{sec:systemOverview}
 
-Despite the fact that two rather different algorithms will be used the system is designed to operate more or less the same with the genetic algorithm or support vector machine components as loosely coupled modules to avoid having to redesign the system for both approaches.  Web requests will be processed through a parser that looks for various aspects related to each of the three possible web attacks.  The results are then output and can be used as input for either the genetic algorithm, support vector machine, or potentially another algorithm that could extend the testing.  Finally, the testing modules will output the results to a file that can be processed by graphing tools (Figure \ref{fig:sys}), in this case the R programming language will be used to create graphs that can be used to drawn conclusions on the two approaches. % cite R
+Despite the fact that two rather different algorithms will be used the system is designed to operate more or less the same by implementing the genetic algorithm and support vector machine components as loosely coupled modules to avoid having to redesign the system completely.  Web requests will be processed through a parser that searches for various aspects related to each of the three possible web attacks.  These results become output and can be used as input for either the genetic algorithm, support vector machine, or potentially another algorithm that could extend the research even further.  Finally, the machine learning modules will output the results to a file that can be processed by graphing tools (Figure \ref{fig:sys}), in this case the R programming language will be used to create graphs of the results that can be used to drawn conclusions on the two approaches.
 
 \begin{figure}
 	\label{fig:sys}
@@ -10,85 +10,78 @@ Despite the fact that two rather different algorithms will be used the system is
 	\caption{Overview of the system}
 \end{figure}
 
-\section{Gathering Test Data}
+\section{Gathering Test Data} \label{sec:gatheringTestData}
 
-All data will be gathered from as close to a real-world scenario as possible.  In order to do so, automated enumeration exploiting tools will be used to gather a large sample size of varied attacks (Table \ref{tab:tools}).  
-In order to gather SQL injection attacks the popular tool sqlmap will be used, for XSS attacks Grabber and XSSer will be used. %cite the tools
-These tools will be let loose on a private apache web-server that is hosting a very simple database connected application. %cite apache
-In regards to gathering a large amount of RFI attacks it will require generation of a large sample size, as the tooling for these types of attacks is rather limited and the tools that do exist do not perform large scale enumeration attacks and instead attempt to compromise the server as fast as possible. % cite fimap
-Because RFI maps are the simpliest in terms of their design and variations, a simple automated Python script can be used to generate a large amount of attacks using a heavy amount of randomization.  Finally, it is nessecary to also include some normal web requests which are not attacks to test for false positives.  This can easily be done by using the application as well as other websites normally, submit form inputs, etc, and collecting all of the resulting HTTP requests.  This can be done with a browser extension for Mozilla Firefox, HTTPFox. % cite http fox
+All data will be gathered from as close to a real-world scenario as possible and in order to do so, automated enumeration exploiting tools will be used to gather a large sample size of varied attacks (Table \ref{tab:tools}).  In order to gather SQL injection attacks the popular tool \textit{sqlmap} will be used, for XSS attacks \textit{grabber} and \textit{xsser} will be used.
 
 \begin{table}
-	\centering
 	\begin{tabular}{|l|l|}
 	\hline
 		\textbf{Request Type} & \textbf{Generation Method}\\
 	\hhline{|=|=|}
-		SQL Injection & sqlmap\\
+		SQL Injection & sqlmap \cite{sqlmap} \\
 	\hline
-		XSS Attack & grabber, xsser\\
+		XSS Attack & grabber \cite{grabber}, xsser \cite{xsser} \\
 	\hline
-		RFI Attack & randomized generation\\
+		RFI Attack & randomized generation \\
 	\hline
-		Normal Requests & httpfox\\
+		Normal Requests & httpfox \cite{httpfox} \\
 	\hline
 	\end{tabular}
 	\caption{Breakdown of test data generation}
 	\label{tab:tools}
 \end{table}
 
-Like most web-servers, Apache has the ability to log all of the requests that it serves to a file.  The data that we need to parse for the genetic algorithm or support vector machine is the GET or POST HTTP request line.  The final step of gathering the testing and training data is to compile the log files and strip out the unneeded information so it can be passed to the parser.  Another small Python script can be used to generate a test file using these large banks of the correct size and proportions, this script will generate a file where each line contains the request line content and what type the request is, either SQLi, XSS, RFI, or not an attack.
+These tools will be let loose on a private apache web-server that is hosting a very simple database connected application.  However for gathering a large amount of RFI attacks it will require generation of a large sample size as the tooling for these types of attacks is rather limited and the tools that do exist do not perform large scale enumeration attacks and instead attempt to compromise the server as fast as possible. \cite{fimap}  Because RFI attacks are the simpliest in terms of their design and variations, a simple automated Python script can be used to generate a large amount of attacks using a heavy amount of randomization.  Finally, it is nessecary to also include some normal web requests which are not attacks to test for false positives.  This can easily be done by using the application as well as other websites normally, submitting form inputs, etc, and collecting all of the resulting HTTP requests.  This will be done with a simple browser extension for Mozilla Firefox, HTTPFox.
 
-\section{Parsing the Requests}
+Like most web-servers, Apache has the ability to log all of the requests that it serves to a file.  The data that we need to parse for the genetic algorithm and support vector machine is the GET or POST HTTP request line. Therefore the final step of gathering the testing and training data is to compile the log files and strip out all unneeded information so it can be passed to the parser.  Another small Python script will be used to generate a test file of the correct size and proportions using these large banks of requests.  The script will generate a file where each line contains the request line content and what type the request is, either SQLi, XSS, RFI, or not an attack this labels the data for supervised learning and performance evaluations.
 
-With the completed test file(s) containing the proper amount of each attack and normal requests, the next step is to parse each request into numeric values so that the algorithms can work on them.  Each request has their own respective features that are worth identifying, with more features needing to be identified for the genetic algorithm than for the SVM.  These features have been identified for each request type by previous research (Table \ref{tab:features}) but is important to distinguish the meaning of each as well as what can and cannot be detected in this way. % cite main papaer
+\section{Parsing the Requests} \label{sec:methodsParser}
+
+With the completed test file(s) containing the proper amount of each attack and normal requests, the next step is to parse each request into numeric values so that the algorithms can work with them.  Each request has their own respective features that are worth identifying, with the genetic algorithm requiring more features to be identified than for the SVM.  These features have been identified for each request type by previous research (Table \ref{tab:features}) but is important to distinguish what the meaning of each is, as well as what can and cannot be parsed. \cite{mainPaper}
 
 \begin{table}
 	\centering
-	\label{tab:features}
 	\begin{tabular}{|p{1.5in}|p{4.5in}|}
 	\hline
 		\textbf{Request Type} & \textbf{Features}\\
 	\hhline{|=|=|}
 		SQL Injection & \# SQL keywords, is encoded, \# fields containing SQL keyword, attack variant\\
 	\hline
-		XSS Attack & \# of HTML or javascript keywords, is encoded, \# fields containing a HTML or javascript keyword, attack variant\\
+		XSS Attack & \# of HTML or JavaScript keywords, is encoded, \# fields containing a HTML or javascript keyword, attack variant\\
 	\hline
 		RFI Attack & \# of URLs, is encoded, \# of commands, attack variant\\
 	\hline
 	\end{tabular}
 	\caption{Parseable Features}
+	\label{tab:features}
 \end{table}
 
-The number of SQL keywords or reserved words is obtained by using a comprehensive list provided by the Oracle and MySQL DBMS documentation. % cite Oracle and MySQL documentation
-This works well with our test environment as well, as the DBMS our application is using is MySQL so many of the automated attacks will use MySQL specific vulnerabilities.  Similarly, the HTML and javascript keywords were provided by the official W3C documentation and the official PHP related commands were sourced from PHP's main documentation.  % cite W3schools and php docs
+The number of SQL keywords or reserved words is obtained by using comprehensive lists obtained from the Oracle and MySQL DBMS documentation.\cite{oracle}\cite{mysql}  This works well with our test environment as well, as the DBMS our application is using is MySQL and many of the automated tools will use MySQL specific vulnerabilities.  Similarly, the HTML and JavaScript keywords were obtained from the official W3C documentation\cite{w3c1}\cite{w3c2}\cite{w3c3} as well as the PHP related commands were sourced from the PHP documentation.\cite{php}
 
-Requests are capable of being encoded as well to further evade detection (Section %site chapter).
-and so this is something that can be easily detected and recorded.  HTTP requests, usually GET requests specifically, will contain along with them fields and the information that they carry to the application code.  This information can be user supplied information (ex. a username or password) or application supplied information (ex. the current page number), either way it is able to be directly modified by a user and is where injections and malicious code is likely to lie (Figure \ref{fig:sampleRequest}).  For this reason, it is good to make a distinction between just a total number of keywords found and the number of fields that actually contain keywords to get a more complete picture.  Lastly, all of the discussed attack variants (Section % cite the chapters with it).
-can be detected with the exception of \emph{Stored Procedure SQL injections}, which brings up the limitations of this type of parsing (Section % cite chap 7. 
+Requests are also capable of being encoded as well to further evade detection (Section \ref{sec:sectionTwo}) which is something that can be easily detected and recorded.  HTTP requests, usually GET requests specifically, will contain fields and information that the request carries to the application code.  This information can be user supplied information (ex. a username or password) or application supplied information (ex. the current page number), either way it is able to be directly modified by a user and is where injections and malicious code is likely to lie (Figure \ref{fig:sampleRequest}).  For this reason, it is good to make a distinction between just a total number of keywords found and the number of fields that actually contain keywords to get a more complete picture of the request.  Lastly, all of the discussed attack variants (Section \ref{sec:sectionTwo}) can be detected with the exception of \emph{Stored Procedure SQL injections}, which brings up the limitations of this type of parsing (Section \ref{sec:disadvantagesParsing}).
 
 \begin{figure}
 	\centering
-	\label{fig:sampleRequest}
-	https://duckduckgo.com/?\hl{q=HTTP+Request}\&\hl{t=vivaldi}\&\hl{ia=web}
+	\code{https://duckduckgo.com/?\hl{q=HTTP+Request}\&\hl{t=vivaldi}\&\hl{ia=web}}
 	\caption{A sample HTTP request with fields highlighted}
+	\label{fig:sampleRequest}
 \end{figure}
 
-The parser makes heavy use of regular expressions (Appendix A % cite)
-to determine much of this information such as the keywords or contents of the fields and is designed to overcome common evasion tactics.  One such tactic is padding the alternate encodings of the request, instead of using the common two byte hexadecimal conversion of the ASCII values, several zeros can be appended to the two bytes to confuse simple parsers using built-in decoding libraries.  Another issue that had to be overcame was not double-counting keywords that were a prefix to another keyword, which is done simply by associating each word with its prefix combinations.  This results in only a minor amount of extra computation as there is not many keywords with prefixes.
+The parser makes heavy use of regular expressions (Appendix \ref{app:regex}) to determine much of this information such as the keywords or contents of the fields and is designed to overcome common evasion tactics.  One such tactic is padding the alternate encodings of the request, instead of using the common two byte hexadecimal conversion of the ASCII values, several zeros can be appended to the two bytes to confuse simple parsers using built-in decoding libraries.  Another issue that had to be overcame was not double-counting keywords that were a prefix to another keyword, which is done simply by associating each word with its prefix combinations.  This results in only a minor amount of extra computation as there is not many keywords with prefixes.
 
 \begin{algorithm}[H]
 	\setstretch{1.0}
-	\label{alg:parsing}
 	\caption{General overview of parsing procedure}
+	\label{alg:parsing}
 	
 	\KwData{File with HTTP Requests and their true type}
-	\KwResult{Resulting test file with every request stored along with the parsed features for the three types of web threats in the follwing order Original > SQLi > XSS> RFI}
+	\KwResult{Resulting test file with every request stored along with the parsed features for the three types of web threats in the following order: Original $\rightarrow$ SQLi $\rightarrow$ XSS $\rightarrow$ RFI}
 	
 	read in input file\;
 	\For{line in input file}{
 	
-		\If{for SVM testing}{
+		\If{SVM testing}{
 			disregard encoding and attack variant features\;
 		}
 		pass request to each parsing module (sql, xss, and rfi)\;
@@ -119,20 +112,18 @@ to determine much of this information such as the keywords or contents of the fi
 	}	
 \end{algorithm}
 
-Full documentation on the usage of the parser (Appendix). % forward reference
+Full documentation on the usage of the parser (Appendix \ref{app:parserDocumentation}).
 
 \section{Genetic Algorithm Based Signature Detection}\label{sec:genIntro}
 
-The method of the using a genetic algorithm for signature based detection is largely the same as the proposed and tested system in previous research with a few modifications. %cite main paper
-One major difference is that instead of allowing the signatures to change to different attack type signatures (ex. SQLi to XSS) we specify what type of attack we want to search for and the algorithm uses that parsed result for every request.  This of course requires every original request to be parsed three times instead of just once, but it makes the most sense as if it is possible to transition between attack types so easily then there is no reason to differentiate between them in the first place.  This also causes later conclusions to not be influenced by factors that can not be measured.  If signatures were allowed to switch to different attacks types then it would be unknown if the results were due to the random nature of a genetic algorithm or the other variables being changed.  
+The method of the using a genetic algorithm for signature based detection is largely the same as the proposed system from previous research with a few modifications. \cite{mainPaper}  One major difference is that instead of allowing the signatures to change to different attack type signatures (ex. SQLi to XSS) the type of attack we want to search for is specified and the algorithm uses the respective parsed result from every request.  This of course requires every original request to be parsed three times instead of just once, but it makes the most sense as if it is possible to transition between attack types so easily then there is no reason to differentiate between them in the first place.  This also allows later results and subsequent conclusions to not be influenced by other factors that can not be measured.  If signatures were allowed to switch to different attacks types then it would be unknown if the results were due to the random nature of a genetic algorithm causing signatures of the wrong type to be chosen or the other variables in question being changed.  
 
-The second major change is that the bitstring length for each signature is increased to avoid problems of exceeding the quantity in a segment.  In the previous research only 3 bits were used for the segments that count the number of segments or fields in the requests which only allows for a count up to 7.  In a real world setting the amounts for the number of fields and keywords can be much much larger and exceeding these values often creates a situation where there are many signatures that match which normally would not.  For example, if two signatures have 10 and 11 keywords respectively, with the old segment lengths they would be capped at 7, or 111, resulting in a match which should not have occured.  Therefore these segment lengths with a size problem have been extended to 6 bits allowing for counts up to 63 (Table \ref{tab:geneticSegments}).
+The second major difference is that the bitstring length for each signature is increased to avoid problems of exceeding the quantity in a segment.  In the previous research only 3 bits were used for the segments that count the number of segments or fields in the requests which only allows for a count up to 7.  In a real world setting the amounts for the number of fields and keywords can be much much larger and exceeding these values often creates a situation where there are many signatures that match which normally would not.  For example, if two signatures have 10 and 11 keywords respectively, with the old segment lengths they would be capped at 7  (111 in binary), resulting in a match which should not have occured.  Therefore these segment lengths with a size problem have been extended to 6 bits allowing for counts up to 63 (Table \ref{tab:geneticSegments}).
 
 \begin{table}
-	\label{tab:geneticSegments}
-	\begin{tabular}{|p{1.5in}|p{1.125in}|p{1.125in}|p{1.125in}|p{1.125in}|}
+	\begin{tabular}{|p{1.25in}|p{1in}|p{1in}|p{1in}|p{1in}|}
 	\hline
-	\multicolumn{1}{|p{1.5in}|}{\textbf{Request Type}} & \multicolumn{4}{p{4.5in}|}{\textbf{Segment Information}} \\ \hhline{|=|=|=|=|=|}
+	\multicolumn{1}{|p{1.25in}|}{\textbf{Request Type}} & \multicolumn{4}{p{4in}|}{\textbf{Segment Information}} \\ \hhline{|=|=|=|=|=|}
 	\multirow{2}{*}{\textbf{SQL Injection}}            & \# of SQL Keywords & is encoded & \# of fields containing a SQL keyword & attack variant \\ \cline{2-5} 
 		                                      & 6             & 1          & 6            & 3 \\ \hline  
 	\multirow{2}{*}{\textbf{XSS Attack}}               & \# of HTML or javascript keywords & is encoded & \# of fields containing a HTML or javascript keyword & attack variant \\ \cline{2-5} 
@@ -141,58 +132,57 @@ The second major change is that the bitstring length for each signature is incre
 		                                      & 6             & 1          & 6            & 3 \\ \hline  
 	\end{tabular}
 	\caption{Genetic algorithm default segment breakdown}
+	\label{tab:geneticSegments}
 \end{table}
 
-The genetic algorithm implemented is very standard, allowing for the following parameters to be changed:
+The genetic algorithm implementation is very standard, allowing for the following parameters to be changed (Appendix \ref{app:geneticDocumentation}):
 
 \begin{itemize}
 	\setstretch{1.0}
-	\item Maximum population per iteration
+	\item Maximum population per generation
 	\item Maximum number of generations
-	\item Number of iterations
 	\item Mutation rate
 	\item Elitist selection amount
 \end{itemize}
 
-Most of the genetic operators are fairly simple to implement with the most complex being selection.  The higher the bitstrings fitness is the more likely it should be selected.  There are several ways for this to be accomplished but for this implementation Roulette Wheel Selection is used, also referred to as Fitness Proportionate Selection (Algorithm \ref{alg:selection}).  This selection algorithm was choosen as the originally proposed genetic algorithm technique was fitness based %cite main paper
- and not reward based like other selection algorithms, as well as it is simple to implement and understand for these basic testing purposes.  For crossovering two individuals a single point crossover scheme is used.
+Most of the genetic operators are fairly simplistic to implement with the most complex being the selection algorithm.  The higher the fitness of the individual the more likely it will be selected by the selection algorithm to be crossed over.  There are several ways for the selection algorithm to be implemented but for this research Roulette Wheel Selection, also referred to as Fitness Proportionate Selection, will be used (Algorithm \ref{alg:selection}).  This algorithm was chosen because the proposed genetic algorithm technique from existing research was fitness based\cite{mainPaper}, not reward based like some other selection algorithms.  In addition to it being very simple and practical to implement and understand considering the scope of the research.
 
 \begin{algorithm}[H]
 	\setstretch{1.0}
-	\label{alg:selection}
 	\caption{Basic pseudocode algorithm for Roulette Wheel Selection in \BigO{n}}
+	\label{alg:selection}
 	\KwData{Fitness values of all individuals in population}
 	\KwResult{The selected individual}
 	
-	$totalWeight\leftarrow0$\;
+	$totalWeight = 0$\;
 	\For{all individuals weights}{
-		$totalWeight\leftarrow$totalWeight + weight\;
+		$totalWeight = totalWeight + weight$\;
 	}
 	
-	generate a random number between 0 and the totalWeight\;
+	$rand = a random number between 0 and the totalWeight$\;
 	\For{all individuals weights}{
 		
-		subtract the weight from the random number\;
-		\If{random number is less than 0}{
-			return that individual
+		$rand = rand - weight$\;
+		\If{$rand < 0$}{
+			return that individual's index\;
 		}
 	}
 	
-	\If{Unable to find an individual, error occured}{
-		fall back condition is to return the last item\;
+	\If{Unable to find an individual}{
+		error occured, fall back condition is to return the last item\;
 	}
 \end{algorithm}
 
-The genetic algorithm was written from scratch using the Python programming language and is designed to handle input files with single bitstrings from the parser or lines with several variations on the lengths of the bitstrings (Algorithm \ref{alg:genetic}).
+The genetic algorithm was written from scratch using the Python programming language and is designed to handle input files produced by the parser containing lines of single bitstrings or with several variations of the segment lengths (Algorithm \ref{alg:genetic}).
 
 \begin{algorithm}[H]
 	\setstretch{1.0}
-	\label{alg:genetic}
 	\caption{Pseudocode algorithm for genetic algorithm}
+	\label{alg:genetic}
 	\KwData{Bitstrings for training and testing and all parameters for genetic algorithm}
 	\KwResult{The optimized bitstrings that can be used for detection}
 	
-	\For{each bitstring of varying length}{
+	\For{each bitstring of varying segment length}{
 	
 		\For{the number of generations}{
 			
@@ -201,31 +191,28 @@ The genetic algorithm was written from scratch using the Python programming lang
 			
 			preserve the top elitist percentage into the new population called the offspring\;
 			
-			\While{offspring amount is less than maxmimum population allowed}{
+			\While{offspring amount $<$ maximum population allowed}{
 				
-				locate two individuals and perform a single point crossover \;
-				add these two new individuals to the next population
+				select two individuals and perform a single point crossover\;
+				add these two newly individuals to the next population
 			}
 			
-			trim the offspring to the maximum population just incase\;
-			
-			loop through every bit in every offspring with the chance to mutate it\;
-			
+			trim the offspring to the maximum population\;
+			loop through every allele in every offspring with the chance to mutate\;
 			set the current population to the offspring
 		}
 		
-		store the bitstring results for that length
+		store the bitstring signature results for that length
 	}
 \end{algorithm}
 
 \subsection{Testing Procedure}
 
-In order to the test the genetic algorithm fairly, both training data and testing data will have equal proportions of all three attacks, 30\% for each attack and then 10\% of non attacks for false positive metrics (Table \ref{tab:trainingfile} \& \ref{tab:testfile}).  In addition, the testing data will be different requests than that used in training as this is the situation that these approaches would be exposed in the real world.  They would be trained using supervised learning and then used to identify unlabeled data entering the system so it does not make sense to test with the same data it is trained on.
+In order to the test the genetic algorithm fairly, both training data and testing data will have equal proportions of all three attacks, 30\% for each attack and then 10\% of non attacks for false positive measurements (Table \ref{tab:trainingfile} \& \ref{tab:testfile}).  In addition, the testing data contains different requests than that used in training as this would be the situation that these approaches would be used in the real world.  They would be trained using supervised learning and then used to identify unlabeled data entering the system, therefore it does not make sense to test with the same data it was trained on.
 
 \begin{table}
 	\centering
-	\label{tab:trainingfile}
-	\begin{tabular}{|p{1.5in}|p{1.5in}|}
+	\begin{tabular}{|p{1.5in}|p{2.0in}|}
 	\hline
 		\textbf{Request Type} & \textbf{Number in Sample}\\
 	\hhline{|=|=|}
@@ -241,12 +228,12 @@ In order to the test the genetic algorithm fairly, both training data and testin
 	\hline
 	\end{tabular}
 	\caption{Breakdown of the training file for genetic algorithms}
+	\label{tab:trainingfile}
 \end{table}	
 	
 \begin{table}
 	\centering
-	\label{tab:testfile}
-	\begin{tabular}{|p{1.5in}|p{1.5in}|}
+	\begin{tabular}{|p{1.5in}|p{2.0in}|}
 	\hline
 		\textbf{Request Type} & \textbf{Number in Sample}\\
 	\hhline{|=|=|}
@@ -262,44 +249,51 @@ In order to the test the genetic algorithm fairly, both training data and testin
 	\hline
 	\end{tabular}
 	\caption{Breakdown of the testing file for both genetic algorithm and support vector machine}
+	\label{tab:testfile}
 \end{table}	
 
-Every test will make use of the same training data and testing data and instead the parameters for the genetic algorithm will be altered to see if they make a difference on the results.  The genetic algorithm will be trained using the training data, which will output bitstrings that act as signatures that are optimized for detecting the particular attacks. Those signatures will be used to hopefully match correctly with the unseen testing data (Figure \ref{fig:gasys}).
+Each test of the genetic algorithm will use the same training and testing data, instead the parameters of the genetic algorithm will be altered to observe any difference in the performance.  The genetic algorithm will first be trained which will output bitstrings that will act as signatures that have been optimized for detecting the particular attack type. Those signatures will then finally be used to match with the unseen testing data's bitstring representations it believes are the attacks (Figure \ref{fig:gasys}).
 
 \begin{figure}
-	\label{fig:gasys}
 	\includegraphics[width=450px]{./assets/img/gasys.png}
 	\caption{Overview of the genetic algorithm system}
+	\label{fig:gasys}
 \end{figure}
 
-In addition to the various parameters to the genetic algorithm having multiple iterations of the algorithm ran to generate a combined amount of signatures will be tested.  The thought is that the more signatures in your detection set the more likely you are to have one to detect the attacks so more iterations combined together should be able to detect more attacks.  This is also one of the main reasons why this technique was proposed, so that the genetic algorithm could generate additional signatures automatically for testing instead of relying on manually made patterns.  Also, testing the results with different lengths of bitstrings will also be attempted, the thought here goes back to the problem of overflowing a segment (Section \ref{sec:genIntro}).  Small segments should be able to detect more attacks as they should be able to more easily generate bitstrings that cover a wider range of attacks.  For example, a segment that can only hold a count of 1 would detect anything if it contained a keyword even if that request had a much greater amount, it would essentially become a flag.
+In addition to adjusting the various parameters of the genetic algorithm, using multiple iterations of the algorithm to generate a combined signature set will also be tested.  The belief is that with the additional signatures in the detection set the more likely it is to have a signature in order to detect more of the attacks, so this test will see if that is the case as well as if it has any negative side effects.  This is also one of the proported benefits of this technique, that the genetic algorithm can generate additional signatures for detection automatically instead of relying on manually created signatures.  Lastly, testing the performance using different segment lengths of the bitstrings will also be conducted, the reasoning for this goes back to the issue of overflowing a segment (Section \ref{sec:genIntro}).  Smaller segments should be able to detect more attacks as there are fewer possible combinations, making it easier to generate bitstrings that cover a wider range of attack signatures.  In the extreme case, a segment that can only hold a maximum count of 1 would detect anything if it contained a keyword even if the request contained much more than 1, essentially becoming a flag.
 
 \section{Support Vector Machine Detection}
 
-The SVM detection will follow a similar process to the genetic algorithm but instead of changing the parameters of the algorithm, the training data will be changed instead.  This is because the parameters for the SVM that will make a difference are automatically optimized by a grid search approach provided by the same library used to implement the SVM in Python. %cite scikitlearn
+The SVM detection approach will follow a similar process to the genetic algorithm but rather than changing the parameters of the algorithm, the training data will be manipulated instead (Figure \ref{fig:svmsys}).  This is due to the fact that the parameters for the SVM that matter for performance are automatically optimized by using a grid search provided by the same Python library used to implement the SVM, scikit-learn.\cite{scikit-learn}
 
-SVM use various different kernel methods to determine a pattern in the given data, the kernels that will are being used from the provided library is a linear, polynomial degree 3, and RBF kernels.  This will be the only parameter that will be changed for the SVM but every test is ran on each kernel so it is consistent throughout the entire process.  The parameters for the SVM that are optimized by the gridsearch are gamma and the penalty cost, gamma only effects the polynomial and RBF kernels however.
+\begin{figure}
+	\includegraphics[width=450px]{./assets/img/svmsys.png}
+	\caption{Overview of the support vector machine system}
+	\label{fig:svmsys}
+\end{figure}
 
-The one main difference between the SVM and genetic algorithm approaches is that the SVM only requires two of the four segments and it does not need to be in binary form to support mutations (Table \ref{tab:svmSegments}).  The reason that the other two segments are not used in the SVM is because they do not vary as much as the other two, many attacks and non-attacks could be encoded or not as well as the same attack type so that information is not very descriptive on it's own.  These values are plotted on a simple X,Y plane which is then passed into the SVM to be trained, each of these values is labelled data cooresponding to either it is an attack or it is not (Algorithm \ref{alg:svm}).
+The parameters that are optimized by the grid search are gamma ($\gamma$) and the penalty cost (C), however gamma only makes a difference in the polynomial and RBF kernels.  Support-vector machines use various different kernel methods to determine the seperating hyperplane in the given data, the kernels that will be used from the provided library is a linear, polynomial with degree 3, and RBF.  Every test will be executed using all three kernels to see which kernel is best-suited for the data sets.  
+
+The one major difference between the SVM and genetic algorithm approaches is that the SVM only requires two of the four parsed segments and they can be in normal decimal representation as mutations need not be (Table \ref{tab:svmSegments}).  The reason that the other two segments are not used by the SVM is because they do not vary nearly as much as the other two.  Many attacks and non-attacks could be encoded or not, as well as being the same attack type, so that information is not very descriptive on it's own.  These two values are plotted on a simple X,Y plane which is then passed into the SVM to be trained, so having more than 2 values would make this step more complicated and is unnecessary.  Each of these X,Y pairs are labelled with either as an attack or not an attack in order to facilitate supervised learning (Algorithm \ref{alg:svm}).
 
 \begin{table}
-	\label{tab:svmSegments}
-	\begin{tabular}{|p{1.5in}|p{2.25in}|p{2.25in}|}
+	\begin{tabular}{|p{1.5in}|p{2in}|p{2in}|}
 	\hline
-	\multicolumn{1}{|c|}{\textbf{Request Type}} & \multicolumn{2}{p{4.5in}|}{\textbf{Segments}}               \\ \hhline{|=|=|=|}
+	\multicolumn{1}{|c|}{\textbf{Request Type}} & \multicolumn{2}{p{4in}|}{\textbf{Segments}}               \\ \hhline{|=|=|=|}
 	\textbf{SQL Injection}                      & \# of SQL Keywords         & \# of fields containing a SQL keyword \\ \hline
-	\textbf{XSS Attack}                      & \# of HTML or javascript keywords         & \# of fields containing a HTML or javascript keyword \\ \hline
+	\textbf{XSS Attack}                      & \# of HTML or JavaScript keywords         & \# of fields containing a HTML or JavaScript keyword \\ \hline
 	\textbf{RFI Attack}                      & \# of URLs         & \# of PHP commands \\ \hline
 	\end{tabular}
 	\caption{Genetic algorithm default segment breakdown}
+	\label{tab:svmSegments}
 \end{table}
 
 \begin{algorithm}[H]
 	\setstretch{1.0}
-	\label{alg:svm}
 	\caption{Pseudocode algorithm for support vector machine}
+	\label{alg:svm}
 	\KwData{Segment information for each request}
-	\KwResult{A trained SVM classifier that test data can be passed into and results gathered with}
+	\KwResult{A trained SVM classifier that test data can be passed into and results gathered from}
 	
 	gather all segment information from training set\;
 	
@@ -324,12 +318,4 @@ The one main difference between the SVM and genetic algorithm approaches is that
 
 \subsection{Testing Procedure}
 
-For the SVM, there are several ways that the training data will be adjusted to produce different results (Figure \ref{fig:svmsys}).  The exact same testing set will be as what was used in the genetic algorithm, and for early tests the same training data will also be used but beyond the initial 1000 sample size, new training data must be used.  The first test will use the same proportion of 30\% for all three attack types and 10\% for non threats, this test will essentially be a fair comparison between the svm and the genetic algorithm approaches.  The second test will see if false positives can be reduced by increasing only the amount of false positives between the various tests.  And lastly, seeing if the number of incorrect attacks can be reduced, incorrect being identifying a request that is an attack but as the wrong type of attack, by increasing only the amount of the attacks we are \textbf{not} looking for.
-
-\begin{figure}
-	\label{fig:svmsys}
-	\includegraphics[width=450px]{./assets/img/svmsys.png}
-	\caption{Overview of the support vector machine system}
-\end{figure}
-
-
+For the SVM there are several ways that the training data will be adjusted to measure how the performance changes (Figure \ref{fig:svmsys}).  The exact same testing set that was used for the genetic algorithm will be used and for smaller tests the same training data will also be used but once tests require beyond the 1000 request amount, new training data must be added.  The first test case will use the same proportion of 30\% for all three attack types and 10\% for non threats, this test will essentially be a fair comparison between the SVM and the genetic algorithm approaches.  The second test is designed to see if false positives can be reduced by increasing only the amount of non attack requests in the training set between the various tests.  And lastly, seeing if the number of incorrect attack detection can be reduced, incorrect being identifying a request that is an attack but is not the type we are trying to detect, by increasing only the amount of requests containing the type of attacks we are \textbf{not} looking for.

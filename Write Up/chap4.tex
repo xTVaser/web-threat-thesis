@@ -34,7 +34,7 @@ As the name suggests, a genetic algorithm mimics how genetic development in the 
 	
 	\caption{Fitness algorithm for use in genetic algorithm}
 	\label{alg:fitness}
-	\\
+	\vspace{2cm}
 \end{algorithm}
 
 Correct detections with improve the fitness of a particular individual and the individual is more likely to be selected for genetic operators later on, where as false positives and incorrect detections impact the fitness negatively, with incorrect detections having less of a negative impact than the former.  As an example, if we are looking for SQL injections, every deleted request that is a SQL injection is correct, if instead it isn't an attack at all then it is a false positive and if it is actually a XSS or RFI attack then this is an incorrect detection.
