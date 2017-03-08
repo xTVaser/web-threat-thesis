@@ -4,9 +4,81 @@
 
 \href{https://github.com/xTVaser/web-threat-thesis}{All source code and testing data sets are available online open-source under the GPLv2 license.}
 
-\chapter{Parser Documentation} \label{app:parserDocumentation}
+\chapter{System Documentation and Usage}
+\section{Test Generator} \label{app:testGeneratorDocumentation}
 
-\chapter{Genetic Algorithm Documentation} \label{app:geneticDocumentation}
+This small script takes in all of the files with the individual web
+attack types, and combines them to create a valid test file.
+
+For training it will divide the file into two segments, 30/70\% of the
+file. The first 30\% is the initial set for the genetic algorithm but it
+will use the entire file. For the support vector machine it doesnt
+matter as it will only pass through the file once.
+
+Training size = 1000 requests\\
+Testing size = 5000 requests
+
+Usage:
+
+\texttt{TestGenerator.py\ -s\ SQL\_Training\ -x\ XSS\_Training\ -r\ RFI\_Training\ -n\ NT\_Training\ -sp\ 30\ -xp\ 30\ -rp\ 30\ -np\ 10\ -t\ -o\ TEST\_Training}
+
+\texttt{-s} file containing sql injection attacks, line seperated
+
+\texttt{-x} file containing xss attacks, line seperated
+
+\texttt{-r} file containing rfi attacks, line seperated
+
+\texttt{-n} file containing non-attacks, line seperated
+
+\texttt{-sp} percentage makeup of the file for sql attacks
+
+\texttt{-xp} percentage makeup of the file for xss attacks
+
+\texttt{-rp} percentage makeup of the file for remote file inclusion
+attacks
+
+\texttt{-np} percentage makeup of the file for non-attacks (false
+positive purposes)
+
+\texttt{-t} specify the test is for training
+
+\texttt{-f} specify the test is for testing
+
+\texttt{-o} output file path and name
+
+\section{Parser}  \label{app:parserDocumentation}
+
+This small script takes in a file that holds all of the requests for the
+test and will extract the various metrics from each. For example: number
+of keywords, number of urls, attack type, etc.
+
+Usage:
+
+\texttt{RequestParser.py\ -f\ pathto/input.txt\ -ga\ -b\ 4444\ -p\ -d\ -o\ output}
+
+\texttt{-f} file input with requests, line seperated with each line
+being in the syntax
+
+\texttt{-ga} parse the bitstrings for the use in a genetic algorithm.
+
+\texttt{-svm} parse the bitstrings for the use in a supper vector
+machine algorithm.
+
+\texttt{-b} specify the max length of each of the 4 segments in the
+bitstring (genetic algorithm only) Each segment can be a max length of
+8.
+
+\texttt{-d} the first bitstring will be printed out as a decimal number
+instead of binary.
+
+\texttt{-p} permute the bitstrings to get all possible combinations up
+to the max length.
+
+\texttt{-o} output file name, the algorithm will be appended to the end
+automatically.
+
+\section{Genetic Algorithm Documentation} \label{app:geneticDocumentation}
+\section{SVM Documentation} \label{app:svmDocumentation}
 
 \chapter{Regular Expression Documentation} \label{app:regex}
 lorem

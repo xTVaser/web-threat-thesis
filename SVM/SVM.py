@@ -17,7 +17,7 @@ parser.add_argument("-x", "--xssNumber",
 parser.add_argument("-r", "--rfiNumber",
                     help="The number of RFI attacks to include in training")
 parser.add_argument("-n", "--ntNumber",
-                    help="THe number of nonthreat attacks to include in training")
+                    help="The number of nonthreat attacks to include in training")
 
 parser.add_argument("-f", "--fileDirectory",
                     help="Directory containing the 4 threat files for training")

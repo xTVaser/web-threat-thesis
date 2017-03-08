@@ -290,6 +290,8 @@
   {\ifx\empty#1\empty\else\gdef\@gradyear{#1}\fi}
 \renewcommand*{\author}[1]%
   {\ifx\empty#1\empty\else\gdef\@author{#1}\fi}
+\newcommand*{\supervisor}[1]%
+  {\ifx\empty#1\empty\else\gdef\@supervisor{#1}\fi}
 \renewcommand*{\title}[1]%
   {\ifx\empty#1\empty\else\gdef\@title{#1}\fi}
 
@@ -298,6 +300,7 @@
 \department{\emph{(department)}}
 \gradyear{\emph{(year of graduation)}}
 \author{\emph{(author)}}
+\supervisor{\emph{(supervisor)}}
 \title{\emph{(title)}}
 \school{\emph{(school)}}
 
@@ -323,6 +326,9 @@
       \vfill
       {\@author}\\
       \vfill
+      supervised by \\
+      \vfill
+      {\@supervisor}\\
       \vfill
       A thesis submitted in conformity with the requirements\\
       for the degree of {\@degree}\\
