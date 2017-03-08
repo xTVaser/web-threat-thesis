@@ -208,7 +208,7 @@ The genetic algorithm was written from scratch using the Python programming lang
 
 \subsection{Testing Procedure}
 
-In order to the test the genetic algorithm fairly, both training data and testing data will have equal proportions of all three attacks, 30\% for each attack and then 10\% of non attacks for false positive measurements (Table \ref{tab:trainingfile} \& \ref{tab:testfile}).  In addition, the testing data contains different requests than that used in training as this would be the situation that these approaches would be used in the real world.  They would be trained using supervised learning and then used to identify unlabeled data entering the system, therefore it does not make sense to test with the same data it was trained on.
+In order to the test the genetic algorithm fairly, both training data and testing data will have equal proportions of all three attacks, 30\% for each attack and then 10\% of non attacks for false positive measurements (Table \ref{tab:trainingfile} \& \ref{tab:testfile}).  In addition, the testing data contains different requests than that used in training as this would be the situation that these approaches would be used in the real world.  They would be trained using supervised learning and then used to identify unlabeled data entering the system, therefore it does not make sense to test with the same data it was trained on.  These testing files can be automatically constructed using a small Python script (Appendix \ref{app:testGeneratorDocumentation}).
 
 \begin{table}
 	\centering
@@ -264,7 +264,7 @@ In addition to adjusting the various parameters of the genetic algorithm, using 
 
 \section{Support Vector Machine Detection}
 
-The SVM detection approach will follow a similar process to the genetic algorithm but rather than changing the parameters of the algorithm, the training data will be manipulated instead (Figure \ref{fig:svmsys}).  This is due to the fact that the parameters for the SVM that matter for performance are automatically optimized by using a grid search provided by the same Python library used to implement the SVM, scikit-learn.\cite{scikit-learn}
+The SVM detection approach will follow a similar process to the genetic algorithm but rather than changing the parameters of the algorithm, the training data will be manipulated instead (Figure \ref{fig:svmsys}).  This is due to the fact that the parameters for the SVM that matter for performance are automatically optimized by using a grid search provided by the same Python library used to implement the SVM, scikit-learn.\cite{scikit-learn}  The implemented support-vector machine's usage has been documented like all of the other tools for this research (Appendix \ref{app:svmDocumentation}).
 
 \begin{figure}
 	\includegraphics[width=450px]{./assets/img/svmsys.png}

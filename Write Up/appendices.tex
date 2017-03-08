@@ -78,10 +78,86 @@ to the max length.
 automatically.
 
 \section{Genetic Algorithm Documentation} \label{app:geneticDocumentation}
+
+Driving script used to run the genetic algorithm on the given input and
+produce output. In real usage, GATest.py is used to perform automated
+testing. The GA will run through all the combinations and output a file
+for each combination, for the number of iterations, etc.
+
+Sample Usage:
+
+\texttt{GADriver.py\ -p\ 100\ -g\ 10\ -m\ 0.5\ -e\ 5\ -i\ 1\ -b\ 36\ -f\ Length\_Training\_GA\ -o\ Test\_GA}
+
+\texttt{-p} Define the maximum population size per generation
+
+\texttt{-g} Define the number of generations to compute
+
+\texttt{-m} Percentage chance to mutate an allele
+
+\texttt{-e} Top percentage of current population to carry over unchanged
+to the next generation
+
+\texttt{-i} Repeat the genetic algorithm (i) times to generate more than
+the maximum population size at the end
+
+\texttt{-b} Specify the number of multiple combinations of the same
+bitstring length excluding the decimal representation
+
+\texttt{-f} File name containing requests and parsed bitstrings
+
+\texttt{-o} output file name, the algorithm will be appended to the end
+automatically.
+
 \section{SVM Documentation} \label{app:svmDocumentation}
 
+Script that builds an SVM for every detection each of the three attack
+types, and each of the three kernels given training input and determines
+results from testing input. In real usage, TestSVM.py would be used to
+call this program to allow for automated testing of a large amount of
+results.
+
+Sample Usage:
+
+\texttt{SVM.py\ -s\ 1000\ -x\ 1000\ -r\ 1000\ -n\ 350\ -f\ Training/New/\ -o\ 75\_25}
+
+\texttt{-s} The number of SQL attacks to include in training
+
+\texttt{-x} The number of XSS attacks to include in training
+
+\texttt{-r} The number of RFI attacks to include in training
+
+\texttt{-n} The number of nonthreat attacks to include in training
+
+\texttt{-f} Directory containing the 4 threat files for training
+
+\texttt{-o} Output file name
+
 \chapter{Regular Expression Documentation} \label{app:regex}
-lorem
+\begin{table}[hp]
+	\centering
+	\begin{tabular}{|p{1in}|p{1.5in}|p{3.5in}|}
+	\hline
+	\textbf{Attack Type} & \textbf{Purpose} & \textbf{Regular Expression}  \\
+	\hhline{|=|=|=|}
+	SQLi & Find all instances of a keyword &  \begin{verbatim}
+	A-Za-z{?&</]" + keyword + "[^A-Za-z}.>]
+	\end{verbatim} \\
+	\hline
+	SQLi & Find all fields & \begin{verbatim}
+	(\?|&)[\w\d]+=
+	\end{verbatim}	 \\
+	\hline
+	XSS & Find all fields & \begin{verbatim}
+	(\?|&)[\w\d]+=
+	\end{verbatim}	 \\
+	\hline
+	XSS & Find all instances of attributes & \begin{verbatim}
+	<.*"+ attribute +".*>
+	\end{verbatim}	 \\
+	\hline
+	\end{tabular}
+	\caption{Descriptions of Regular Expressions Used}
+\end{table}
 
 \chapter{Full Genetic Algorithm Testing Results} \label{app:geneticFullResults}
 \section{Full Text-Based Results}
