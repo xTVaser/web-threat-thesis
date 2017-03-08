@@ -2,7 +2,7 @@
 
 \section{Genetic Algorithm}
 
-In the following results each test was repeated three times and averaged to give a better idea of the typical performance of the genetic algorithm approach.  Each test is categorized by the parameter that was changed as well as the reason and expected results of the changes to the parameters.  Also, with the exception of the bitstring segment length test, all other tests are conducted using the normal segment lengths (Table \ref{tab:geneticSegments}).  Lastly, for brevity only the SQL injection results will be compared across all test cases as it is the most complex request out of the three, a full listing of the graphical results for the other two attack types as well as complete text based results for all attack types is included (Appendix \ref{app:geneticfullResults}).
+In the following results each test was repeated three times and averaged to give a better idea of the typical performance of the genetic algorithm approach.  Each test is categorized by the parameter that was changed as well as the reason and expected results of the changes to the parameters.  Also, with the exception of the bitstring segment length test, all other tests are conducted using the normal segment lengths (Table \ref{tab:geneticSegments}).  Lastly, for brevity only the SQL injection results will be compared across all test cases as it is the most complex request out of the three, a full listing of the graphical results for the other two attack types as well as complete text based results for all attack types is included (Appendix \ref{app:geneticFullResults}).
 
 \subsection{Finding Best Parameters}
 
@@ -55,7 +55,7 @@ The amount of generations also significantly matters because it is the amount of
 \newpage
 \subsubsection{Mutation Rate} \label{sec:resMutation}
 
-If the mutation rate is too high then the genetic algorithm basically becomes a random search, while having no mutation rate at all will result in a lack of genetic diversity, with new bitstrings only being produced due to crossovers crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform.\cite{aNewStrategy}  Mutation rates are typically set to a very low amount since it is on a per allele basis and you would not want to randomize every single bit in a signature and so a value between 0.0 and 1.0\% is often used with 1.0\% being quite high (Figure \ref{fig:resMutation}).\cite{optimizationsOfControlParameters}
+If the mutation rate is too high then the genetic algorithm basically becomes a random search, while having no mutation rate at all will result in a lack of genetic diversity, with new bitstrings only being produced due to crossovers crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform.\cite{aNewStrategy}  Mutation rates are typically set to a very low amount since it is on a per allele basis and you would not want to randomize every single bit in a signature and so a value between 0.0 and 1.0\% is often used with 1.0\% being quite high (Figure \ref{fig:resMutation}).\cite{optimizationOfControlParameters}
 
 \begin{figure}[hb]
 	\centering
@@ -67,9 +67,10 @@ If the mutation rate is too high then the genetic algorithm basically becomes a 
 \newpage
 \subsubsection{Elitist Pool} \label{sec:resElitist}
 
-The more of the better performing population that survives to the next generation the more likely that strong individuals will be selected to produce new individuals of similar strength.  However, if too much of the population is preserved than it may not be able to improve very quickly and the search may stagnate.  Sometimes this is also referred to as a generation gap (Figure \ref{fig:resElitist}).\cite{optimizationsOfControlParameters}
+The more of the better performing population that survives to the next generation the more likely that strong individuals will be selected to produce new individuals of similar strength.  However, if too much of the population is preserved than it may not be able to improve very quickly and the search may stagnate.  Sometimes this is also referred to as a generation gap (Figure \ref{fig:resElitist}).\cite{optimizationOfControlParameters}
 
 \begin{figure}[hb]
+	\centering
 	\includegraphics[width=350px]{./assets/results/ga/elitist/Results_SQL.png}
 	\caption{Effects of Elitist Pool on Detecting SQLi}
 	\label{fig:resElitist}
@@ -82,6 +83,7 @@ The more of the better performing population that survives to the next generatio
 One of the claimed advantages of the genetic algorithm approach, and a big reason why it can work well is because the genetic algorithm can be used to produce new signatures in order to keep adding to an existing set to increase the breadth of detection.  For this reason, running the algorithm multiple times and combining the signatures should result in more detections, but may also result in increased false positives and incorrect detections due to many poor signatures being stored along with one another (Figure \ref{fig:resIterations}).
 
 \begin{figure}[hb]
+	\centering
 	\includegraphics[width=350px]{./assets/results/ga/iterations/Results_SQL.png}
 	\caption{Effects of Multiple Iterations on Detecting SQLi}
 	\label{fig:resIterations}
