@@ -6,7 +6,7 @@ In the following results each test was repeated three times and averaged to give
 
 \subsection{Finding Best Parameters}
 
-The performance and effectiveness of the genetic algorithm can be attributed to the parameters that are used and there is no universal choice for the parameters as it will always depend on the data set in question.\cite{optimalPopulationGenetic}  Each parameter of the genetic algorithm will affect the results in different ways, therefore it was important to first determine what settings would be most suitable to use for later tests so that those subsequent results would not be heavily influenced by the parameters instead of the independent variable being manipulated (Table \ref{tab:gaTestParameters}).  
+The performance and effectiveness of the genetic algorithm can be attributed to the parameters that are used and there is no universal choice for the parameters as it will always depend on the data set in question \cite{optimalPopulationGenetic}.  Each parameter of the genetic algorithm will affect the results in different ways, therefore it was important to first determine what settings would be most suitable to use for later tests so that those subsequent results would not be heavily influenced by the parameters instead of the independent variable being manipulated (Table \ref{tab:gaTestParameters}).  
 
 \begin{table}[h]
 	\centering
@@ -39,11 +39,11 @@ The performance and effectiveness of the genetic algorithm can be attributed to 
 	\label{fig:resPopSize}
 \end{wrapfigure}
 
-Population size is one of the most important parameters because a genetic algorithm with a low population size performs very poorly due to there not being a large enough sample size to grow and advance from.  Larger populations are more likely to generate new individuals that perform well however this also comes at a performance cost as every individual that is added is another individual that must have it's fitness evaluated.\cite{optimizationOfControlParameters}  In addition, for our purposes having a larger population increases the chances of having signatures that perform badly as well, causing increased false positives and incorrect detections.  In the worst case every attack in the testing set will be unique and require a new signature so a population size any less than that amount may miss attacks (Figure \ref{fig:resPopSize}).
+Population size is one of the most important parameters because a genetic algorithm with a low population size performs very poorly due to there not being a large enough sample size to grow and advance from.  Larger populations are more likely to generate new individuals that perform well however this also comes at a performance cost as every individual that is added is another individual that must have it's fitness evaluated \cite{optimizationOfControlParameters}.  In addition, for our purposes having a larger population increases the chances of having signatures that perform badly as well, causing increased false positives and incorrect detections.  In the worst case every attack in the testing set will be unique and require a new signature so a population size any less than that amount may miss attacks (Figure \ref{fig:resPopSize}).
 
 \subsubsection{Generations} \label{sec:resGeneration}
 
-The amount of generations also significantly matters because it is the amount of times the genetic algorithm will run.  The more generations the more likely that the algorithm can produce better results and improve upon the existing results (Figure \ref{fig:resGenerations}).
+The amount of generations also significantly matters because it is the amount of times the genetic algorithm will run.  The more generations, the more likely the algorithm can produce better results and improve upon the existing results (Figure \ref{fig:resGenerations}).
 
 \begin{figure}[hb]
 	\centering
@@ -55,7 +55,7 @@ The amount of generations also significantly matters because it is the amount of
 \newpage
 \subsubsection{Mutation Rate} \label{sec:resMutation}
 
-If the mutation rate is too high then the genetic algorithm basically becomes a random search, while having no mutation rate at all will result in a lack of genetic diversity, with new bitstrings only being produced due to crossovers crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform.\cite{aNewStrategy}  Mutation rates are typically set to a very low amount since it is on a per allele basis and you would not want to randomize every single bit in a signature and so a value between 0.0 and 1.0\% is often used with 1.0\% being quite high (Figure \ref{fig:resMutation}).\cite{optimizationOfControlParameters}
+If the mutation rate is too high then the genetic algorithm basically becomes a random search, while having no mutation rate at all will result in a lack of genetic diversity, with new bitstrings only being produced due to crossovers crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform \cite{aNewStrategy}.  Mutation rates are typically set to a very low amount since it is on a per allele basis and you would not want to randomize every single bit in a signature and so a value between 0.0 and 1.0\% is often used with 1.0\% being quite high (Figure \ref{fig:resMutation}) \cite{optimizationOfControlParameters}.
 
 \begin{figure}[hb]
 	\centering
@@ -67,7 +67,7 @@ If the mutation rate is too high then the genetic algorithm basically becomes a 
 \newpage
 \subsubsection{Elitist Pool} \label{sec:resElitist}
 
-The more of the better performing population that survives to the next generation the more likely that strong individuals will be selected to produce new individuals of similar strength.  However, if too much of the population is preserved than it may not be able to improve very quickly and the search may stagnate.  Sometimes this is also referred to as a generation gap (Figure \ref{fig:resElitist}).\cite{optimizationOfControlParameters}
+The more of the better performing population that survives to the next generation the more likely strong individuals will be selected to produce new individuals of similar strength.  However, if too much of the population is preserved than it may not be able to improve very quickly and the search may stagnate.  Sometimes this is also referred to as a generation gap (Figure \ref{fig:resElitist}) \cite{optimizationOfControlParameters}.
 
 \begin{figure}[hb]
 	\centering
