@@ -159,9 +159,8 @@ Sample Usage:
 	\caption{Descriptions of Regular Expressions Used}
 \end{table}
 
-\chapter{Full Genetic Algorithm Testing Results} \label{app:geneticFullResults}
-\section{Full Text-Based Results}
-\subsection{Population Size}
+\chapter{Full Text-Based Genetic Algorithm Testing Results} \label{app:geneticFullResults}
+\section{Population Size}
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -179,7 +178,8 @@ Sample Usage:
 	5000 & 90.95 & 6.86 & 14.30 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of population size on SQLi detection}
+	\caption[]{Text based effects of population size on SQLi detection}
+	\label{app:sqlPopulationText}
 \end{table}
 \begin{table}[h]
 	\centering
@@ -198,7 +198,8 @@ Sample Usage:
 	5000 & 47.51 & 0.26 & 0.08 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of population size on XSS detection}
+	\caption[]{Text based effects of population size on XSS detection}
+	\label{app:xssPopulationText}
 \end{table}
 \begin{table}[h]
 	\centering
@@ -217,11 +218,12 @@ Sample Usage:
 	5000 & 65.15 & 0 & 0.35 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of population size on RFI detection}
+	\caption[]{Text based effects of population size on RFI detection}
+	\label{app:rfiPopulationText}
 \end{table}
 
 \newpage
-\subsection{Generations}
+\section{Generations}
 
 \begin{table}[hp]
 	\centering
@@ -240,7 +242,8 @@ Sample Usage:
 	1000 & 52.06 & 3.80 & 5.21 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of the number of generations on SQLi detection}
+	\caption[]{Text based effects of the number of generations on SQLi detection}
+	\label{app:sqlGenerationText}
 \end{table}
 
 \begin{table}[h]
@@ -260,7 +263,8 @@ Sample Usage:
 	1000 & 17.80 & 18.26 & 25.03 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of the number of generations on RFI detection}
+	\caption[]{Text based effects of the number of generations on RFI detection}
+	\label{app:xssGenerationText}
 \end{table}
 
 \begin{table}[h]
@@ -280,11 +284,12 @@ Sample Usage:
 	1000 & 33.44 & 0.00 & 0.00 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of the number of generations on RFI detection}
+	\caption[]{Text based effects of the number of generations on RFI detection}
+	\label{app:rfiGenerationText}
 \end{table}
 
 \newpage
-\subsection{Mutation Rate}
+\section{Mutation Rate}
 
 \begin{table}[h]
 	\centering
@@ -303,7 +308,8 @@ Sample Usage:
 	1.00 & 54.46 & 3.80 & 6.12 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of mutation rate on SQLi detection}
+	\caption[]{Text based effects of mutation rate on SQLi detection}
+	\label{app:sqlMutationText}
 \end{table}
 
 \begin{table}[h]
@@ -323,7 +329,8 @@ Sample Usage:
 	1.00 & 5.75 & 0.13 & 0.03 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of mutation rate on XSS detection}
+	\caption[]{Text based effects of mutation rate on XSS detection}
+	\label{app:xssMutationText}
 \end{table}
 
 \begin{table}[h]
@@ -343,11 +350,12 @@ Sample Usage:
 	1.00 & 32.71 & 0.00 & 0.45 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of mutation rate on RFI detection}
+	\caption[]{Text based effects of mutation rate on RFI detection}
+	\label{app:rfiMutationText}
 \end{table}
 
 \newpage
-\subsection{Elitist Pool}
+\section{Elitist Pool}
 
 \begin{table}[h]
 	\centering
@@ -366,7 +374,8 @@ Sample Usage:
 	25 & 91.37 & 9.06 & 14.52 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of the size of elitist pool on SQLi detection}
+	\caption[]{Text based effects of the size of elitist pool on SQLi detection}
+	\label{app:sqlElitistText}
 \end{table}
 
 \begin{table}[h]
@@ -386,7 +395,8 @@ Sample Usage:
 	25 & 87.08 & 18.53 & 25.07 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of the size of elitist pool on XSS detection}
+	\caption[]{Text based effects of the size of elitist pool on XSS detection}
+	\label{app:xssElitistText}
 \end{table}
 
 \begin{table}[h]
@@ -406,11 +416,12 @@ Sample Usage:
 	25 & 72.35 & 0.00 & 0.00 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of the size of elitist pool on RFI detection}
+	\caption[]{Text based effects of the size of elitist pool on RFI detection}
+	\label{app:rfiElitistText}
 \end{table}
 
 \newpage
-\subsection{Combining Multiple Signature Sets}
+\section{Combining Multiple Signature Sets}
 
 \begin{table}[h]
 	\centering
@@ -429,7 +440,8 @@ Sample Usage:
 	20 & 99.60 & 69.26 & 83.27 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of multiple iterations on SQLi detection}
+	\caption[]{Text based effects of multiple iterations on SQLi detection}
+	\label{app:sqlIterationText}
 \end{table}
 
 \begin{table}[h]
@@ -449,7 +461,8 @@ Sample Usage:
 	20 & 99.75 & 100.00 & 100.00 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of multiple iterations on XSS detection}
+	\caption[]{Text based effects of multiple iterations on XSS detection}
+	\label{app:xssIterationText}
 \end{table}
 
 \begin{table}[h]
@@ -469,11 +482,12 @@ Sample Usage:
 	20 & 99.95 & 0.00 & 1.25 \\
 	\hline
 	\end{tabular}
-	\caption{Text based effects of multiple iterations on RFI detection}
+	\caption[]{Text based effects of multiple iterations on RFI detection}
+	\label{app:rfiIterationText}
 \end{table}
 
 \newpage
-\subsection{Bitstring Segment Length Effects}
+\section{Bitstring Segment Length Effects}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
 	\hline
@@ -515,7 +529,8 @@ Sample Usage:
 	6143 & 55.60 & 16.46 & 13.16 \\ \hline
 	6153 & 54.17 & 16.60 & 17.13 \\ \hline
 	6163 & 60.55 & 17.66 & 28.42 \\ \hline
-	\caption{Text based effects of bitstring segment lengths on SQLi detection}
+	\caption[]{Text based effects of bitstring segment lengths on SQLi detection}
+	\label{app:sqlBitstringTest}
 \end{longtable}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -558,7 +573,8 @@ Sample Usage:
 	6143 &  27.66 &   0.26 &   0.04 \\ \hline
 	6153 &  44.42 &   0.33 &   0.07 \\ \hline
 	6163 &  39.64 &  33.33 &  33.33 \\ \hline
-	\caption{Text based effects of bitstring segment lengths on XSS detection}
+	\caption[]{Text based effects of bitstring segment lengths on XSS detection}
+	\label{app:xssBitstringTest}
 \end{longtable}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -601,11 +617,12 @@ Sample Usage:
 	6143 &  42.55 &  14.93 &  0.08 \\ \hline
 	6153 &  35.88 &   0.00 &  0.15 \\ \hline
 	6163 &  38.42 &   0.00 &  0.04 \\ \hline
-	\caption{Text based effects of bitstring segment lengths on RFI detection}
+	\caption[]{Text based effects of bitstring segment lengths on RFI detection}
+	\label{app:rfiBitstringTest}
 \end{longtable}
 
 \newpage
-\subsection{Compared With Random Permutations with Fitness}
+\section{Compared With Random Permutations with Fitness}
 
 \begin{table}[H]
 	\centering
@@ -619,7 +636,8 @@ Sample Usage:
 	80	& 94.33 & 5.40 & 14.26 \\ \hline
 	100	& 95.19 & 95.39 & 99.76 \\ \hline
 	\end{tabular}
-	\caption{Text based effects of permutated bitstrings for SQLi detection}
+	\caption[]{Text based effects of permutated bitstrings for SQLi detection}
+	\label{app:sqlRandomText}
 \end{table}
 
 \begin{table}[H]
@@ -634,7 +652,8 @@ Sample Usage:
 	80	& 94.53 & 0.40 & 0.10 \\ \hline
 	100	& 98.73 & 99.8 & 99.96 \\ \hline
 	\end{tabular}
-	\caption{Text based effects of permutated bitstrings for XSS detection}
+	\caption[]{Text based effects of permutated bitstrings for XSS detection}
+	\label{app:xssRandomText}
 \end{table}
 
 \begin{table}[H]
@@ -649,92 +668,14 @@ Sample Usage:
 	80	& 71.00 & 0.00 & 0.00 \\ \hline
 	100	& 83.13 & 100.00 & 99.86 \\ \hline
 	\end{tabular}
-	\caption{Text based effects of permutated bitstrings for RFI detection}
+	\caption[]{Text based effects of permutated bitstrings for RFI detection}
+	\label{app:rfiRandomText}
 \end{table}
 
-\newpage
-\section{Remaining Graphical Results}
-\subsection{Population Size} \label{app:resPopulation}
 
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/pop/Results_XSS.png}
-	\caption{Effects of Population Size on Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/pop/Results_RFI.png}
-	\caption{Effects of Population Size on Detecting RFI}
-\end{figure}
+\chapter{Full Text-Based Support Vector Machine Testing Results} \label{app:svmFullResults}
 
-\newpage
-\subsection{Generations} \label{app:resGeneration}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/generations/Results_XSS.png}
-	\caption{Effects of Number of Generations on Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/generations/Results_RFI.png}
-	\caption{Effects of Number of Generations on Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Mutation Rate} \label{app:resMutation}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/mutation/Results_XSS.png}
-	\caption{Effects of Mutation Rate on Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/mutation/Results_RFI.png}
-	\caption{Effects of Mutation Rate on Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Elitist Pool} \label{app:resElitist}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/elitist/Results_XSS.png}
-	\caption{Effects of Elitist Pool on Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/elitist/Results_RFI.png}
-	\caption{Effects of Elitist Pool on Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Combining Multiple Signature Sets} \label{app:resIteration}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/iterations/Results_XSS.png}
-	\caption{Effects of Multiple Iterations on Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/iterations/Results_RFI.png}
-	\caption{Effects of Multiple Iterations on Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Bitstring Segment Length Effects} \label{app:resSegment}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/bitlength/Results_SuccessRate_XSS.png}
-	\caption{Effects of Segment Lengths on Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/ga/bitlength/Results_SuccessRate_RFI.png}
-	\caption{Effects of Segment Lengths on Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Compared With Random Permutations with Fitness} \label{app:resRand}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/rand/Results_XSS.png}
-	\caption{Random Permutations to Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/rand/Results_RFI.png}
-	\caption{Random Permutations to Detecting RFI}
-\end{figure}
-
-\chapter{Full Support Vector Machine Testing Results} \label{app:svmFullResults}
-
-\section{Full Text-Based Results}
-\subsection{Comparison with Genetic Algorithm}
-
+\section{Comparison with Genetic Algorithm}
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
 	\hline
 	\textbf{Training Info \& Kernel Info} & \textbf{Successful Detection Rate (\%)} & \textbf{False Positive Rate (\%)} & \textbf{Incorrect Detection Rate (\%)}  \\
@@ -760,7 +701,8 @@ Sample Usage:
 	75\_25L 		& 90.26 & 11.20 & 5.00 \\ \hline
 	75\_25P 		& 79.00 &  8.80 & 2.33 \\ \hline
 	75\_25R 		& 90.33 & 11.20 & 6.36 \\ \hline
-	\caption{Text based effects of genetic algorithm and SVM comparison on SQLi detection}
+	\caption[]{Text based effects of genetic algorithm and SVM comparison on SQLi detection}
+	\label{app:sqlComparisonText}
 \end{longtable}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -788,7 +730,8 @@ Sample Usage:
 	    75\_25L & 90.86 & 0.20 & 0.03 \\ \hline
 	    75\_25P & 90.86 & 0.20 & 0.03 \\ \hline
 	    75\_25R & 90.86 & 0.20 & 0.03 \\ \hline
-	\caption{Text based effects of genetic algorithm and SVM comparison on XSS detection}
+	\caption[]{Text based effects of genetic algorithm and SVM comparison on XSS detection}
+	\label{app:xssComparisonText}
 \end{longtable}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -816,11 +759,12 @@ Sample Usage:
 	75\_25L &  99.20 & 0.00 & 0.16 \\ \hline
 	75\_25P &  97.66 & 0.00 & 0.03 \\ \hline
 	75\_25R &  99.20 & 0.00 & 0.26 \\ \hline
-	\caption{Text based effects of genetic algorithm and SVM comparison on RFI detection}
+	\caption[]{Text based effects of genetic algorithm and SVM comparison on RFI detection}
+	\label{app:rfiComparisonText}
 \end{longtable}
 
 \newpage
-\subsection{Increasing Non-Threats}
+\section{Increasing Non-Threats}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
 	\hline
@@ -844,7 +788,8 @@ Sample Usage:
  	750L & 79.26 &  3.00 &  3.90 \\ \hline
  	750P & 47.60 &  2.20 &  0.86 \\ \hline
  	750R & 90.00 &  5.00 &  4.66 \\ \hline
- 	\caption{Text based effects of increasing non-threats in training data on SQLi detection}
+ 	\caption[]{Text based effects of increasing non-threats in training data on SQLi detection}
+ 	\label{app:sqlNonThreatText}
 \end{longtable}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -869,7 +814,8 @@ Sample Usage:
  	750L & 90.86 & 0.20 & 0.03 \\ \hline
  	750P & 90.86 & 0.20 & 0.03 \\ \hline
  	750R & 90.86 & 0.20 & 0.03 \\ \hline
- 	\caption{Text based effects of increasing non-threats in training data on XSS detection}
+ 	\caption[]{Text based effects of increasing non-threats in training data on XSS detection}
+	\label{app:xssNonThreatText}
 \end{longtable}
 	
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -894,11 +840,12 @@ Sample Usage:
 	750L &  99.20 &  0.00 &  0.16 \\ \hline
 	750P &  99.20 &  0.00 &  0.00 \\ \hline
 	750R &  99.20 &  0.00 &  0.10 \\ \hline
-	\caption{Text based effects of increasing non-threats in training data on RFI detection}
+	\caption[]{Text based effects of increasing non-threats in training data on RFI detection}
+	\label{app:rfiNonThreatText}
 \end{longtable}
 
 \newpage
-\subsection{Increasing Incorrect-Threats}
+\section{Increasing Incorrect-Threats}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
 	\hline
@@ -925,7 +872,8 @@ Sample Usage:
  	750L & 54.86 & 4.40 &  2.06 \\ \hline
  	750P & 31.40 & 1.80 &  0.23 \\ \hline
  	750R & 90.00 & 5.00 &  4.66 \\ \hline
- 	\caption{Text based effects of increasing incorrect-threats in training data on SQLi detection}
+ 	\caption[]{Text based effects of increasing incorrect-threats in training data on SQLi detection}
+ 	\label{app:sqlIncorrectThreatText}
 \end{longtable}
 	
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -953,7 +901,8 @@ Sample Usage:
  	750L & 90.86 & 0.20 & 0.03 \\ \hline
  	750P & 90.86 & 0.20 & 0.03 \\ \hline
  	750R & 90.86 & 0.20 & 0.03 \\ \hline
- 	\caption{Text based effects of increasing incorrect-threats in training data on XSS detection}
+ 	\caption[]{Text based effects of increasing incorrect-threats in training data on XSS detection}
+	\label{app:xssIncorrectThreatText}
 \end{longtable}
 
 \begin{longtable}{|p{1.5in}|p{1in}|p{1in}|p{1in}|}
@@ -981,41 +930,8 @@ Sample Usage:
 	750L &  99.20 &  0.00 & 0.10 \\ \hline
 	750P &  99.20 &  0.00 & 0.00 \\ \hline
 	750R &  99.20 &  0.00 & 0.16 \\ \hline
-	\caption{Text based effects of increasing incorrect-threats in training data on RFI detection}
+	\caption[]{Text based effects of increasing incorrect-threats in training data on RFI detection}
+	\label{app:rfiIncorrectThreatText}
 \end{longtable}
-
-\newpage
-\section{Remaining Graphical Results}
-\subsection{Comparison with Genetic Algorithm} \label{app:resComparison}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/svm/comparison/Results_XSS.png}
-	\caption{Genetic Algorithm and SVM comparison for Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/svm/comparison/Results_RFI.png}
-	\caption{Genetic Algorithm and SVM comparison for Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Increasing Non-Threats}  \label{app:resNonThreat}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/svm/nonthreat/Results_XSS.png}
-	\caption{Effects of Increasing Non-Threat training data in Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/svm/nonthreat/Results_RFI.png}
-	\caption{Effects of Increasing Non-Threat training data in Detecting RFI}
-\end{figure}
-
-\newpage
-\subsection{Increasing Incorrect-Threats} \label{app:resIncorrect}
-
-\begin{figure}[hp]
-	\centering
-	\includegraphics[height=225px]{./assets/appendix/fullresults/svm/incorrect/Results_XSS.png}
-	\caption{Effects of Increasing incorrect attack type training data in Detecting XSS}
-	\includegraphics[height=225px]{./assets/appendix/fullresults/svm/incorrect/Results_RFI.png}
-	\caption{Effects of Increasing incorrect attack type training data in Detecting RFI}
-\end{figure}
 
 \end{appendices}

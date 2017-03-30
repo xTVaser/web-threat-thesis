@@ -1,18 +1,20 @@
-\chapter{Results} 
+\chapter{Results}
+
+For brevity the focus of the comparison is on the SQL injection results across all test cases as it is the most complex request out of the three, the other request types will have their graphical results displayed alongside as well but the preceding discussion will tend to focus on the SQL injections most heavily.  A full listing of the text-based results for each respective graph is included (Appendix \ref{app:geneticFullResults}, Appendix \ref{app:svmFullResults}).
 
 \section{Genetic Algorithm}
 
-In the following results each test was repeated three times and averaged to give a better idea of the typical performance of the genetic algorithm approach.  Each test is categorized by the parameter that was changed as well as the reason and expected results of the changes to the parameters.  Also, with the exception of the bitstring segment length test, all other tests are conducted using the normal segment lengths (Table \ref{tab:geneticSegments}).  Lastly, for brevity only the SQL injection results will be compared across all test cases as it is the most complex request out of the three, a full listing of the graphical results for the other two attack types as well as complete text based results for all attack types is included (Appendix \ref{app:geneticFullResults}).
+In the following results each test was repeated three times and averaged to give a better idea of the typical performance of the genetic algorithm approach described earlier (Algorithm \ref{alg:genetic}).  The parameter that was changed categorizes each test, as well as the reason and expected results of the changes to the particular parameters is included.  Also, with the exception of the bitstring segment length test, all other tests are conducted using the normal segment lengths (Table \ref{tab:geneticSegments}).
 
 \subsection{Finding Best Parameters}
 
-The performance and effectiveness of the genetic algorithm can be attributed to the parameters that are used and there is no universal choice for the parameters as it will always depend on the data set in question \cite{optimalPopulationGenetic}.  Each parameter of the genetic algorithm will affect the results in different ways, therefore it was important to first determine what settings would be most suitable to use for later tests so that those subsequent results would not be heavily influenced by the parameters instead of the independent variable being manipulated (Table \ref{tab:gaTestParameters}).  
+The performance and effectiveness of the genetic algorithm can be attributed to the parameters that are used and there is no universal choice for the parameters as it will always depend on the data set in question \cite{optimalPopulationGenetic}.  Each parameter of the genetic algorithm will affect the results in different ways, therefore it was important to first determine what settings would be most suitable to use for later tests so that those subsequent results would not be heavily influenced by the parameters instead of the independent variable being manipulated (Table \ref{tab:gaTestParameters}).
 
 \begin{table}[h]
 	\centering
 	\begin{tabular}{|p{1.5in}|p{0.675in}|p{0.675in}|p{0.675in}|p{0.675in}|p{0.675in}|}
 	\hline
-	\textbf{Test} & \textbf{Popul-ation} & \textbf{Gener-ations} & \textbf{Iter-ations} & \textbf{Muta-tion Rate} & \textbf{Elitist Pool} \\ 
+	\textbf{Test} & \textbf{Popul-ation} & \textbf{Gener-ations} & \textbf{Iter-ations} & \textbf{Muta-tion Rate} & \textbf{Elitist Pool} \\
 	\hhline{|=|=|=|=|=|=|}
 	\textbf{Population Size} & \textbf{$x$} & 100 & 1 & 0.5\% & 5\% \\
 	\hline
@@ -27,100 +29,137 @@ The performance and effectiveness of the genetic algorithm can be attributed to 
 	\textbf{Bitstring Length} & 1250 & 100 & 1 & 0.5\% & 5\% \\
 	\hline
 	\end{tabular}
-	\caption{Parameters used in each Genetic Algorithm Test}
+	\caption{Parameters used in each Genetic Algorithm tests, the \textbf{$x$} signifies the independent variable for each test.}
 	\label{tab:gaTestParameters}
 \end{table}
 
+\newpage
 \subsubsection{Population Size} \label{sec:resPopulation}
 
-\begin{wrapfigure}{r}{0pt}
-	\includegraphics[width=250px]{./assets/results/ga/pop/Results_SQL.png}
-	\caption{Effects of Population Size on Detecting SQLi}
+Population size is one of the most important parameters because a genetic algorithm with a low population size performs very poorly due to there not being a large enough sample size to grow and advance from.  Larger populations are more likely to generate new individuals that perform well however this also comes at a performance cost as every individual that is added is another individual that must have its fitness evaluated \cite{optimizationOfControlParameters}.  In addition, for our purposes having a larger population increases the chances of having signatures that perform badly as well, causing increased false positives and incorrect detections.  In the worst case every attack in the testing set will be unique and require a new signature so a population size any less than that amount may miss attacks (Figure \ref{fig:resPopSize}).
+
+\newpage
+\begin{figure}[hb]
+	\centering
+	\subfloat{\includegraphics[width=225px]{./assets/results/ga/pop/Results_SQL.png}}
+	\subfloat{\includegraphics[width=225px]{./assets/appendix/fullresults/ga/pop/Results_XSS.png}}
+	\\
+	\subfloat{\includegraphics[width=225px]{./assets/appendix/fullresults/ga/pop/Results_RFI.png}}
+	\caption{Effects of Population Size on Detection (Appendix \ref{app:sqlPopulationText},\ref{app:xssPopulationText},\ref{app:rfiPopulationText})}
 	\label{fig:resPopSize}
-\end{wrapfigure}
+\end{figure}
 
-Population size is one of the most important parameters because a genetic algorithm with a low population size performs very poorly due to there not being a large enough sample size to grow and advance from.  Larger populations are more likely to generate new individuals that perform well however this also comes at a performance cost as every individual that is added is another individual that must have it's fitness evaluated \cite{optimizationOfControlParameters}.  In addition, for our purposes having a larger population increases the chances of having signatures that perform badly as well, causing increased false positives and incorrect detections.  In the worst case every attack in the testing set will be unique and require a new signature so a population size any less than that amount may miss attacks (Figure \ref{fig:resPopSize}).
-
+\newpage
 \subsubsection{Generations} \label{sec:resGeneration}
 
 The amount of generations also significantly matters because it is the amount of times the genetic algorithm will run.  The more generations, the more likely the algorithm can produce better results and improve upon the existing results (Figure \ref{fig:resGenerations}).
 
 \begin{figure}[hb]
 	\centering
-	\includegraphics[width=350px]{./assets/results/ga/generations/Results_SQL.png}
-	\caption{Effects of Generations on Detecting SQLi}
+	\subfloat{\includegraphics[width=225px]{./assets/results/ga/generations/Results_SQL.png}}
+	\subfloat{\includegraphics[width=225px]{./assets/appendix/fullresults/ga/generations/Results_XSS.png}}
+	\\
+	\subfloat{\includegraphics[width=225px]{./assets/appendix/fullresults/ga/generations/Results_RFI.png}}
+	\caption{Effects of Generations on Detection (Appendix \ref{app:sqlGenerationText},\ref{app:xssGenerationText},\ref{app:rfiGenerationText})}
 	\label{fig:resGenerations}
 \end{figure}
 
 \newpage
 \subsubsection{Mutation Rate} \label{sec:resMutation}
 
-If the mutation rate is too high then the genetic algorithm basically becomes a random search, while having no mutation rate at all will result in a lack of genetic diversity, with new bitstrings only being produced due to crossovers crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform \cite{aNewStrategy}.  Mutation rates are typically set to a very low amount since it is on a per allele basis and you would not want to randomize every single bit in a signature and so a value between 0.0 and 1.0\% is often used with 1.0\% being quite high (Figure \ref{fig:resMutation}) \cite{optimizationOfControlParameters}.
+If the mutation rate is too high then the genetic algorithm basically becomes a random search, while having no mutation rate at all will result in a lack of genetic diversity, with the production of new bitstrings only being a result of crossovers.  It is very difficult to determine a single mutation rate to get the best results and more often than not this is done by trial and error like the following tests will perform \cite{aNewStrategy}.  Mutation rates are typically set to a very low amount since it is on a per allele basis and you would not want to randomize every single bit in a signature and so a value between 0.0 and 1.0\% is often used with 1.0\% being quite high (Figure \ref{fig:resMutation}) \cite{optimizationOfControlParameters}.
 
+\newpage
 \begin{figure}[hb]
 	\centering
-	\includegraphics[width=350px]{./assets/results/ga/mutation/Results_SQL.png}
-	\caption{Effects of Mutation Rate on Detecting SQLi}
+	\subfloat{\includegraphics[width=225px]{./assets/results/ga/mutation/Results_SQL.png}}
+	\subfloat{\includegraphics[width=225px]{./assets/appendix/fullresults/ga/mutation/Results_XSS.png}}
+	\\
+	\subfloat{\includegraphics[width=225px]{./assets/appendix/fullresults/ga/mutation/Results_RFI.png}}
+	\caption{Effects of Mutation Rate on Detection (Appendix \ref{app:sqlMutationText},\ref{app:xssMutationText},\ref{app:rfiMutationText})}
 	\label{fig:resMutation}
 \end{figure}
 
 \newpage
 \subsubsection{Elitist Pool} \label{sec:resElitist}
 
-The more of the better performing population that survives to the next generation the more likely strong individuals will be selected to produce new individuals of similar strength.  However, if too much of the population is preserved than it may not be able to improve very quickly and the search may stagnate.  Sometimes this is also referred to as a generation gap (Figure \ref{fig:resElitist}) \cite{optimizationOfControlParameters}.
+The more of the better performing population that survives to the next generation the more likely the change of selecting strong individuals to produce new individuals of a similar or greater strength.  However, if the preservation amount of the population is too much than it may not be able to improve very quickly and the overall search may stagnate.  Sometimes this is also referred to as a generation gap (Figure \ref{fig:resElitist}) \cite{optimizationOfControlParameters}.
 
 \begin{figure}[hb]
 	\centering
-	\includegraphics[width=350px]{./assets/results/ga/elitist/Results_SQL.png}
-	\caption{Effects of Elitist Pool on Detecting SQLi}
+	\subfloat{\includegraphics[width=215px]{./assets/results/ga/elitist/Results_SQL.png}}
+	\subfloat{\includegraphics[width=215px]{./assets/appendix/fullresults/ga/elitist/Results_XSS.png}}
+	\\
+	\subfloat{\includegraphics[width=215px]{./assets/appendix/fullresults/ga/elitist/Results_RFI.png}}
+	\caption{Effects of Elitist Pool on Detection (Appendix \ref{app:sqlElitistText},\ref{app:xssElitistText},\ref{app:rfiElitistText})}
 	\label{fig:resElitist}
 \end{figure}
 
 \newpage
-\newpage
 \subsection{Combining Multiple Signature Sets} \label{sec:resIteration}
 
-One of the claimed advantages of the genetic algorithm approach, and a big reason why it can work well is because the genetic algorithm can be used to produce new signatures in order to keep adding to an existing set to increase the breadth of detection.  For this reason, running the algorithm multiple times and combining the signatures should result in more detections, but may also result in increased false positives and incorrect detections due to many poor signatures being stored along with one another (Figure \ref{fig:resIterations}).
+One of the claimed advantages of the genetic algorithm approach, and a big reason why it can work well is because the genetic algorithm can produce new signatures in order to keep appending to an existing set to increase the breadth of detection.  For this reason, running the algorithm multiple times and combining the signatures should result in more detections, but may also result in increased false positives and incorrect detections due to many poor signatures being stored along with one another (Figure \ref{fig:resIterations}).
 
 \begin{figure}[hb]
 	\centering
-	\includegraphics[width=350px]{./assets/results/ga/iterations/Results_SQL.png}
-	\caption{Effects of Multiple Iterations on Detecting SQLi}
+	\subfloat{\includegraphics[width=200px]{./assets/results/ga/iterations/Results_SQL.png}}
+	\subfloat{\includegraphics[width=200px]{./assets/appendix/fullresults/ga/iterations/Results_XSS.png}}
+	\\
+	\subfloat{\includegraphics[width=200px]{./assets/appendix/fullresults/ga/iterations/Results_RFI.png}}
+	\caption{Effects of Multiple Iterations on Detection (Appendix \ref{app:sqlIterationText},\ref{app:xssIterationText},\ref{app:rfiIterationText})}
 	\label{fig:resIterations}
 \end{figure}
 
 \newpage
 \subsection{Bitstring Segment Length Effects} \label{sec:resSegment}
 
-Because the genetic algorithm is able to detect additional attacks by generating new signatures, if the number of possible signature combinations is less thanks to the segment lengths, then it would be more likely to generate these signatures that match with the training or testing attacks.  However it also opens up the possibility of making it easier to generate poor signatures due to a smaller search space, as well as potentially artifically increase results due to segment overflows (Figure \ref{fig:resLength}).
+Because the genetic algorithm is able to detect additional attacks by generating new signatures, if the number of possible signature combinations is less thanks to the segment lengths, then it would be more likely to generate these signatures that match with the training or testing attacks.  However it also opens up the possibility of making it easier to generate poor signatures due to a smaller search space, as well as potentially artificially increase results due to segment overflows (Figure \ref{fig:resLengthSQL},\ref{fig:resLengthXSS},\ref{fig:resLengthRFI}).
 
 \begin{figure}[hb]
 	\centering
 	\includegraphics[width=450px]{./assets/results/ga/bitlength/Results_SuccessRate_SQL.png}
-	\caption{Effects of Different Segment Lengths on Detecting SQLi}
-	\label{fig:resLength}
+	\caption{Effects of Different Segment Lengths on Detecting SQLi (Appendix \ref{app:sqlBitstringTest})}
+	\label{fig:resLengthSQL}
 \end{figure}
 
 \newpage
-\section{Compared With Random Permutations with Fitness} \label{sec:resRand}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/ga/bitlength/Results_SuccessRate_XSS.png}
+	\caption{Effects of Different Segment Lengths on Detecting XSS (Appendix \ref{app:xssBitstringTest})}
+	\label{fig:resLengthXSS}
+\end{figure}
 
-The genetic algorithm approach works because of the ability to randomly generate new signatures using fitness to weed out the bad signatures so it would be very interesting to compare the approach with just simply generating all possible combinations and only using the bitstrings that performed well using the same fitness algorithm used in the genetic algorithm and avoiding the complexity and computation time that comes with a genetic algorithm (Algorithm \ref{alg:fitness}), (Figure \ref{fig:resRand}).
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/ga/bitlength/Results_SuccessRate_RFI.png}
+	\caption{Effects of Different Segment Lengths on Detecting RFI (Appendix \ref{app:rfiBitstringTest})}
+	\label{fig:resLengthRFI}
+\end{figure}
+
+\newpage
+\section{Random Permutations with Fitness} \label{sec:resRand}
+
+The genetic algorithm approach works because of the ability to randomly generate new signatures using fitness to weed out the bad signatures, so it would be very interesting to compare the approach with just simply generating all possible combinations and only using the bitstrings that performed well using the same fitness algorithm used in the genetic algorithm.  This could potentially avoid the complexity and computation time that comes along with a genetic algorithm (Algorithm \ref{alg:fitness}), (Figure \ref{fig:resRand}).
 
 \begin{figure}[hb]
 	\centering
-	\includegraphics[width=350px]{./assets/results/rand/Results_SQL.png}
-	\caption{Permutation of Bitstrings to Detect SQLi}
+	\subfloat{\includegraphics[width=205px]{./assets/results/rand/Results_SQL.png}}
+	\subfloat{\includegraphics[width=205px]{./assets/appendix/fullresults/rand/Results_XSS.png}}
+	\\
+	\subfloat{\includegraphics[width=205px]{./assets/appendix/fullresults/rand/Results_RFI.png}}
+	\caption{Permutation of Bitstrings for Detection (Appendix \ref{app:sqlRandomText},\ref{app:xssRandomText},\ref{app:rfiRandomText})}
 	\label{fig:resRand}
 \end{figure}
 
 \section{Support Vector Machine}
 
-For the testing of the support vector machine it was not nessecary to average together multiple results as there are no random elements in the algorithm and so the same results are produced everytime.  All tests used the same testing data to verify the training process as well as the same training data whenever the required amount of requests did not exceed the amount of used in the genetic algorithms training set.  When doing the genetic algorithm testing it was possible to measure changes by adjusting the algorithm's parameters but in the case of the SVM this is not the case and so instead the training data will be manipulated to observe the changes in performance.
+For the testing of the support vector machine it was not necessary to average together multiple results as there are no random elements in the algorithm and so the same results are produced every time.  All tests used the same testing data to verify the training process as well as the same training data whenever the required amount of requests did not exceed the amount of used in the genetic algorithms training set.  When doing the genetic algorithm testing it was possible to measure changes by adjusting the algorithm's parameters but in the case of the SVM this is not the case and so instead manipulating the training data will allow for observations on any changes in performance.
 
 \begin{table}
 	\begin{tabular}{|p{2.0in}|p{1.125in}|p{1.125in}|p{1.125in}|}
 	\hline
-	\textbf{Test} & \textbf{\# of requests of intended detection type} & \textbf{\# of requests of incorrect detection type} & \textbf{\# of requests of non-attacks} \\ 
+	\textbf{Test} & \textbf{\# of requests of intended detection type} & \textbf{\# of requests of incorrect detection type} & \textbf{\# of requests of non-attacks} \\
 	\hhline{|=|=|=|=|}
 	\textbf{GA Compairson (30\%/30\%/30\%/10\%)} & \textbf{$x$} & \textbf{$2x$} & \textbf{$y$} \\
 	\hline
@@ -129,21 +168,9 @@ For the testing of the support vector machine it was not nessecary to average to
 	\textbf{Increasing Incorrect-Threats} & 300 & \textbf{$2x$} & 350 \\
 	\hline
 	\end{tabular}
-	\caption{Parameters used in each Support Vector Machine Test}
+	\caption{Parameters used in each Support Vector Machine Test, the \textbf{$x$} and \textbf{$y$} both signify independent variables, where \textbf{$x$} and \textbf{$y$} are not necessarily the same}
 	\label{tab:svmTestParameters}
 \end{table}
-
-\newpage
-\subsection{Comparison with Genetic Algorithm} \label{sec:resComparison}
-
-The first results are obtained by using the same proportions of attack types used in the genetic algorithm training set of 30\% for each attack type and 10\% remaining is non-threats. The purpose of this test is to create as fair a comparison as possible with the genetic algorithm (Figure \ref{fig:resComparison}).  The output classifier for the best performing instance of each kernel is also included (Figure \ref{fig:resClassifiers}).
-
-\begin{figure}[hb]
-	\centering
-	\includegraphics[width=450px]{./assets/results/svm/comparison/Results_SQL.png}
-	\caption{Genetic algorithm and SVM comparison for SQLi}
-	\label{fig:resComparison}
-\end{figure}
 
 \begin{figure}[hb]
 	\centering
@@ -155,27 +182,82 @@ The first results are obtained by using the same proportions of attack types use
 \end{figure}
 
 \newpage
+\subsection{Comparison with Genetic Algorithm} \label{sec:resComparison}
+
+Obtaining the first results uses the same proportions of attack types for training as in the genetic algorithm training set of 30\% for each attack type and 10\% remaining is non-threats. The purpose of this test is to create as fair a comparison as possible with the genetic algorithm (Figure \ref{fig:resComparisonSQL}, \ref{fig:resComparisonXSS},\ref{fig:resComparisonRFI}).  The output classifier for the best performing instance of each kernel is also included (Figure \ref{fig:resClassifiers}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/results/svm/comparison/Results_SQL.png}
+	\caption{Genetic Algorithm and SVM comparison for SQLi Detection (Appendix \ref{app:sqlComparisonText})}
+	\label{fig:resComparisonSQL}
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/svm/comparison/Results_XSS.png}
+	\caption{Genetic Algorithm and SVM comparison for XSS Detection (Appendix \ref{app:xssComparisonText})}
+	\label{fig:resComparisonXSS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/svm/comparison/Results_RFI.png}
+	\caption{Genetic Algorithm and SVM comparison for RFI Detection (Appendix \ref{app:rfiComparisonText})}
+	\label{fig:resComparisonRFI}
+\end{figure}
+
+\newpage
 \subsection{Increasing Non-Threats} \label{sec:resNonThreat}
 
-Increasing the amount of non-threats in the training data should create a classifier that is more resilient to detecting false positives, the more training data the less likely false positives should occur (Figure \ref{fig:resFalse}).
+Increasing the amount of non-threats in the training data should create a classifier that is more resilient to detecting false positives, the more training data the less likely false positives should occur (Figure \ref{fig:resFalseSQL},\ref{fig:resFalseXSS},\ref{fig:resFalseRFI}).
 
-\begin{figure}[hb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=450px]{./assets/results/svm/nonthreat/Results_SQL.png}
-	\caption{Effects of increasing non-threat training data in SVM for SQLi detection}
-	\label{fig:resFalse}
+	\caption{Effects of increasing non-threat training data in SVM for SQLi detection (Appendix \ref{app:sqlNonThreatText})}
+	\label{fig:resFalseSQL}
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/svm/nonthreat/Results_XSS.png}
+	\caption{Effects of increasing non-threat training data in SVM for XSS detection (Appendix \ref{app:xssNonThreatText})}
+	\label{fig:resFalseXSS}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/svm/nonthreat/Results_RFI.png}
+	\caption{Effects of increasing non-threat training data in SVM for RFI detection (Appendix \ref{app:rfiNonThreatText})}
+	\label{fig:resFalseRFI}
 \end{figure}
 
 \newpage
 \subsection{Increasing Incorrect-Threats} \label{sec:resIncorrect}
 
-Similar to the last test, the more threats in the training data that are not the one we are looking for, hopefully the less likely it is for the classifier to incorrectly identify an attack (Figure \ref{fig:resIncorrect}).
+Similar to the last test, the more threats in the training data that are not the one we are looking for, hopefully the less likely it is for the classifier to incorrectly identify an attack (Figure \ref{fig:resIncorrectSQL},\ref{fig:resIncorrectXSS},\ref{fig:resIncorrectRFI}).
 
-\begin{figure}[hb]
+\begin{figure}[H]
 	\centering
 	\includegraphics[width=450px]{./assets/results/svm/incorrect/Results_SQL.png}
-	\caption{Effects of increasing incorrect attack training data in SVM for SQLi detection}
-	\label{fig:resIncorrect}
+	\caption{Effects of increasing incorrect attack training data in SVM for SQLi detection (Appendix \ref{app:sqlIncorrectThreatText})}
+	\label{fig:resIncorrectSQL}
 \end{figure}
 
+\newpage
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/svm/incorrect/Results_XSS.png}
+	\caption{Effects of increasing incorrect attack training data in SVM for XSS detection (Appendix \ref{app:xssIncorrectThreatText})}
+	\label{fig:resIncorrectXSS}
+\end{figure}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=450px]{./assets/appendix/fullresults/svm/incorrect/Results_RFI.png}
+	\caption{Effects of increasing incorrect attack training data in SVM for RFI detection (Appendix \ref{app:rfiIncorrectThreatText})}
+	\label{fig:resIncorrectRFI}
+\end{figure}
